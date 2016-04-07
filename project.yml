@@ -1,0 +1,47 @@
+name: "Rush alternatif Minecraft"
+category: "Atelier java"
+
+managers: [dagues_p, teixei_f]
+
+news:
+    newsgroup: epita.cours.java.atelier
+    tag: RAM
+
+period:
+    begin:  2016-04-15 22:00:00
+    end:    2016-04-17 11:42:00
+
+languages:
+    - id: java
+      targets: [javac]
+
+targets:
+    - id: javac
+      type: compiler
+      name: javac
+
+repositories:
+    - id: YAKA
+      uri: git@git.acu.epita.fr:rush-java-2018/login_x-rush-alternatif.git
+
+submissions:
+    - name: Submission
+      period:
+        begin:  2016-04-17 09:00:00
+        end:    2016-04-17 11:42:00
+      vcs:
+        id:     YAKA
+        tag:    submission
+
+defenses:
+    - name: Defense
+      date: 2016-04-17 12:15:00
+      file: defense.xml
+
+documents:
+    - name: slides.pdf
+      type: slide
+      date: 2016-04-15 22:00:00
+    - name: subject.pdf
+      type: subject
+      date: 2016-04-15 22:00:00
