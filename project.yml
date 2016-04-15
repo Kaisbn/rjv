@@ -45,3 +45,6 @@ documents:
     - name: creeps.pdf
       type: file
       date: 2016-04-15 21:00:00
+    - name: creeps-login_l.tar.bz2
+      type: file
+      date: 2016-04-15 21:00:00

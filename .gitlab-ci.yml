@@ -6,6 +6,7 @@ subject:
 files:
   script:
     - fab deploy_doc:files/creeps.pdf
+    - fab deploy_doc:files/creeps-login_l.tar.bz2
 
 project:
   script:
