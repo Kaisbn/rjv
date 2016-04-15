@@ -8,7 +8,7 @@ news:
     tag: RAM
 
 period:
-    begin:  2016-04-15 22:00:00
+    begin:  2016-04-15 21:00:00
     end:    2016-04-17 11:42:00
 
 languages:
@@ -41,7 +41,7 @@ defenses:
 documents:
     - name: slides.pdf
       type: slide
-      date: 2016-04-15 20:30:00
+      date: 2016-04-15 21:00:00
     - name: subject.pdf
       type: subject
-      date: 2016-04-15 20:30:00
+      date: 2016-04-15 21:00:00
