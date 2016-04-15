@@ -1,24 +1,24 @@
 # Introduction
 
-In creeps, each player - you - has one and only one objective. Destroy your opponents and be the king of the hill.
-Or in case you can't erase other players, simply dominate them by owning more of the land than they do.
+In creeps, each player - you - has one and only one objective. Destroy your opponents and be king of the hill.
+Or in case you can't erase other players, simply dominate them by owning more land than they do.
 
 In more technical terms, you will be provided with two starting agents, randomly placed in a tri-dimensional world
 full of blocks.
 By using web services, you will be able to make these agents execute various commands, ultimately providing you more
  resource, which in turn will allow you to spawn more agents. Different kind of agents are available, for example,
  probes are peaceful units capable of exploration, resource gathering and terrain conversion, templars are mobile
- utility units that can shape the landscape and beacons are self-destructing units producing some cataclysmic effects
+ utility units that can shape the landscape and beacons are self-destructing units producing some cataclysmic effects,
  best triggered in your opponent's courtyard. You can also spawn buildings: nexus will allow the creation of agents,
  pylons allow teleportation of units and the photon cannon will defend your land against enemy intrusions.
 
  Every block of the game can be converted to your color, adding 1 to your score. At any point of the game, if a
- player has no more blocks he owns, he has lost and retire from the game.
+ player has no more blocks of his own, he has **lost** and is removed of the game.
 
  Block can also be mined, gathering resources *and* converting them at the same time, for thrice the time of a simple
   conversion.
 
-  Converted blocks that are destroyed later does not count in their players score anymore.
+  Converted blocks that are destroyed later do not count in their players score anymore.
 
   The end of the game is reached when either one player remains or a timeout has been reached.
 
@@ -31,20 +31,21 @@ Creeps servers are hosted by your beloved assistants. They will provide you with
 
  Every server exposes four services in over HTTP:
 
-* `GET:/status` will return the current status of the server. Use it to detected if the game has started or not.
+* `GET:/status` will return the current status of the server. Use it to detect whether the game has started or not.
  Here is
-  an exemple output:
-      ```
-      Creeps plugin running ok.
-      No game started.
-      psx:32
+  an example output:
+```sh
+Creeps plugin running ok.
+No game started.
+psx:32
+```
 
-* `GET:/init/:login` will register you as a player using the provided login. You should always start by this command
- . As a return of this command, you will get the X, Y and Z coordinates of your starting point and the IDs of both
- your first free probe and of your nexus. Keep good track of them as you won't be able to issue commands otherwise.
+* `GET:/init/:login` will register you as a player using the provided login. You should always start by this command.
+  As a return of this command, you will get the X, Y and Z coordinates of your starting point and the IDs of both
+  your first free probe and of your nexus. Keep good track of them as you won't be able to issue commands otherwise.
 
 * `POST:/command/:login/:agentId/:opcode` will order the agent with the given id to perform the command with the given
- opcode. Event if the command does not take any argument, you should pass a Json body (simply use an empty object for
+ opcode. Even if the command does not take any argument, you should pass a Json body (simply use an empty object for
 no-args commands). This will return a report id.
 
 * `GET:/report/:reportId` will retrieve the report with the given report id.
@@ -53,11 +54,11 @@ no-args commands). This will return a report id.
 
 ## Agent types:
  We might or might not add more agents as the rush goes on. Just for the fun of it.
- For each agent type, the cost in biomass and minerals and the spawntime will be given in the constants file.
+ For each agent type, the cost in biomass and minerals and the spawn time will be given in the constants file.
 
 ### Probe:
 Your bread and butter unit. It can move, convert blocks to your color, mine blocks (both to gather resources and
-convert blocks) it can build buildings and it can scout around itself in either a short range / quick execution or
+convert blocks), it can build buildings and scout around itself in either a short range / quick execution or
 medium range / medium execution.
 
 #### Opcodes available:
@@ -77,23 +78,23 @@ The scout can move and perform the three kind of scan: small, medium and big.
 
 ### Beacon:
  This breaks things. Once spawned, move it to the location of something you want blown, executes one of its
- destructive commands and profit.
+ destructive commands... profit.
 
 #### Opcodes available:
   `moveup`, `movedown`, `movenorth`, `movesouth`, `movewest`, `moveeast`, `ion`, `laser`, `status`
 
 ## Building types:
-Like the agents, we will probably add some building during the project.
+As with the agents, we will probably add some building during the project.
 
 ### Nexus:
-This building allows you to spawn units and get a detailed report over you current situation.
+This building allows you to spawn units and get a detailed report over your current situation.
 
 #### Opcodes available:
 `spawn:probe`, `spawn:scout`, `spawn:beacon`, `spawn:templar`, `status`, `playerstatus`
 
 ## Commands:
 
-A lot of commands send block status information. One BlockStatus object is composed of :
+A lot of commands send block status information. A BlockStatus object is composed of :
 
 * x coordinate.
 
@@ -105,7 +106,7 @@ A lot of commands send block status information. One BlockStatus object is compo
 
 * The player owning the block, if any.
 
-All the technical details of the commands are given in the Creepstants file. The providied information is:
+All the technical details of the commands are given in the Creepstants file. The provided information is:
 
 * Execution time.
 
@@ -116,11 +117,11 @@ All the technical details of the commands are given in the Creepstants file. The
 * Expected arguments (most take none).
 
 ### `status`
-Provides the player information on the agent its cast on. Information is : status (dead or alive), causeOfDeath, and
+Provides the player with information on the agent it's cast on. Information is : status (dead or alive), causeOfDeath, and
 the block status of the block its currently on.
 
 ### `moveXXX`
-Move the target agent in the given direction if possilble (ie, y > 1 and < 256). Agents can move through any terrain
+Move the target agent in the given direction if possible (ie, y > 1 and < 256). Agents can move through any terrain
 without restriction.
 
 ### `convert`
@@ -157,18 +158,19 @@ Invokes a sphere of matter around the templar. You must provide the `material` a
 * lava
 
 ### `ion`
+<!--- FIXME: maybe give some technical details here? -->
 Triggers an Ion Cannon discharge for orbital barge "Litany of Fury." Ouch.
 
 ### `laser`
-They really pissed the guys on the Litany of Fury up there. Fire orbital laser, nothing should left before the
+They really pissed the guys on the Litany of Fury up there. Fire orbital laser, nothing should be left before the
 bedrock is reached. Ouch-much.
 
 ## Errors
-If you send a request with bad values into it, you will also have a response with informations on your mistake.
+If you send a request with bad values into it, you will also have a response with information on your mistake.
 
 ### `Init`
 If you try to register with a login already present in the server's list of player, all the fields will be null and
-the error field will inform you with description of your error.
+the error field will provide you with description of your error.
 
 ### `Command and Reports`
 If you send bad information, response will be composed of:
@@ -179,27 +181,28 @@ If you send bad information, response will be composed of:
 
 * Some other specific fields varying in function of the error
 
-If you try to send multiple commands without waiting the completion of the first command, you will also have an
-error in addition of a penality.
+If you try to send multiple commands without waiting for the completion of the first command, you will also have an
+error in addition of a penalty.
 
 
-# Behaviour and Design Tips
+# Behavior and Design Tips
 ## Agents and threading model
 
-Event though it would be possible to implement an IA over a single execution thread, said IA would be very limited in
+Event though it would be possible to implement an AI over a single execution thread, said AI would be very limited in
  terms of capabilities. We **strongly** encourage you to adopt a more advanced design, where each agent will be executed
   as a separate execution thread (not necessarily as a system thread though, as we have seen they can be
   quite limited). This would allow you to scale up to dozen or even thousands of agents on general-availability
   computer depending on your implementation.
 
+  <!--- FIXME: Maybe give a link to the Rx project? -->
   As such things as coroutines, fibers, green threads or agent systems are not available to you in this project, we
   suggest you take interest in the reactor pattern, especially implementations like the one found in the Rx project
   (note that you are not allowed to use the library, only try to understand and emulate it). Using CompletableFuture
-  and its sibling classes presented in this projects own presentation should allow you to do so in no time.
+  and its sibling classes presented in this project's own presentation should allow you to do so in no time.
 
 ## Time-sensitive API
 
-As you will soon experience yourself, the API exposed by the server will take some time to executes the commands you
+As you will soon experience yourself, the API exposed by the server will take some time to execute the commands you
  request. Each and every separate command has a specific execution time during which you are forbidden to call the
  agent again. Doing so will result in various kind of penalties being applied, like the extension of unavailability
  time, a decrease in resource or even the death of the agent. More over, some operations might slow down the server
@@ -228,7 +231,7 @@ You should develop a mechanism that will:
 
 * Based on the report interpretation, choose to trigger either the next action or the error code.
 
- So, in pseudo-code your IA might look like that:
+ So, in pseudo-code your AI might look like that:
 
      public void advanceAndMine(Command andThen) {
          command("movenorth",
@@ -248,21 +251,21 @@ Add in some clever use of SAMs, lambdas, a scheduler, a strategy and maybe even 
 
 # Technicalities
 The project structure is provided to you in the form of the project-login_l.tar.gz file. All your source code needs
-to be placed under the ${root}/src/main/java/ folder (or subfolder for packages, obviously).
+to be placed under the ${root}/src/main/java/ folder (or subfolders for packages, obviously).
 
 The build-system used by this project is maven. Even though you have not yet learned the use of this tool, things
-should be straightforward has the only difficult par - configuration - has already been done for you. Unless
-explicitly told by an assistant, do not modifiy the pom.xml file at the root of the project as it holds said
+should be straightforward has the only difficult part - configuration - has already been done for you. Unless
+explicitly told by an assistant, do not modify the pom.xml file at the root of the project as it holds said
 configuration.
 
-Intellij IDEA is perfectly suited to workd with maven projects. As such, you should not experience any problem
+Intellij IDEA is perfectly suited to work with maven projects. As such, you should not experience any problem
 importing and running your project. Simply do as follow:
 
 1. File > Open
 
 2. Browse until you find the pom.xml file at the root of the project. Select and load it.
 
-3. After a short import time, the project should be properlty set. If asked whether you want to enable auto-import,
+3. After a short import time, the project should be properly set. If asked whether you want to enable auto-import,
 reply that yes indeed, you wish so.
 
 4. Once imported, you should have a "Maven Projects" panels available on the right side of your IDE. Open it.
@@ -277,13 +280,13 @@ for this project, but feel free to search further if your are interested:
 
     * The mvn `exec:java` will launch you project.
 
-6. The main of you application is already defined for you (for maven configuration purposes). Please place you entry
+6. The main of your application is already defined for you (for maven configuration purposes). Please place you entry
 point code in the `com.epita.Creeps::main` method.
 
 7. The project is already configured with two additional libraries to help you go faster with some aspects of the
 project which were not the primary notions we wanted you to work on.
 
-    * Unirest: this library will allow you to write REST calls very easily. You can find the documentation ot the
+    * Unirest: this library will allow you to write REST calls very easily. You can find the documentation of the
     library [here](http://unirest.io/java.html). Skip the installation part, it has been done for you.
 
     * Gson: google's take on JSon parsing in java. We also provided a helper class to make it even easier (`com.epita
