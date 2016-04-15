@@ -22,7 +22,7 @@ targets:
 
 repositories:
     - id: YAKA
-      uri: git@git.acu.epita.fr:rush-java-2018/login_x-rush-alternatif.git
+      uri: git@git.acu.epita.fr:rush-alternatif-2018/login_x-rush-alternatif.git
 
 submissions:
     - name: Submission
