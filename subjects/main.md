@@ -1,4 +1,5 @@
-#Introduction
+# Introduction
+
 In creeps, each player - you - has one and only one objective. Destroy your opponents and be the king of the hill.
 Or in case you can't erase other players, simply dominate them by owning more of the land than they do.
 
@@ -22,8 +23,9 @@ By using web services, you will be able to make these agents execute various com
   The end of the game is reached when either one player remains or a timeout has been reached.
 
 
-#Rules, Units List and Powers
+# Rules, Units List and Powers
 ## Connectivity
+
 Creeps servers are hosted by your beloved assistants. They will provide you with a number of URLs in order for you to
  connect and test your AIs.
 
@@ -63,41 +65,54 @@ medium range / medium execution.
 
 ### Scout:
 The scout can move and perform the three kind of scan: small, medium and big.
+
 #### Opcodes available:
 `moveup`, `movedown`, `movenorth`, `movesouth`, `movewest`, `moveeast`, `scan3`, `scan5`, `scan9`, `status`
 
 ### Templar:
  Your wizardry thing. It can invoke giant blob of matter pretty much anywhere.
+
 #### Opcodes available:
   `moveup`, `movedown`, `movenorth`, `movesouth`, `movewest`, `moveeast`, `sphere`, `status`
 
 ### Beacon:
  This breaks things. Once spawned, move it to the location of something you want blown, executes one of its
  destructive commands and profit.
-  #### Opcodes available:
+
+#### Opcodes available:
   `moveup`, `movedown`, `movenorth`, `movesouth`, `movewest`, `moveeast`, `ion`, `laser`, `status`
 
 ## Building types:
 Like the agents, we will probably add some building during the project.
 
-###Nexus:
+### Nexus:
 This building allows you to spawn units and get a detailed report over you current situation.
+
 #### Opcodes available:
 `spawn:probe`, `spawn:scout`, `spawn:beacon`, `spawn:templar`, `status`, `playerstatus`
 
 ## Commands:
 
 A lot of commands send block status information. One BlockStatus object is composed of :
+
 * x coordinate.
+
 * y coordinate.
+
 * z coordinate.
+
 * The material of the block.
+
 * The player owning the block, if any.
 
 All the technical details of the commands are given in the Creepstants file. The providied information is:
+
 * Execution time.
+
 * Cost in minerals.
+
 * Cost in biomass.
+
 * Expected arguments (most take none).
 
 ### `status`
@@ -134,8 +149,11 @@ Does nothing, for testing.
 
 ### `sphere`
 Invokes a sphere of matter around the templar. You must provide the `material` argument with one of the following value:
+
 * water
+
 * sand
+
 * lava
 
 ### `ion`
@@ -145,8 +163,9 @@ Triggers an Ion Cannon discharge for orbital barge "Litany of Fury." Ouch.
 They really pissed the guys on the Litany of Fury up there. Fire orbital laser, nothing should left before the
 bedrock is reached. Ouch-much.
 
-#Behaviour and Design Tips
-##Agents and threading model
+# Behaviour and Design Tips
+## Agents and threading model
+
 Event though it would be possible to implement an IA over a single execution thread, said IA would be very limited in
  terms of capabilities. We **strongly** encourage you to adopt a more advanced design, where each agent will be executed
   as a separate execution thread (not necessarily as a system thread though, as we have seen they can be
@@ -158,8 +177,9 @@ Event though it would be possible to implement an IA over a single execution thr
   (note that you are not allowed to use the library, only try to understand and emulate it). Using CompletableFuture
   and its sibling classes presented in this projects own presentation should allow you to do so in no time.
 
-##Time-sensitive API
- As you will soon experience yourself, the API exposed by the server will take some time to executes the commands you
+## Time-sensitive API
+
+As you will soon experience yourself, the API exposed by the server will take some time to executes the commands you
  request. Each and every separate command has a specific execution time during which you are forbidden to call the
  agent again. Doing so will result in various kind of penalties being applied, like the extension of unavailability
  time, a decrease in resource or even the death of the agent. More over, some operations might slow down the server
