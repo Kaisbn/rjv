@@ -4,7 +4,7 @@ In creeps, each player - you - has one and only one objective. Destroy your oppo
 Or in case you can't erase other players, simply dominate them by owning more of the land than they do.
 
 In more technical terms, you will be provided with two starting agents, randomly placed in a tri-dimensional world
-full ov blocks.
+full of blocks.
 By using web services, you will be able to make these agents execute various commands, ultimately providing you more
  resource, which in turn will allow you to spawn more agents. Different kind of agents are available, for example,
  probes are peaceful units capable of exploration, resource gathering and terrain conversion, templars are mobile
