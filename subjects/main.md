@@ -163,6 +163,26 @@ Triggers an Ion Cannon discharge for orbital barge "Litany of Fury." Ouch.
 They really pissed the guys on the Litany of Fury up there. Fire orbital laser, nothing should left before the
 bedrock is reached. Ouch-much.
 
+## `Errors`
+If you send a request with bad values into it, you will also have a response with informations on your mistake.
+
+### `Init`
+If you try to register with a login already present in the server's list of player, all the fields will be null and
+the error field will inform you with description of your error.
+
+### `Command and Reports`
+If you send bad information, response will be composed of:
+
+* repcode with the error code
+
+* error description
+
+* Some other specific fields varying in function of the error
+
+If you try to send multiple commands without waiting the completion of the first command, you will also have an
+error in addition of a penality.
+
+
 # Behaviour and Design Tips
 ## Agents and threading model
 
