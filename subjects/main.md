@@ -163,7 +163,7 @@ Triggers an Ion Cannon discharge for orbital barge "Litany of Fury." Ouch.
 They really pissed the guys on the Litany of Fury up there. Fire orbital laser, nothing should left before the
 bedrock is reached. Ouch-much.
 
-## `Errors`
+## Errors
 If you send a request with bad values into it, you will also have a response with informations on your mistake.
 
 ### `Init`
