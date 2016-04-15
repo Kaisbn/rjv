@@ -1,12 +1,12 @@
 slides:
   script:
     - make slides
-    - fab deploy_doc:slides/slides.pdf
 
 subject:
   script:
     - make subject
     - fab deploy_doc:subjects/subject.pdf
+    - fab deploy_doc:files/creeps-ftw.pdf
 
 tests:
   script:
