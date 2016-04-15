@@ -42,6 +42,6 @@ documents:
     - name: subject.pdf
       type: subject
       date: 2016-04-15 20:30:00
-    - name: creeps-ftw.pdf
+    - name: creeps.pdf
       type: file
       date: 2016-04-15 20:30:00

@@ -1,15 +1,11 @@
 SLIDES_DIR	= slides
 SUBJECT_DIR	= subjects
-FILES_DIR	= files
 
-all:: subject files
+all:: subject
 
 subject::
 	${MAKE} -C ${SUBJECT_DIR}
 	mv ${SUBJECT_DIR}/main.pdf ${SUBJECT_DIR}/subject.pdf
-
-files::
-	${MAKE} -C ${FILES_DIR}
 
 clean::
 	${MAKE} -C ${SLIDES_DIR} clean
