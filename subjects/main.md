@@ -62,13 +62,13 @@ convert blocks), it can build buildings and scout around itself in either a shor
 medium range / medium execution.
 
 #### Opcodes available:
-`moveup`, `movedown`, `movenorth`, `movesouth`, `movewest`, `moveeast`, `scan3`, `scan5`, `convert`, `mine`, `status`
+`moveup`, `movedown`, `movenorth`, `movesouth`, `movewest`, `moveeast`, `scan`, `scan5`, `convert`, `mine`, `status`
 
 ### Scout:
 The scout can move and perform the three kind of scan: small, medium and big.
 
 #### Opcodes available:
-`moveup`, `movedown`, `movenorth`, `movesouth`, `movewest`, `moveeast`, `scan3`, `scan5`, `scan9`, `status`
+`moveup`, `movedown`, `movenorth`, `movesouth`, `movewest`, `moveeast`, `scan`, `scan5`, `scan9`, `status`
 
 ### Templar:
  Your wizardry thing. It can invoke giant blob of matter pretty much anywhere.
