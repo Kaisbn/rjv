@@ -1,5 +1,3 @@
-Creeps
-
 #Introduction
 In creeps, each player - you - has one and only one objective. Destroy your opponents and be the king of the hill.
 Or in case you can't erase other players, simply dominate them by owning more of the land than they do.
@@ -30,24 +28,28 @@ Creeps servers are hosted by your beloved assistants. They will provide you with
  connect and test your AIs.
 
  Every server exposes four services in over HTTP:
- * `GET:/status` will return the current status of the server. Use it to detected if the game has started or not.
+
+* `GET:/status` will return the current status of the server. Use it to detected if the game has started or not.
  Here is
   an exemple output:
       ```
       Creeps plugin running ok.
       No game started.
       psx:32
- * `GET:/init/:login` will register you as a player using the provided login. You should always start by this command
+
+* `GET:/init/:login` will register you as a player using the provided login. You should always start by this command
  . As a return of this command, you will get the X, Y and Z coordinates of your starting point and the IDs of both
  your first free probe and of your nexus. Keep good track of them as you won't be able to issue commands otherwise.
- * `POST:/command/:login/:agentId/:opcode` will order the agent with the given id to perform the command with the given
+
+* `POST:/command/:login/:agentId/:opcode` will order the agent with the given id to perform the command with the given
  opcode. Event if the command does not take any argument, you should pass a Json body (simply use an empty object for
-  no-args commands). This will return a report id.
- * `GET:/report/:reportId` will retrieve the report with the given report id.
+no-args commands). This will return a report id.
+
+* `GET:/report/:reportId` will retrieve the report with the given report id.
 
  That's it for services. Only four.
 
- ## Agent types:
+## Agent types:
  We might or might not add more agents as the rush goes on. Just for the fun of it.
  For each agent type, the cost in biomass and minerals and the spawntime will be given in the constants file.
 
@@ -168,16 +170,23 @@ Event though it would be possible to implement an IA over a single execution thr
  command. Beware though as this file might change during the duration of the project, keep its loading mechanism as
  dynamic as possible so you would not loose too much time if such case was to occur.
 
- ##Here and there...
+## Here and there...
+
 As a conclusion to this chapter, let me sum it up for you.
 You should develop a mechanism that will:
- * Take a command, some code to execute after completion and some code to execute should any error occur.
- * Ideally, the `after completion` code and the error code should be implemented using the same mechanism, thus
+
+* Take a command, some code to execute after completion and some code to execute should any error occur.
+
+* Ideally, the `after completion` code and the error code should be implemented using the same mechanism, thus
  creating a chaining feature.
- * Have this mechanism class execute the code on a separate thread of execution, by any means you see fit.
- * Have it wait for the execution of the command (plus some added safety time buffer).
- * Have it retrieve the execution report and interpret it.
- * Based on the report interpretation, choose to trigger either the next action or the error code.
+
+* Have this mechanism class execute the code on a separate thread of execution, by any means you see fit.
+
+* Have it wait for the execution of the command (plus some added safety time buffer).
+
+* Have it retrieve the execution report and interpret it.
+
+* Based on the report interpretation, choose to trigger either the next action or the error code.
 
  So, in pseudo-code your IA might look like that:
 
@@ -197,7 +206,7 @@ Add in some clever use of SAMs, lambdas, a scheduler, a strategy and maybe even 
  easy to start playing with probes and templars.
 
 
-#Technicalities
+# Technicalities
 The project structure is provided to you in the form of the project-login_l.tar.gz file. All your source code needs
 to be placed under the ${root}/src/main/java/ folder (or subfolder for packages, obviously).
 
@@ -208,32 +217,46 @@ configuration.
 
 Intellij IDEA is perfectly suited to workd with maven projects. As such, you should not experience any problem
 importing and running your project. Simply do as follow:
+
 1. File > Open
+
 2. Browse until you find the pom.xml file at the root of the project. Select and load it.
+
 3. After a short import time, the project should be properlty set. If asked whether you want to enable auto-import,
 reply that yes indeed, you wish so.
+
 4. Once imported, you should have a "Maven Projects" panels available on the right side of your IDE. Open it.
+
 5. This panel contains all the commands you can run on you project. Only a couple of them will be of interest to us
 for this project, but feel free to search further if your are interested:
+
     * The `clean` command, located under the `Lyfecicle` category will clean your project and remove all the files
     unnecessary for distribution.
+
     * The `install` command will compile and build the Jar file of your project.
+
     * The mvn `exec:java` will launch you project.
+
 6. The main of you application is already defined for you (for maven configuration purposes). Please place you entry
 point code in the `com.epita.Creeps::main` method.
+
 7. The project is already configured with two additional libraries to help you go faster with some aspects of the
 project which were not the primary notions we wanted you to work on.
+
     * Unirest: this library will allow you to write REST calls very easily. You can find the documentation ot the
     library [here](http://unirest.io/java.html). Skip the installation part, it has been done for you.
+
     * Gson: google's take on JSon parsing in java. We also provided a helper class to make it even easier (`com.epita
     .utils.Json`).
+
 8. Unless explicitly authorized by an assistant, no other library is allowed for this project.
+
 9. The class Creepstants.properties defines all the values you need to develop your client. It may change during the
 course of the project, make sure it is loaded dynamically to save you some time.
 
 
 
-#A word on AI development
+# A word on AI development
 
 This project is **_not_** about AI development. If you are specifically interested in the subject and want to spend
  some time on the development of a neat and elegant AI algorithm, please be our guest. But you should not be
@@ -242,5 +265,5 @@ This project is **_not_** about AI development. If you are specifically interest
 
 A very basic IA will get your all the points there is to get on this subject.
 
-#A word of advice
+# A word of advice
 Fail fast, fail often.

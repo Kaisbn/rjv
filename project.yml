@@ -1,7 +1,7 @@
 name: "Rush Minecraft"
 category: "Atelier java"
 
-managers: [dagues_p, teixei_f, maurer_h]
+managers: [dagues_p, dumeig_a, maurer_h, teixei_f]
 
 news:
     newsgroup: epita.cours.java.atelier
