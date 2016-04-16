@@ -71,15 +71,15 @@
 
        <question title="CompletableFuture" type="qcu" shuffled-answers="false">
             <ask>What is a CompletableFuture ? What is it used for?</ask>
-            <answer value="100">Yes</answer>
-            <answer value="50">Yes, but not a lot.</answer>
+            <answer value="100">Correct</answer>
+            <answer value="50">Meh</answer>
             <answer value="0">No</answer>
             <explanation></explanation>
        </question>
 
        <question title="Wait for it..." type="qcu" shuffled-answers="false">
             <ask>How do you launch a function with a delay ?</ask>
-            <answer value="100">Awesome</answer>
+            <answer value="100">Best practice</answer>
             <answer value="50">Dirty</answer>
             <answer value="0">No</answer>
             <explanation></explanation>
