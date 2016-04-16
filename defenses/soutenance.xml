@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<defense duration="600" evaluated="true">
+    <group title="Rush Alternatif Minecraft">
+
+       <question title="Build" type="qcu" shuffled-answers="false">
+            <ask>Does it compile?</ask>
+            <answer value="100">Yes</answer>
+            <answer value="-150">No</answer>
+            <explanation></explanation>
+        </question>
+
+       <question title="I am tired..." type="qcu" shuffled-answers="false">
+            <ask>Does the code contain any useless Sleep?</ask>
+            <answer value="100">Not at all</answer>
+            <answer value="20">A few</answer>
+            <answer value="0">A lot</answer>
+            <explanation></explanation>
+        </question>
+
+       <question title="Units" type="qcu" shuffled-answers="false">
+            <ask>What are the different units available on the server?</ask>
+            <answer value="100">Perfect</answer>
+            <answer value="50">Some are missing</answer>
+            <answer value="-10">That's bad</answer>
+            <explanation></explanation>
+        </question>
+
+
+       <question title="Destroy them all !" type="qcu" shuffled-answers="false">
+            <ask>Is the AI impressive ?</ask>
+            <answer value="300">Such an amazing AI !</answer>
+            <answer value="200">Great !</answer>
+            <answer value="100">Pretty cool !</answer>
+            <answer value="50">Very simple AI (single probe)</answer>
+            <answer value="0">It does not work</answer>
+            <explanation></explanation>
+        </question>
+
+       <question title="Many things I can do" type="qcm" shuffled-answers="false">
+            <ask>What does the AI do ?</ask>
+            <answer value="30">Single probe</answer>
+            <answer value="50">Multiple probes</answer>
+            <answer value="70">Single scout</answer>
+            <answer value="80">Multiple scouts</answer>
+            <answer value="100">Single templar</answer>
+            <answer value="120">Multiple templars</answer>
+            <answer value="130">Single beacon</answer>
+            <answer value="150">Mutliple beacons</answer>
+            <answer value="50">Single Nexus</answer>
+            <answer value="70">Mutliple Nexus</answer>
+            <explanation></explanation>
+        </question>
+
+
+       <question title="Choose wisely..." type="qcu" shuffled-answers="false">
+            <ask>Did the student used the given async helper ?</ask>
+            <answer value="200">No, would have been too easy</answer>
+            <answer value="100">Sure, I am not crazy</answer>
+            <explanation></explanation>
+        </question>
+
+       <question title="I sware I tried!" type="qcm" shuffled-answers="false">
+            <ask>Does the student have a scheduler ?</ask>
+            <answer value="0">No, there is nothing but the given code</answer>
+            <answer value="10">Yes, but it does not work at all</answer>
+            <answer value="30">Yes, but it works but it's really dirty</answer>
+            <answer value="50">Yes, does not really work but pretty cool implementation though</answer>
+            <answer value="150">Yes, and it's really cool and beautiful</answer>
+            <explanation></explanation>
+        </question>
+
+       <question title="CompletableFuture" type="qcu" shuffled-answers="false">
+            <ask>What is a CompletableFuture ? What is it used for?</ask>
+            <answer value="100">Yes</answer>
+            <answer value="50">Yes, but not a lot.</answer>
+            <answer value="0">No</answer>
+            <explanation></explanation>
+       </question>
+
+       <question title="Wait for it..." type="qcu" shuffled-answers="false">
+            <ask>How do you launch a function with a delay ?</ask>
+            <answer value="100">Awesome</answer>
+            <answer value="50">Dirty</answer>
+            <answer value="0">No</answer>
+            <explanation></explanation>
+        </question>
+
+       <question title="Let's go to the pool" type="qcu" shuffled-answers="false">
+            <ask>What is a Thread Pool? What object is used to easily manage it in java ?</ask>
+            <answer value="100">Exact</answer>
+            <answer value="50">Meh</answer>
+            <answer value="0">No</answer>
+            <explanation></explanation>
+        </question>
+
+        <question title="You're the doc, doc!" type="qcu" shuffled-answers="false">
+            <ask>Is the code documented?</ask>
+            <answer value="100">A lot of doc, easy to understand</answer>
+            <answer value="20">Some green lines over some function</answer>
+            <answer value="0">No</answer>
+            <explanation></explanation>
+        </question>
+
+        <question title="Boss question" type="qcu" shuffled-answers="false">
+            <ask>Est-ce que Tsu est motivé?</ask>
+            <answer value="10">Oui</answer>
+            <answer value="0">Non</answer>
+            <explanation></explanation>
+        </question>
+
+
+    </group>
+</defense>
