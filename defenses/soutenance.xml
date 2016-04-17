@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<defense duration="600" evaluated="true">
+<defense duration="900" evaluated="true">
     <group title="Rush Alternatif Minecraft">
 
        <question title="Build" type="qcu" shuffled-answers="false">
@@ -108,13 +108,20 @@
             <explanation></explanation>
         </question>
 
+        <question title="Remarks" type="qcu" shuffled-answers="false">
+            <ask>What about the rush ? (no points)</ask>
+            <answer value="0">Awesome !</answer>
+            <answer value="0">Too hard</answer>
+            <answer value="0">I'd rather do the classic rush</answer>
+            <explanation></explanation>
+        </question>
+
         <question title="Boss question" type="qcu" shuffled-answers="false">
             <ask>Est-ce que Tsu est motivé?</ask>
             <answer value="10">Oui</answer>
             <answer value="0">Non</answer>
             <explanation></explanation>
         </question>
-
 
     </group>
 </defense>
