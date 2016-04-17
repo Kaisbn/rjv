@@ -21,7 +21,14 @@
             <ask>What are the different units available on the server?</ask>
             <answer value="100">Perfect</answer>
             <answer value="50">Some are missing</answer>
-            <answer value="-10">That's bad</answer>
+            <answer value="-50">That's bad</answer>
+            <explanation></explanation>
+        </question>
+
+        <question title="Minecraft begins" type="qcu" shuffled-answers="false">
+            <ask>Is "gameRunning" checked ?</ask>
+            <answer value="0">Yes</answer>
+            <answer value="-50">No</answer>
             <explanation></explanation>
         </question>
 
@@ -73,7 +80,7 @@
             <ask>What is a CompletableFuture ? What is it used for?</ask>
             <answer value="100">Correct</answer>
             <answer value="50">Meh</answer>
-            <answer value="0">No</answer>
+            <answer value="-50">No</answer>
             <explanation></explanation>
        </question>
 
@@ -81,7 +88,7 @@
             <ask>How do you launch a function with a delay ?</ask>
             <answer value="100">Best practice</answer>
             <answer value="50">Dirty</answer>
-            <answer value="0">No</answer>
+            <answer value="-50">No</answer>
             <explanation></explanation>
         </question>
 
@@ -89,7 +96,7 @@
             <ask>What is a Thread Pool? What object is used to easily manage it in java ?</ask>
             <answer value="100">Exact</answer>
             <answer value="50">Meh</answer>
-            <answer value="0">No</answer>
+            <answer value="-50">No</answer>
             <explanation></explanation>
         </question>
 
