@@ -4,16 +4,16 @@
 
        <question title="Build" type="qcu" shuffled-answers="false">
             <ask>Does it compile?</ask>
-            <answer value="100">Yes</answer>
-            <answer value="-150">No</answer>
+            <answer value="50">Yes</answer>
+            <answer value="-100">No</answer>
             <explanation></explanation>
         </question>
 
        <question title="I am tired..." type="qcu" shuffled-answers="false">
             <ask>Does the code contain any useless Sleep?</ask>
-            <answer value="100">Not at all</answer>
-            <answer value="20">A few</answer>
-            <answer value="0">A lot</answer>
+            <answer value="50">Not at all</answer>
+            <answer value="15">A few</answer>
+            <answer value="-50">A lot</answer>
             <explanation></explanation>
         </question>
 
@@ -35,34 +35,34 @@
 
        <question title="Destroy them all !" type="qcu" shuffled-answers="false">
             <ask>Is the AI impressive ?</ask>
-            <answer value="200">Such an amazing AI !</answer>
-            <answer value="100">Great !</answer>
-            <answer value="75">Pretty cool !</answer>
-            <answer value="40">Very simple AI (single probe)</answer>
+            <answer value="250">Such an amazing AI !</answer>
+            <answer value="115">Great !</answer>
+            <answer value="70">Pretty cool !</answer>
+            <answer value="10">Very simple AI (single probe)</answer>
             <answer value="0">It does not work</answer>
             <explanation></explanation>
         </question>
 
        <question title="Many things I can do" type="qcm" shuffled-answers="false">
             <ask>What does the AI do ?</ask>
-            <answer value="20">Single probe</answer>
-            <answer value="40">Multiple probes</answer>
+            <answer value="5">Single probe</answer>
+            <answer value="50">Multiple probes</answer>
             <answer value="5">Single scout</answer>
-            <answer value="10">Multiple scouts</answer>
-            <answer value="10">Single templar</answer>
-            <answer value="15">Multiple templars</answer>
+            <answer value="5">Multiple scouts</answer>
+            <answer value="5">Single templar</answer>
+            <answer value="10">Multiple templars</answer>
             <answer value="5">Single beacon</answer>
-            <answer value="10">Mutliple beacons</answer>
-            <answer value="10">Single Nexus</answer>
-            <answer value="50">Mutliple Nexus</answer>
+            <answer value="5">Mutliple beacons</answer>
+            <answer value="5">Single Nexus</answer>
+            <answer value="60">Mutliple Nexus</answer>
             <explanation></explanation>
         </question>
 
 
        <question title="Choose wisely..." type="qcu" shuffled-answers="false">
             <ask>Did the student used the given async helper ?</ask>
-            <answer value="150">No, would have been too easy</answer>
-            <answer value="75">Sure, I am not crazy</answer>
+            <answer value="125">No, would have been too easy</answer>
+            <answer value="50">Sure, I am not crazy</answer>
             <explanation></explanation>
         </question>
 
@@ -70,8 +70,8 @@
             <ask>Does the student have a scheduler ?</ask>
             <answer value="0">No, there is nothing but the given code</answer>
             <answer value="10">Yes, but it does not work at all</answer>
-            <answer value="30">Yes, but it works but it's really dirty</answer>
-            <answer value="50">Yes, does not really work but pretty cool implementation though</answer>
+            <answer value="20">Yes, but it works but it's really dirty</answer>
+            <answer value="20">Yes, does not really work but pretty cool implementation though</answer>
             <answer value="100">Yes, and it's really cool and beautiful</answer>
             <explanation></explanation>
         </question>
