@@ -36,7 +36,7 @@
        <question title="Destroy them all !" type="qcu" shuffled-answers="false">
             <ask>Is the AI impressive ?</ask>
             <answer value="250">Such an amazing AI !</answer>
-            <answer value="115">Great !</answer>
+            <answer value="150">Great !</answer>
             <answer value="70">Pretty cool !</answer>
             <answer value="10">Very simple AI (single probe)</answer>
             <answer value="0">It does not work</answer>
@@ -98,7 +98,7 @@
             <answer value="50">Meh</answer>
             <answer value="-50">No</answer>
             <explanation></explanation>
-        </question>
+       </question>
 
         <question title="You're the doc, doc!" type="qcu" shuffled-answers="false">
             <ask>Is the code documented?</ask>
