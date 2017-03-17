@@ -1,15 +1,21 @@
-SLIDES_DIR	= slides
-SUBJECT_DIR	= subjects
+SHELL=/bin/bash
+BUTLER ?= tools/butler/butler.py
 
-all:: subject
+TEAM 	= yaka
+THEME   = yaka2018
 
-subject::
-	${MAKE} -C ${SUBJECT_DIR}
-	mv ${SUBJECT_DIR}/main.pdf ${SUBJECT_DIR}/subject.pdf
+include tools/butler/samples/template.mk
 
-clean::
-	${MAKE} -C ${SLIDES_DIR} clean
-	${RM} ${SLIDES_DIR}/slides.pdf
-	${MAKE} -C ${SUBJECT_DIR} clean
-	${RM} ${SUBJECT_DIR}/subject.pdf
-	${MAKE} -C ${FILES_DIR} clean
+all:: subject.pdf clean
+
+subject.pdf: DOCTYPE=subject
+subject.pdf: DOCNAME=Subject
+subject.pdf: BUTLERFLAGS+= --tree=subjects/tree.yml
+subject.pdf: subjects/subject.pdf
+
+clean: subjects/subject.clean
+
+distclean: clean
+	${RM} *.pdf subjects/*.pdf
+
+.PHONY: all clean distclean
