@@ -1,8 +1,5 @@
-Creeps
-======
-
 Introduction
-------------
+============
 In creeps, each player - you - has one and only one objective :
 destroy your opponents and be the king of the hill.
 Or in case you can't erase other players, simply dominate them by owning more
@@ -48,9 +45,9 @@ been reached.
 
 
 Rules, Units List and Powers
-----------------------------
+============================
 Connectivity
-~~~~~~~~~~~~
+------------
 
 Creeps servers are hosted by your beloved assistants.
 They will provide you with a number of URLs in order for you to connect
@@ -59,7 +56,7 @@ and test your AIs.
 Every server exposes four services in over HTTP:
 
 ``GET /status``
-^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~
 Return the current status of the server.
 Use it to detected if the game has started or not.
 
@@ -75,7 +72,7 @@ Use it to detected if the game has started or not.
 
 
 ``GET /init/login``
-^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~
 Register you as a player using the provided login.
 You should always start by this command.
 
@@ -112,7 +109,7 @@ You **MUST** keep your Unit ID in order to send them commands.
 Valid logins: ``^[a-z0-9.-_]+$``.
 
 ``POST /command/login/agentId/opcode``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Order the agent with the given id to perform the command with the given opcode.
 The reportId is returned, use it to get the report.
 
@@ -130,20 +127,20 @@ The reportId is returned, use it to get the report.
 Even if the command does not take any argument, you **MUST** pass a Json body.
 
 ``GET /report/reportId``
-^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~
 Retrieve the report with the given report id.
 
 You will find report structure for each opcode in command section.
 
 
 Agent types
-~~~~~~~~~~~
+-----------
 We might or might not add more agents as the rush goes on. Just for the fun of it.
 For each agent type, the cost in biomass and minerals and the spawntime will
 be given in the constants file.
 
 Probe
-^^^^^
+~~~~~
 Your bread and butter unit. It can move, convert blocks to your color,
 mine blocks (both to gather resources and convert blocks) it can build
 buildings and it can scan around itself in either a short range / quick execution
@@ -160,7 +157,7 @@ Opcodes available
 * ``moveup``, ``movedown``, ``movenorth``, ``movesouth``, ``movewest``, ``moveeast``
 
 Scout
-^^^^^
+~~~~~
 The scout can move and perform the three kind of scan: small, medium and big.
 
 Opcodes available
@@ -172,7 +169,7 @@ Opcodes available
 * ``moveup``, ``movedown``, ``movenorth``, ``movesouth``, ``movewest``, ``moveeast``
 
 Templar
-^^^^^^^
+~~~~~~~
 Your wizardry thing. It can invoke giant blob of matter pretty much anywhere.
 
 Opcodes available
@@ -183,7 +180,7 @@ Opcodes available
 * ``moveup``, ``movedown``, ``movenorth``, ``movesouth``, ``movewest``, ``moveeast``
 
 Beacon
-^^^^^^
+~~~~~~
 This breaks things. Once spawned, move it to the location of something you want
 blown, executes one of its destructive commands and profit.
 
@@ -196,11 +193,11 @@ Opcodes available
 * ``moveup``, ``movedown``, ``movenorth``, ``movesouth``, ``movewest``, ``moveeast``
 
 Building types
-~~~~~~~~~~~~~~
+--------------
 Like the agents, we will probably add some building during the project.
 
 Nexus
-^^^^^
+~~~~~
 This building allows you to spawn units and get a detailed report over you
 current situation.
 
@@ -212,7 +209,7 @@ Opcodes available
 * ``spawn:probe``, ``spawn:scout``, ``spawn:beacon``, ``spawn:templar``
 
 Pylon
-^^^^^
+~~~~~
 This building allows you to transfer units in the same case to any other pylon you own.
 
 Opcodes available
@@ -222,7 +219,7 @@ Opcodes available
 * ``transfer``
 
 Commands
-~~~~~~~~
+--------
 Information about execution time, cost in minerals and/or biomass relative
 to all commands are provided in Creepstants.java.
 
@@ -242,7 +239,7 @@ One Location object is structured as follow :
 Informations about material are provided in BlockValues.java.
 
 ``status``
-^^^^^^^^^^
+~~~~~~~~~~
 Provides agent status.
 Location is relative to the block the agent is currently on.
 
@@ -263,7 +260,7 @@ Report structure
 
 
 ``moveup``, ``movedown``, ``movenorth``, ``movesouth``, ``movewest``, ``moveeast``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Moves the agent in the given direction.
 Agents can move through any kind of terrain but are limited on Y axis ; 1 < y < 256.
 
@@ -280,7 +277,7 @@ Report structure
     }
 
 ``convert``
-^^^^^^^^^^^
+~~~~~~~~~~~
 Converts the block to the color of the player, thus granting him one point.
 Beware though, converting lava or some other nasty block will have very bad
 side-effects.
@@ -300,7 +297,7 @@ Report structure
     }
 
 ``mine``
-^^^^^^^^
+~~~~~~~~
 Mines the block for resource and converts it to the players color.
 As with converting, make sure you are not mining anything exploding or hot...
 Rewards in biomass and minerals for different block types will be provided in
@@ -325,7 +322,7 @@ Report structure
     }
 
 ``playerstatus``
-^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~
 Provides player status.
 
 Report structure
@@ -342,7 +339,7 @@ Report structure
     }
 
 ``scan``
-^^^^^^^^
+~~~~~~~~
 Gives information on the 9 blocks forming the cube centered on the agent.
 
 Report structure
@@ -362,7 +359,7 @@ Report structure
     }
 
 ``scan5``
-^^^^^^^^^
+~~~~~~~~~
 Gives information on the 125 blocks forming the cube centered on the agent.
 
 Report structure
@@ -382,7 +379,7 @@ Report structure
     }
 
 ``scan9``
-^^^^^^^^^
+~~~~~~~~~
 Gives information on the 729 blocks forming the cube centered on the agent.
 
 Report structure
@@ -402,7 +399,7 @@ Report structure
     }
 
 ``noop``
-^^^^^^^^
+~~~~~~~~
 Does nothing, for testing.
 
 Report structure
@@ -417,7 +414,7 @@ Report structure
     }
 
 ``sphere``
-^^^^^^^^^^
+~~~~~~~~~~
 Invokes a sphere of matter around the templar.
 You must provide the ``material`` argument with one of the following value:
 
@@ -437,7 +434,7 @@ Report structure
     }
 
 ``ion``
-^^^^^^^
+~~~~~~~
 Triggers an Ion Cannon discharge for orbital barge "Litany of Fury." Ouch.
 
 Report structure
@@ -452,7 +449,7 @@ Report structure
     }
 
 ``laser``
-^^^^^^^^^
+~~~~~~~~~
 They really pissed the guys on the Litany of Fury up there.
 Fire orbital laser, nothing should left before the bedrock is reached. Ouch-much.
 
@@ -468,7 +465,7 @@ Report structure
     }
 
 ``release``
-^^^^^^^^^^^
+~~~~~~~~~~~
 After that much, the agent deserves some rest.
 This will give some money back to the player, depending on the unit type.
 
@@ -487,9 +484,9 @@ Report structure
 
 
 Behaviour and Design Tips
--------------------------
+=========================
 Agents and threading model
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+--------------------------
 Even though it would be possible to implement an IA over a single execution thread, said IA would be very limited in
 terms of capabilities. We **strongly** encourage you to adopt a more advanced design, where each agent will be executed
 as a separate execution thread (not necessarily as a system thread though, as we have seen they can be
@@ -502,7 +499,7 @@ suggest you take interest in the reactor pattern, especially implementations lik
 and its sibling classes presented in this projects own presentation should allow you to do so in no time.
 
 Time-sensitive API
-~~~~~~~~~~~~~~~~~~
+------------------
 As you will soon experience yourself, the API exposed by the server will take some time to executes the commands you
 request. Each and every separate command has a specific execution time during which you are forbidden to call the
 agent again. Doing so will result in various kind of penalties being applied, like the extension of unavailability
@@ -515,7 +512,7 @@ command. Beware though as this file might change during the duration of the proj
 dynamic as possible so you would not loose too much time if such case was to occur.
 
 Here and there...
-~~~~~~~~~~~~~~~~~
+-----------------
 As a conclusion to this chapter, let me sum it up for you.
 You should develop a mechanism that will:
 
@@ -547,7 +544,7 @@ easy to start playing with probes and templars.
 
 
 Technicalities
---------------
+==============
 The project structure is provided to you in the form of the project-login_l.tar.gz file. All your source code needs
 to be placed under the ${root}/src/main/java/ folder (or subfolder for packages, obviously).
 
@@ -584,7 +581,7 @@ importing and running your project. Simply do as follow:
 
 
 A word on AI development
-------------------------
+========================
 This project is **NOT** about AI development.
 If you are specifically interested in the subject and want to spend some time
 on the development of a neat and elegant AI algorithm, please be our guest.
@@ -596,5 +593,5 @@ overall quality of your project.
 A very basic IA will get your all the points there is to get on this subject.
 
 A word of advice
-----------------
+================
 Fail fast, fail often.
