@@ -14,15 +14,15 @@ you to spawn more agents.
 
 Different kind of agents are available:
 
-* Peaceful
+* Peaceful ones
 
-  * probes - capable of exploration, resource gathering and terrain conversion
-  * scouts - capable of exploration and terrain conversion
+  * Probes - capable of exploration, resource gathering and terrain conversion
+  * Scouts - capable of exploration and terrain conversion
 
-* Harmful
+* Harmful ones
 
-  * templars - can shape the landscape
-  * beacons - can produce some cataclysmic effects best triggered in your
+  * Templars - can shape the landscape
+  * Beacons - can produce some cataclysmic effects best triggered in your
     opponent's courtyard.
 
 You can also spawn buildings:
@@ -43,24 +43,22 @@ anymore.
 The end of the game is reached when either one player remains or a timeout has
 been reached.
 
+Server Interface
+================
 
-Rules, Units List and Powers
-============================
-Connectivity
-------------
+In order to interact with the server, it exposes 4 services over HTTP:
 
-Creeps servers are hosted by your beloved assistants.
-They will provide you with a number of URLs in order for you to connect
-and test your AIs.
+* GET /status
+* GET /init/``login``
+* GET /report/``reportId``
+* POST /command/``login``/``agentId``/``opcode``
 
-Every server exposes four services in over HTTP:
-
-``GET /status``
-~~~~~~~~~~~~~~~
+GET /status
+-----------
 Return the current status of the server.
 Use it to detected if the game has started or not.
 
-.. code::
+.. code:: raw
 
     {
         "pluginRunning" : true,     // Ignore
@@ -71,12 +69,17 @@ Use it to detected if the game has started or not.
     }
 
 
-``GET /init/login``
-~~~~~~~~~~~~~~~~~~~
-Register you as a player using the provided login.
+GET /init/login
+---------------
+Register you as a player using the provided login - valid logins: ^[a-z0-9.-_]+$.
+
 You should always start by this command.
 
-.. code::
+If error is not null, an error occured and is decribed by error field.
+
+You **MUST** keep your Unit ID in order to send them commands.
+
+.. code:: raw
 
     {
         "error" : null,             // Error description
@@ -89,31 +92,17 @@ You should always start by this command.
         "probeId" : "14648bae1"     // Initial probe ID
     }
 
-If ``login`` is not available:
-
-.. code::
-
-    {
-        "error" : "login not available.",
-        "login" : null,
-        "color" : null,
-        "startX" : null,
-        "startY" : null,
-        "startZ" : null,
-        "baseId" : null,
-        "probeId" : null
-    }
-
-You **MUST** keep your Unit ID in order to send them commands.
-
-Valid logins: ``^[a-z0-9.-_]+$``.
-
-``POST /command/login/agentId/opcode``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+POST /command/login/agentId/opcode
+----------------------------------
 Order the agent with the given id to perform the command with the given opcode.
+
 The reportId is returned, use it to get the report.
 
-.. code::
+Even if the command does not take any argument, you **MUST** pass a Json body.
+
+FIXME describe possible error - nomoney, unavailable
+
+.. code:: raw
 
     {
         "opcode" : "action",
@@ -124,17 +113,17 @@ The reportId is returned, use it to get the report.
         "misses" : 0
     }
 
-Even if the command does not take any argument, you **MUST** pass a Json body.
-
-``GET /report/reportId``
-~~~~~~~~~~~~~~~~~~~~~~~~
+GET /report/reportId
+--------------------
 Retrieve the report with the given report id.
 
 You will find report structure for each opcode in command section.
 
 
-Agent types
------------
+Units
+=====
+Agents
+------
 We might or might not add more agents as the rush goes on. Just for the fun of it.
 For each agent type, the cost in biomass and minerals and the spawntime will
 be given in the constants file.
@@ -146,13 +135,13 @@ mine blocks (both to gather resources and convert blocks) it can build
 buildings and it can scan around itself in either a short range / quick execution
 or medium range / medium execution.
 
-Opcodes available
+Opcodes available:
 
 * ``status``
 * ``release``
 * ``convert``
 * ``mine``
-* ``pawn:nexus``
+* ``spawn:nexus``
 * ``scan3``, ``scan5``
 * ``moveup``, ``movedown``, ``movenorth``, ``movesouth``, ``movewest``, ``moveeast``
 
@@ -160,7 +149,7 @@ Scout
 ~~~~~
 The scout can move and perform the three kind of scan: small, medium and big.
 
-Opcodes available
+Opcodes available:
 
 * ``status``
 * ``release``
@@ -172,7 +161,7 @@ Templar
 ~~~~~~~
 Your wizardry thing. It can invoke giant blob of matter pretty much anywhere.
 
-Opcodes available
+Opcodes available:
 
 * ``status``
 * ``release``
@@ -184,7 +173,7 @@ Beacon
 This breaks things. Once spawned, move it to the location of something you want
 blown, executes one of its destructive commands and profit.
 
-Opcodes available
+Opcodes available:
 
 * ``status``
 * ``release``
@@ -192,8 +181,8 @@ Opcodes available
 * ``laser``
 * ``moveup``, ``movedown``, ``movenorth``, ``movesouth``, ``movewest``, ``moveeast``
 
-Building types
---------------
+Buildings
+---------
 Like the agents, we will probably add some building during the project.
 
 Nexus
@@ -201,7 +190,7 @@ Nexus
 This building allows you to spawn units and get a detailed report over you
 current situation.
 
-Opcodes available
+Opcodes available:
 
 * ``status``
 * ``release``
@@ -212,21 +201,21 @@ Pylon
 ~~~~~
 This building allows you to transfer units in the same case to any other pylon you own.
 
-Opcodes available
+Opcodes available:
 
 * ``status``
 * ``release``
 * ``transfer``
 
 Commands
---------
+========
 Information about execution time, cost in minerals and/or biomass relative
 to all commands are provided in Creepstants.java.
 
 A lot of commands send block status information.
 One Location object is structured as follow :
 
-.. code::
+.. code:: raw
 
     {
         "x":"32",               // X coordinate
@@ -239,13 +228,13 @@ One Location object is structured as follow :
 Informations about material are provided in BlockValues.java.
 
 ``status``
-~~~~~~~~~~
+----------
 Provides agent status.
 Location is relative to the block the agent is currently on.
 
 Report structure
 
-.. code::
+.. code:: raw
 
     {
         "opcode":"status"       // Action opcode.
@@ -260,13 +249,13 @@ Report structure
 
 
 ``moveup``, ``movedown``, ``movenorth``, ``movesouth``, ``movewest``, ``moveeast``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------------------------------------------------------------
 Moves the agent in the given direction.
-Agents can move through any kind of terrain but are limited on Y axis ; 1 < y < 256.
+Agents can move through any kind of terrain but are limited on Y axis : 1 < y < 256.
 
 Report structure
 
-.. code::
+.. code:: raw
 
     {
         "opcode":"moveXXX"      // Action opcode.
@@ -277,14 +266,14 @@ Report structure
     }
 
 ``convert``
-~~~~~~~~~~~
+-----------
 Converts the block to the color of the player, thus granting him one point.
 Beware though, converting lava or some other nasty block will have very bad
 side-effects.
 
 Report structure
 
-.. code::
+.. code:: raw
 
     {
         "opcode":"convert"      // Action opcode.
@@ -297,7 +286,7 @@ Report structure
     }
 
 ``mine``
-~~~~~~~~
+--------
 Mines the block for resource and converts it to the players color.
 As with converting, make sure you are not mining anything exploding or hot...
 Rewards in biomass and minerals for different block types will be provided in
@@ -307,7 +296,7 @@ for each resource.
 
 Report structure
 
-.. code::
+.. code:: raw
 
     {
         "opcode":"mine"         // Action opcode.
@@ -322,12 +311,12 @@ Report structure
     }
 
 ``playerstatus``
-~~~~~~~~~~~~~~~~
+----------------
 Provides player status.
 
 Report structure
 
-.. code::
+.. code:: raw
 
     {
         "opcode":"playerstatus" // Action opcode.
@@ -338,13 +327,17 @@ Report structure
         "biomass":42            // Biomass of the player
     }
 
-``scan``
-~~~~~~~~
-Gives information on the 9 blocks forming the cube centered on the agent.
+``scan``, ``scan5``, ``scan9``
+------------------------------
+``scan``: Gives information on the 9 blocks forming the cube centered on the agent.
+
+``scan5``: Gives information on the 125 blocks forming the cube centered on the agent.
+
+``scan9``: Gives information on the 729 blocks forming the cube centered on the agent.
 
 Report structure
 
-.. code::
+.. code:: raw
 
     {
         "opcode":"scan"         // Action opcode.
@@ -358,53 +351,29 @@ Report structure
         }
     }
 
-``scan5``
-~~~~~~~~~
-Gives information on the 125 blocks forming the cube centered on the agent.
+``spawn:beacon``, ``spawn:nexus``, ``spawn:probe``, ``spawn:pylon``, ``spawn:scout``, ``spawn:templar``
+-------------------------------------------------------------------------------------------------------
+``spawn:beacon``: FIXME
+``spawn:nexus``: FIXME
+``spawn:probe``: FIXME
+``spawn:pylon``: FIXME
+``spawn:scout``: FIXME
+``spawn:templar``: FIXME
 
 Report structure
 
-.. code::
+.. code:: raw
 
-    {
-        "opcode":"scan5"        // Action opcode.
-        "reportId":"aaaaaaaa",  // Report ID
-        "id":"bbbbbbbb",        // Agent ID
-        "login":"player1",      // Player login
-        "scan": {               // Scan result
-            "32,40,23" : {...}, // Location object
-            "32,41,23" : {...},
-            ...
-        }
-    }
+    FIXME
 
-``scan9``
-~~~~~~~~~
-Gives information on the 729 blocks forming the cube centered on the agent.
-
-Report structure
-
-.. code::
-
-    {
-        "opcode":"scan9"        // Action opcode.
-        "reportId":"aaaaaaaa",  // Report ID
-        "id":"bbbbbbbb",        // Agent ID
-        "login":"player1",      // Player login
-        "scan": {               // Scan result
-            "32,40,23" : {...}, // Location object
-            "32,41,23" : {...},
-            ...
-        }
-    }
 
 ``noop``
-~~~~~~~~
+--------
 Does nothing, for testing.
 
 Report structure
 
-.. code::
+.. code:: raw
 
     {
         "opcode":"scan9"        // Action opcode.
@@ -414,7 +383,7 @@ Report structure
     }
 
 ``sphere``
-~~~~~~~~~~
+----------
 Invokes a sphere of matter around the templar.
 You must provide the ``material`` argument with one of the following value:
 
@@ -422,9 +391,11 @@ You must provide the ``material`` argument with one of the following value:
 * sand
 * lava
 
+FIXME how to pass parameters if any
+
 Report structure
 
-.. code::
+.. code:: raw
 
     {
         "opcode":"sphere"       // Action opcode.
@@ -434,12 +405,14 @@ Report structure
     }
 
 ``ion``
-~~~~~~~
+-------
 Triggers an Ion Cannon discharge for orbital barge "Litany of Fury." Ouch.
+
+FIXME how to pass parameters if any
 
 Report structure
 
-.. code::
+.. code:: raw
 
     {
         "opcode":"ion"          // Action opcode.
@@ -449,13 +422,13 @@ Report structure
     }
 
 ``laser``
-~~~~~~~~~
+---------
 They really pissed the guys on the Litany of Fury up there.
 Fire orbital laser, nothing should left before the bedrock is reached. Ouch-much.
 
 Report structure
 
-.. code::
+.. code:: raw
 
     {
         "opcode":"laser"        // Action opcode.
@@ -465,13 +438,13 @@ Report structure
     }
 
 ``release``
-~~~~~~~~~~~
+-----------
 After that much, the agent deserves some rest.
 This will give some money back to the player, depending on the unit type.
 
 Report structure
 
-.. code::
+.. code:: raw
 
     {
         "opcode":"release"      // Action opcode.
