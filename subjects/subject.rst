@@ -53,6 +53,17 @@ In order to interact with the server, it exposes 4 services over HTTP:
 * GET /report/``reportId``
 * POST /command/``login``/``agentId``/``opcode``
 
+You're allowed to use Unirest library.
+
+    .. code:: java
+
+        // GET method
+        Unirest.get(uri).asJson()
+        // POST method
+        Unirest.post(uri).body("{}").asJson()
+
+Documentation can be found at http://unirest.io/java.html.
+
 GET /status
 -----------
 Return the current status of the server.
@@ -64,76 +75,114 @@ Use it to detected if the game has started or not.
         "pluginRunning" : true,     // Ignore
         "gameRunning" : true,       // Game status
         "scores" : {                // List of player and associated scores
-            "player1" : 9
+            "login_x" : 9
         }
     }
 
 
 GET /init/login
 ---------------
-Register you as a player using the provided login - valid logins: ^[a-z0-9.-_]+$.
-
-You should always start by this command.
-
-If error is not null, an error occured and is decribed by error field.
-
-You **MUST** keep your Unit ID in order to send them commands.
+Register you as a player using the provided ``login`` - valid logins: ^[a-z0-9.-_]+$.
 
 .. code:: raw
 
     {
         "error" : null,             // Error description
-        "login" : "player1",        // Player login
+        "login" : "login_x",        // Player login
         "color" : "WHITE",          // Player Color
         "startX" : 224,             // Initial X coordinate
         "startY" : 94,              // Initial Y coordinate
         "startZ" : 0,               // Initial Z coordinate
-        "baseId" : "3b79b0194",     // Initial nexus ID
-        "probeId" : "14648bae1"     // Initial probe ID
+        "baseId" : "1a2b3c4d5",     // Initial nexus ID
+        "probeId" : "a1b2c3d4e",    // Initial nexus ID
     }
+
+If error field is not null, an error occured:
+
+* "login not available"
+
+  ``login`` provided is not available. Retry with another one.
+
+* "max players reached on this server."
+
+  This server is full. Try another server.
 
 POST /command/login/agentId/opcode
 ----------------------------------
-Order the agent with the given id to perform the command with the given opcode.
+Order the agent with the given ``agentId`` to perform the command with the
+given ``opcode``.
 
-The reportId is returned, use it to get the report.
-
-Even if the command does not take any argument, you **MUST** pass a Json body.
-
-FIXME describe possible error - nomoney, unavailable
+Even if the command does not take any argument, you **MUST** provide a
+Json body in your request.
 
 .. code:: raw
 
     {
-        "opcode" : "action",
-        "reportId" : "63b91922e",
-        "error" : "",
-        "login" : "",
-        "id" : "",
-        "misses" : 0
+        "opcode" : "action",        // Information about command transmission success
+        "reportId" : "1a2b3c4d5",   // Report ID
+        "error" : "",               // Error description
+        "login" : "",               // Player login - might be empty
+        "id" : "",                  // Agent ID - might be empty
+        "misses" : 0                // Number of misses
     }
+
+If opcode field is different from "action", an error occured:
+
+* "noplayer"
+
+  ``login`` is not matching any player on the server.
+  You have been kick for inactivy.
+
+* "unavailable"
+
+  Your agent is already doing something. Wait until he finished before sending
+  it another job. Note that your missed calls counter has increased. If it goes
+  over a certain value, next missed calls will leads to the death of the agent.
+
+* "nomoney"
+
+  Your ressources are not sufficiant for the moment. Retry later when they do.
+
+* "dead"
+
+  Your agent dies due to too much missed calls. Note that report is send only
+  once, after that you will get a "noagent" response.
+
+* "noagent"
+
+  ``agentId`` is not matching any of your units. Either you previously released
+  it or it died.
+
+* "initerror"
+
+  Body of the request caused an error.
 
 GET /report/reportId
 --------------------
-Retrieve the report with the given report id.
+Retrieve the report with the given reportId.
 
-You will find report structure for each opcode in command section.
+You will find response structure for each opcode in command section.
 
+If ``reportId`` does not exist you will get:
+
+.. code:: raw
+
+    {
+        "opcode" : "noreport",
+        "error" : "No such report",
+        "reportId" : "173040eba"
+    }
 
 Units
 =====
+
 Agents
 ------
-We might or might not add more agents as the rush goes on. Just for the fun of it.
-For each agent type, the cost in biomass and minerals and the spawntime will
-be given in the constants file.
 
 Probe
 ~~~~~
-Your bread and butter unit. It can move, convert blocks to your color,
-mine blocks (both to gather resources and convert blocks) it can build
-buildings and it can scan around itself in either a short range / quick execution
-or medium range / medium execution.
+Part of your first units, probes are versatile ; capable of converting
+mining, scanning, they can also build nexus.
 
 Opcodes available:
 
@@ -142,19 +191,20 @@ Opcodes available:
 * ``convert``
 * ``mine``
 * ``spawn:nexus``
-* ``scan3``, ``scan5``
+* ``scan``, ``scan5``
 * ``moveup``, ``movedown``, ``movenorth``, ``movesouth``, ``movewest``, ``moveeast``
 
 Scout
 ~~~~~
-The scout can move and perform the three kind of scan: small, medium and big.
+Scouts are useful to have a quick and wide overview of surrounding world with
+``scan9``. Note that they cannot mine nor build.
 
 Opcodes available:
 
 * ``status``
 * ``release``
 * ``convert``
-* ``scan3``, ``scan5``, ``scan9``
+* ``scan``, ``scan5``, ``scan9``
 * ``moveup``, ``movedown``, ``movenorth``, ``movesouth``, ``movewest``, ``moveeast``
 
 Templar
@@ -183,12 +233,11 @@ Opcodes available:
 
 Buildings
 ---------
-Like the agents, we will probably add some building during the project.
 
 Nexus
 ~~~~~
-This building allows you to spawn units and get a detailed report over you
-current situation.
+Part of your first unit, nexus allow you to spawn units and get a detailed
+report over you current situation.
 
 Opcodes available:
 
@@ -199,7 +248,8 @@ Opcodes available:
 
 Pylon
 ~~~~~
-This building allows you to transfer units in the same case to any other pylon you own.
+This building allows you to transfer units on the same block to any other pylon
+you own.
 
 Opcodes available:
 
@@ -209,23 +259,27 @@ Opcodes available:
 
 Commands
 ========
-Information about execution time, cost in minerals and/or biomass relative
-to all commands are provided in Creepstants.java.
+Each commands has an execution time and might have a cost or a rewards in
+biomass/minerals.
+Those informations are available in Creepstants.java.
 
-A lot of commands send block status information.
-One Location object is structured as follow :
+Each kind of block has a different yield in biomass and minerals, they are
+described in BlockValues.java
+If you cannot find the reference of a block type, it simply gives 0
+of each resource.
+
+Finally, severals commands return one or more location objects.
+A location object looks like this:
 
 .. code:: raw
 
     {
-        "x":"32",               // X coordinate
-        "y":"32",               // Y coordinate
-        "z":"32",               // Z coordinate
-        "material":"AIR",       // Material
-        "player":"player1"      // Owner if any
+        "x" : "32",                 // X coordinate
+        "y" : "32",                 // Y coordinate
+        "z" : "32",                 // Z coordinate
+        "type" : "AIR",             // Material
+        "player" : "login_x"        // Owner if any
     }
-
-Informations about material are provided in BlockValues.java.
 
 ``status``
 ----------
@@ -237,20 +291,19 @@ Report structure
 .. code:: raw
 
     {
-        "opcode":"status"       // Action opcode.
-        "reportId":"aaaaaaaa",  // Report ID
-        "id":"bbbbbbbb",        // Agent ID
-        "login":"player1",      // Player login
-        "status":"alive"        // Can be "alive" or "dead"
-        "causeOfDeath":"",      // Can be "release", "tnt" or "lava"
-        "location": {}          // A Location object.
+        "opcode" : "status",        // Action opcode.
+        "reportId" : "1a2b3c4d5",   // Report ID
+        "id" : "a1b2c3d4e",         // Agent ID
+        "login" : "login_x",        // Player login
+        "status" : "alive"          // Can be "alive" or "dead"
+        "causeOfDeath" : "",        // Can be "release", "tnt" or "lava"
+        "location" : {}             // A Location object.
     }
-
 
 
 ``moveup``, ``movedown``, ``movenorth``, ``movesouth``, ``movewest``, ``moveeast``
 ----------------------------------------------------------------------------------
-Moves the agent in the given direction.
+Moves the agent according to the direction suffix.
 Agents can move through any kind of terrain but are limited on Y axis : 1 < y < 256.
 
 Report structure
@@ -258,16 +311,16 @@ Report structure
 .. code:: raw
 
     {
-        "opcode":"moveXXX"      // Action opcode.
-        "reportId":"aaaaaaaa",  // Report ID
-        "id":"bbbbbbbb",        // Agent ID
-        "login":"player1",      // Player login
-        "location": {}          // A Location object.
+        "opcode" : "move",          // Action opcode.
+        "reportId" : "1a2b3c4d5",   // Report ID
+        "id" : "a1b2c3d4e",         // Agent ID
+        "login" : "login_x",        // Player login
+        "location" : {}             // A Location object.
     }
 
 ``convert``
 -----------
-Converts the block to the color of the player, thus granting him one point.
+Converts the block to your color, giving you one point.
 Beware though, converting lava or some other nasty block will have very bad
 side-effects.
 
@@ -276,38 +329,34 @@ Report structure
 .. code:: raw
 
     {
-        "opcode":"convert"      // Action opcode.
-        "reportId":"aaaaaaaa",  // Report ID
-        "id":"bbbbbbbb",        // Agent ID
-        "login":"player1",      // Player login
-        "status":"alive"        // Can be "alive" or "dead"
-        "causeOfDeath":"",      // Can be "release", "tnt" or "lava"
-        "location": {}          // A Location object.
+        "opcode" : "convert",       // Action opcode.
+        "reportId" : "1a2b3c4d5",   // Report ID
+        "id" : "a1b2c3d4e",         // Agent ID
+        "login" : "login_x",        // Player login
+        "status" : "alive"          // Can be "alive" or "dead"
+        "causeOfDeath" : "",        // Can be "release", "tnt" or "lava"
+        "location" : {}             // A Location object.
     }
 
 ``mine``
 --------
-Mines the block for resource and converts it to the players color.
+Mines the block for resource and converts it.
 As with converting, make sure you are not mining anything exploding or hot...
-Rewards in biomass and minerals for different block types will be provided in
-the Creepstants file.
-If you cannot find the reference of a block type, it does simply gives 0
-for each resource.
 
 Report structure
 
 .. code:: raw
 
     {
-        "opcode":"mine"         // Action opcode.
-        "reportId":"aaaaaaaa",  // Report ID
-        "id":"bbbbbbbb",        // Agent ID
-        "login":"player1",      // Player login
-        "mineralsEarned":42,    // Minerals earned by the action
-        "biomassEarned":42,     // Biomass earned by the action
-        "status":"alive",       // Can be "alive" or "dead"
-        "causeOfDeath":"",      // Can be "release", "tnt" or "lava"
-        "location": {}          // A Location object.
+        "opcode" : "mine",          // Action opcode.
+        "reportId" : "1a2b3c4d5",   // Report ID
+        "id" : "a1b2c3d4e",         // Agent ID
+        "login" : "login_x",        // Player login
+        "mineralsEarned" : 42,      // Minerals earned by the action
+        "biomassEarned" : 42,       // Biomass earned by the action
+        "status" : "alive",         // Can be "alive" or "dead"
+        "causeOfDeath" : "",        // Can be "release", "tnt" or "lava"
+        "location" : {}             // A Location object.
     }
 
 ``playerstatus``
@@ -319,12 +368,12 @@ Report structure
 .. code:: raw
 
     {
-        "opcode":"playerstatus" // Action opcode.
-        "reportId":"aaaaaaaa",  // Report ID
-        "id":"bbbbbbbb",        // Agent ID
-        "login":"player1",      // Player login
-        "minerals":42,          // Minerals of the player
-        "biomass":42            // Biomass of the player
+        "opcode" : "playerstatus",  // Action opcode.
+        "reportId" : "1a2b3c4d5",   // Report ID
+        "id" : "a1b2c3d4e",         // Agent ID
+        "login" : "login_x",        // Player login
+        "minerals" : 42,            // Minerals of the player
+        "biomass" : 42              // Biomass of the player
     }
 
 ``scan``, ``scan5``, ``scan9``
@@ -340,121 +389,145 @@ Report structure
 .. code:: raw
 
     {
-        "opcode":"scan"         // Action opcode.
-        "reportId":"aaaaaaaa",  // Report ID
-        "id":"bbbbbbbb",        // Agent ID
-        "login":"player1",      // Player login
-        "scan": {               // Scan result
-            "32,40,23" : {...}, // Location object
-            "32,41,23" : {...},
+        "opcode" : "scan",          // Action opcode.
+        "reportId" : "1a2b3c4d5",   // Report ID
+        "id" : "a1b2c3d4e",         // Agent ID
+        "login" : "login_x",        // Player login
+        "scan" : {                  // List of Location
+            "32,40,23" : {},        // Location object
+            "32,41,23" : {},        // Location object
             ...
         }
     }
 
 ``spawn:beacon``, ``spawn:nexus``, ``spawn:probe``, ``spawn:pylon``, ``spawn:scout``, ``spawn:templar``
 -------------------------------------------------------------------------------------------------------
-``spawn:beacon``: FIXME
-``spawn:nexus``: FIXME
-``spawn:probe``: FIXME
-``spawn:pylon``: FIXME
-``spawn:scout``: FIXME
-``spawn:templar``: FIXME
-
-Report structure
-
-.. code:: raw
-
-    FIXME
-
-
-``noop``
---------
-Does nothing, for testing.
+Spawns the given unit at the place it has been invoked.
 
 Report structure
 
 .. code:: raw
 
     {
-        "opcode":"scan9"        // Action opcode.
-        "reportId":"aaaaaaaa",  // Report ID
-        "id":"bbbbbbbb",        // Agent ID
-        "login":"player1"       // Player login
+        "opcode" : "spawn",         // Action opcode
+        "reportId" : "1a2b3c4d5",   // Report ID
+        "id" : "a1b2c3d4e",         // Agent ID
+        "login" : "login_x",        // Player login
+        "type" : "probe",           // Unit type
+        "location" : {},            // Location object
+        "error" : ""                // Error description
+    }
+
+``transfer``
+------------
+Transfer unit from one pylon to another.
+Unit to transfer must be at the same coordinate as the pylon.
+
+You must provide the agentId of the unit and the agentId of the destination
+pylon.
+
+.. code:: raw
+
+    {
+        "targetId" : "1a2b3c4d5",   // Destination pylon ID
+        "agentId" : "a1b2c3d4e"     // Agent ID
+    }
+
+Report structure
+
+.. code:: raw
+
+    {
+        "opcode" : "transfer",      // Action opcode.
+        "reportId" : "1a2b3c4d5",   // Report ID
+        "id" : "a1b2c3d4e",         // Agent ID
+        "login" : "login_x"         // Player login
     }
 
 ``sphere``
 ----------
 Invokes a sphere of matter around the templar.
-You must provide the ``material`` argument with one of the following value:
 
-* water
-* sand
-* lava
+You must provide the ``material`` argument in the json body of your POST request.
 
-FIXME how to pass parameters if any
+.. code:: raw
+
+    {
+        "material" : "lava"         // Material can be water, sand, lava or tnt
+    }
 
 Report structure
 
 .. code:: raw
 
     {
-        "opcode":"sphere"       // Action opcode.
-        "reportId":"aaaaaaaa",  // Report ID
-        "id":"bbbbbbbb",        // Agent ID
-        "login":"player1"       // Player login
+        "opcode" : "sphere",        // Action opcode.
+        "reportId" : "1a2b3c4d5",   // Report ID
+        "id" : "a1b2c3d4e",         // Agent ID
+        "login" : "login_x"         // Player login
     }
 
 ``ion``
 -------
 Triggers an Ion Cannon discharge for orbital barge "Litany of Fury." Ouch.
 
-FIXME how to pass parameters if any
-
 Report structure
 
 .. code:: raw
 
     {
-        "opcode":"ion"          // Action opcode.
-        "reportId":"aaaaaaaa",  // Report ID
-        "id":"bbbbbbbb",        // Agent ID
-        "login":"player1"       // Player login
+        "opcode" : "ion",           // Action opcode.
+        "reportId" : "1a2b3c4d5",   // Report ID
+        "id" : "a1b2c3d4e",         // Agent ID
+        "login" : "login_x"         // Player login
     }
 
 ``laser``
 ---------
-They really pissed the guys on the Litany of Fury up there.
-Fire orbital laser, nothing should left before the bedrock is reached. Ouch-much.
+Fires orbital laser, nothing should left before the bedrock is reached. Ouch-much.
 
 Report structure
 
 .. code:: raw
 
     {
-        "opcode":"laser"        // Action opcode.
-        "reportId":"aaaaaaaa",  // Report ID
-        "id":"bbbbbbbb",        // Agent ID
-        "login":"player1"       // Player login
+        "opcode" : "laser",         // Action opcode.
+        "reportId" : "1a2b3c4d5",   // Report ID
+        "id" : "a1b2c3d4e",         // Agent ID
+        "login" : "login_x"         // Player login
     }
 
 ``release``
 -----------
-After that much, the agent deserves some rest.
-This will give some money back to the player, depending on the unit type.
+Releases the agent, giving you some ressources back depending on the unit type.
 
 Report structure
 
 .. code:: raw
 
     {
-        "opcode":"release"      // Action opcode.
-        "reportId":"aaaaaaaa",  // Report ID
-        "id":"bbbbbbbb",        // Agent ID
-        "login":"player1",      // Player login
-        "minerals":42,          // Minerals of the player
-        "biomass":42            // Biomass of the player
+        "opcode" : "release",       // Action opcode.
+        "reportId" : "1a2b3c4d5",   // Report ID
+        "id" : "a1b2c3d4e",         // Agent ID
+        "login" : "login_x",        // Player login
+        "minerals" : 42,            // Minerals of the player
+        "biomass" : 42              // Biomass of the player
     }
 
+``noop``
+--------
+Does nothing, for testing purpose.
+
+Report structure
+
+.. code:: raw
+
+    {
+        "opcode" : "scan9",         // Action opcode.
+        "reportId" : "1a2b3c4d5",   // Report ID
+        "id" : "a1b2c3d4e",         // Agent ID
+        "login" : "login_x"         // Player login
+    }
 
 Behaviour and Design Tips
 =========================
