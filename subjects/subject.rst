@@ -94,7 +94,7 @@ Register you as a player using the provided ``login`` - valid logins: ^[a-z0-9.-
         "startY" : 94,              // Initial Y coordinate
         "startZ" : 0,               // Initial Z coordinate
         "baseId" : "1a2b3c4d5",     // Initial nexus ID
-        "probeId" : "a1b2c3d4e",    // Initial nexus ID
+        "probeId" : "a1b2c3d4e",    // Initial probe ID
     }
 
 If error field is not null, an error occured:
