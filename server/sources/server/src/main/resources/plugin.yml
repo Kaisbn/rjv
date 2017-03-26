@@ -1,0 +1,29 @@
+name: creeps
+version: 1.0-SNAPSHOT
+author: Psyx
+main: com.mti.creeps.CreepsPlugin
+commands:
+  creeps:
+    description: Tells the creeps plugin status (scores, players etc...).
+    usage: /creeps
+  switch:
+    description: Switch gamemode for OPs.
+    usage: /switch
+  ion:
+    description: Fires an Ion Canon. DakkaDakka!
+    usage: /ion [X Y [depth]]
+  laser:
+    description: Fires a huge laser. Michael Bay style.
+    usage: /ion [X Y]
+  tp:
+    description: Teleports the sender to target location (if valid).
+    usage: /tp x y z
+  start:
+    description: Start the game.
+    usage: /start
+  sphere:
+    description: Invoke a sphere of matter. And it will fall.
+    usage: /sphere x y z material
+  creepsreset:
+    description: Remove all players from the game.
+    usage: /creepsreset

@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Built-By: Antoine
+Class-Path: lib/kotlin-stdlib-1.0.6.jar lib/kotlin-runtime-1.0.6.jar l
+ ib/kotlin-reflect-1.0.6.jar lib/vertx-core-3.2.0.jar lib/netty-common
+ -4.0.33.Final.jar lib/netty-buffer-4.0.33.Final.jar lib/netty-transpo
+ rt-4.0.33.Final.jar lib/netty-handler-4.0.33.Final.jar lib/netty-code
+ c-4.0.33.Final.jar lib/netty-codec-http-4.0.33.Final.jar lib/jackson-
+ core-2.6.1.jar lib/jackson-databind-2.6.1.jar lib/jackson-annotations
+ -2.6.0.jar lib/vertx-web-3.2.0.jar lib/vertx-auth-common-3.2.0.jar li
+ b/log4j-core-2.5.jar lib/log4j-api-2.5.jar
+Created-By: Apache Maven 3.0.5
+Build-Jdk: 1.8.0_45
+
