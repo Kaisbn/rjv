@@ -40,5 +40,4 @@ sources/samples/target/
 sources/server/.gradle/
 sources/server/build/
 sources/server/server.iml
-sources/server/src/main/kotlin/com/mti/creeps/response/GameStatusResponse.kt
 sources/server/target/
