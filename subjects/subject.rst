@@ -531,6 +531,7 @@ Report structure
 
 Behaviour and Design Tips
 =========================
+
 Agents and threading model
 --------------------------
 Even though it would be possible to implement an IA over a single execution thread, said IA would be very limited in
@@ -543,19 +544,6 @@ As such things as coroutines, fibers, green threads or agent systems are not ava
 suggest you take interest in the reactor pattern, especially implementations like the one found in the Rx project
 (note that you are not allowed to use the library, only try to understand and emulate it). Using CompletableFuture
 and its sibling classes presented in this projects own presentation should allow you to do so in no time.
-
-Time-sensitive API
-------------------
-As you will soon experience yourself, the API exposed by the server will take some time to executes the commands you
-request. Each and every separate command has a specific execution time during which you are forbidden to call the
-agent again. Doing so will result in various kind of penalties being applied, like the extension of unavailability
-time, a decrease in resource or even the death of the agent. More over, some operations might slow down the server
-to a point where the expected time of completion of an action will be exceeded. In such case, you will be notified
-of the problem and will suffer no penalty.
-
-Obviously, we will provide a complete description of each action, which will include the execution time of each
-command. Beware though as this file might change during the duration of the project, keep its loading mechanism as
-dynamic as possible so you would not loose too much time if such case was to occur.
 
 Here and there...
 -----------------
@@ -591,53 +579,21 @@ easy to start playing with probes and templars.
 
 Technicalities
 ==============
-The project structure is provided to you in the form of the project-login_l.tar.gz file. All your source code needs
-to be placed under the ${root}/src/main/java/ folder (or subfolder for packages, obviously).
+The project structure is provided to you in the form of the
+project-login_l.tar.gz file.
 
-The build-system used by this project is maven. Even though you have not yet learned the use of this tool, things
-should be straightforward has the only difficult par - configuration - has already been done for you. Unless
-explicitly told by an assistant, do not modifiy the pom.xml file at the root of the project as it holds said
-configuration.
+The build-system used by this project is maven. Configuration file - pom.xml - is
+provided. Unless explicitly told by an assistant, do not modifiy this file.
 
-Intellij IDEA is perfectly suited to workd with maven projects. As such, you should not experience any problem
-importing and running your project. Simply do as follow:
+All your source code needs to be placed under the ``${root}/src/main/java/``
+folder. Entry point is defined in ``com.epita.Creeps::main``.
+
+You are allowed to use two libraries for this project:
+
+* Unirest: for REST calls.
+* Gson: for Json parsing. See ``com.epita.utils.Json``.
+
+Import project:
 
 1. File > Open
-2. Browse until you find the pom.xml file at the root of the project. Select and load it.
-3. After a short import time, the project should be properlty set. If asked whether you want to enable auto-import,reply that yes indeed, you wish so.
-4. Once imported, you should have a "Maven Projects" panels available on the right side of your IDE. Open it.
-5. This panel contains all the commands you can run on you project. Only a couple of them will be of interest to us
-   for this project, but feel free to search further if your are interested:
-
-   * The ``clean`` command, located under the ``Lyfecicle`` category will clean your project and remove all the files
-     unnecessary for distribution.
-   * The ``install`` command will compile and build the Jar file of your project.
-   * The mvn ``exec:java`` will launch you project.
-6. The main of you application is already defined for you (for maven configuration purposes). Please place you entry
-   point code in the ``com.epita.Creeps::main`` method.
-7. The project is already configured with two additional libraries to help you go faster with some aspects of the
-   project which were not the primary notions we wanted you to work on.
-
-   * Unirest: this library will allow you to write REST calls very easily. You can find the documentation ot the library (http://unirest.io/java.html). Skip the installation part, it has been done for you.
-   * Gson: google's take on JSon parsing in java. We also provided a helper class to make it even easier (``com.epita.utils.Json``).
-8. Unless explicitly authorized by an assistant, no other library is allowed for this project.
-9. The class Creepstants.properties defines all the values you need to develop your client. It may change during the
-   course of the project, make sure it is loaded dynamically to save you some time.
-
-
-
-A word on AI development
-========================
-This project is **NOT** about AI development.
-If you are specifically interested in the subject and want to spend some time
-on the development of a neat and elegant AI algorithm, please be our guest.
-But you should not be expecting any support in terms of theory or implementation
-from your assistants on this specific matter.
-Furthermore, this should not take precedence over the core features and the
-overall quality of your project.
-
-A very basic IA will get your all the points there is to get on this subject.
-
-A word of advice
-================
-Fail fast, fail often.
+2. Browse and select the pom.xml file at the root of the project.
