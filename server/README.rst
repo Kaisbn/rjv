@@ -27,9 +27,9 @@ Compilation:
 3) Dans IntelliJ:
 
    * Edit configuration > Add new configuration > JAR Application
-   * Path to Jar : ``rush-java/server//server/spigot-1.11.2.jar``
+   * Path to Jar : ``rush-java/server/server/spigot-1.11.2.jar``
    * VM options: ``-Xmx2G -Xms2G -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005``
-   * Working directory: ``rush-java/server``
+   * Working directory: ``rush-java/server/server``
    * Before Lauch > Run Maven Gloal:
 
      * Working directory: ``rush-java/server``
