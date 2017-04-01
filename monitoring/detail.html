@@ -19,8 +19,8 @@
     <nav class="navbar navbar-info text-center fixed-top bg-inverse">
         <a href="/"><span class="glyphicon glyphicon-home pull-left" aria-hidden="true"></span></a>
         <label class="" ng-bind="name"></label>
-        <span class=" label label-success pull-right" ng-if="status == 'up'">ON</span>
-        <span class=" label label-danger pull-right" ng-if="status != 'up'">OFF</span>
+        <span class=" label label-success pull-right" ng-if="status != 'offline'">ON</span>
+        <span class=" label label-danger pull-right" ng-if="status == 'offline'">OFF</span>
     </nav>
 
     <div class="col-sm-12">

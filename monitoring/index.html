@@ -24,18 +24,28 @@
         <div ng-repeat="(server, v) in data" class="col-sm-6 col-md-4">
             <div class="widget-box">
                 <div class="widget-header" >
-                    <a ng-bind="server" ng-href="/server/{{server}}"></a>
+                    <a target="_blank" ng-bind="server" ng-href="/server/{{server}}"></a>
+                    <span class="title label label-success pull-right" ng-if="v.status != 'offline'">ON</span>
+                    <span class="title label label-danger pull-right" ng-if="v.status == 'offline'">OFF</span>
+
                     <span class="title label label-warning pull-right" ng-if="v.players.length == 0">EMPTY</span>
                     <span class="title label label-danger pull-right" ng-if="v.players.length == 10">FULL</span>
                     <span class="title label label-primary pull-right" ng-if="v.players.length > 0 && v.players.length < 10" ng-bind="{{v.players.length}} + '/10'"></span>
-                    <span class="title label label-success pull-right" ng-if="v.status == 'up'">ON</span>
-                    <span class="title label label-danger pull-right" ng-if="v.status != 'up'">OFF</span>
                 </div>
                 <div class="widget-content">
-                    <div class="container-fluid">
-                        <div ng-repeat="player in v.players | orderBy : '-score'" >
-                            <label ng-bind="player.name"></label>
-                            <label class="pull-right" ng-bind="player.score"></label>
+                    <div class="row" ng-if="v.remaining.length > 0">
+                        <div class="col-sm-12">
+                            <label class="pull-left" ng-bind="v.status" ng-if="v.remaining.length > 0"></label>
+                            <label class="pull-right" ng-bind="v.remaining" ng-if="v.remaining.length > 0"></label>
+                        </div>
+                    </div>
+                    <hr ng-if="v.players.length > 0">
+                    <div class="row">
+                        <div class="players col-sm-12">
+                            <div ng-repeat="player in v.players | orderBy : '-score'" >
+                                <label class="playerName" ng-bind="player.name"></label>
+                                <label class="pull-right" ng-bind="player.score"></label>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -64,10 +74,12 @@
             socket.on('serverList', function(data) {
                 $scope.data = data;
 
+                console.log(data);
+
                 var count = 0;
                 var total = 0;
                 for (var k in data) {
-                    if (data[k].status == 'up') ++count;
+                    if (data[k].status != 'offline') ++count;
                     ++total;
                 }
 

@@ -26,12 +26,23 @@ const fetchServersData = () => {
     setTimeout(fetchServersData, 3000);
 }
 
+const padInt = (s) => {
+    return (s.toString().length < 2 ? "0" : "") + s;
+}
+
+const dateToTime = (d) => {
+    d = parseInt(d);
+    var m = parseInt(d / 60);
+    m = m < 0 ? 0 : m;
+    return padInt(m) + ":" + padInt(d % 60);
+}
+
 
 const getDataFromSrv = (server) => {
     Axios.get("http://" + server + ":1664/status/game")
     .then((response) => {
         io.emit('serverDetail_' + server, {
-            status: "up",
+            status: "online",
             data: response.data
         });
 
@@ -42,10 +53,25 @@ const getDataFromSrv = (server) => {
                 "score": response.data.scores[key].score
             });
         });
+
         status[server] = {
-            "status": "up",
-            "players": scores,
+            status: "online",
+            players: scores,
         };
+
+        var now = Date.now();
+        var servStatus = "offline";
+
+        if (response.data.endTime == 0) {
+            status[server].status = "Starting in...";
+            status[server].remaining = dateToTime((response.data.startTime - now) / 1000);
+        } else if (response.data.startTime >= response.data.endTime) {
+            status[server].status = "Restarting...";
+            status[server].remaining = "Soon";
+        } else {
+            status[server].status = "Remaining time..";
+            status[server].remaining = dateToTime((response.data.endTime - now) / 1000);
+        }
 
         setTimeout(getDataFromSrv, 3500, server);
     })
@@ -53,11 +79,12 @@ const getDataFromSrv = (server) => {
         //console.log(error);
 
         io.emit('serverDetail_' + server, {
-            status: "down",
+            status: "offline",
+            remaining: "",
             data: {}
         });
 
-        status[server] = { "status": "down" };
+        status[server] = { "status": "offline" };
         setTimeout(getDataFromSrv, 3500, server);
     });;
 }

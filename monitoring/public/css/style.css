@@ -24,13 +24,27 @@ a, a:hover, .widget-header {
 }
 
 .widget-header {
-    padding: 7px 10px 10px 12px;
+  padding: 7px 10px 10px 12px;
 }
 
 .widget-content {
-    padding: 15px;
+  padding: 15px;
 }
 
 .dead-body {
   background: white;
+}
+
+.players {
+  font-size: 12px;
+}
+
+.playerName {
+  font-style: italic;
+}
+
+
+hr {
+  margin-top: 10px;
+  margin-bottom: 15px;
 }
