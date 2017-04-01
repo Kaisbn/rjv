@@ -193,6 +193,10 @@ class Creeps(val server: Server, val plugin: CreepsPlugin) {
     }
 
     fun command(playerId: String, agentId: String, opcode: String, jsonCommand: JsonObject): Response {
+        if (!started) {
+            return NotStartedResponse(playerId)
+        }
+
         if (players.containsKey(playerId)) {
             val player = players[playerId]!!
 
@@ -227,8 +231,6 @@ class Creeps(val server: Server, val plugin: CreepsPlugin) {
                         return AgentUnavailableResponse(playerId, agentId, player.misses)
                     }
                 }
-
-
             }
 
             return NoSuchAgentResponse(playerId, agentId)
