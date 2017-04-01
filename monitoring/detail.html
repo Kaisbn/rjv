@@ -1,0 +1,155 @@
+<html>
+<head>
+    <title>JAVA Visualization Tool</title>
+    <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://intra.acu.epita.fr/theme/Yaka2018/css/theme.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+    .panel-primary {
+        border-color: black;
+    }
+    .panel-primary .panel-heading {
+        border-color: black;
+        background-color: black;
+        color: white;
+    }
+    </style>
+</head>
+<body ng-app="rushjava_visu" ng-controller="RushJavaVisuController">
+    <nav class="navbar navbar-info text-center fixed-top bg-inverse">
+        <a href="/"><span class="glyphicon glyphicon-home pull-left" aria-hidden="true"></span></a>
+        <label class="" ng-bind="name"></label>
+        <span class=" label label-success pull-right" ng-if="status == 'up'">ON</span>
+        <span class=" label label-danger pull-right" ng-if="status != 'up'">OFF</span>
+    </nav>
+
+    <div class="col-sm-12">
+        <div ng-repeat="(name, v) in data" class="col-sm-6 col-md-4" ng-if="!v.dead">
+            <div class="widget-box">
+                <div class="widget-header">
+                    <span class="title" ng-bind="name"></span>
+                    <span class="title label label-danger pull-right" ng-bind="v.score"></span>
+                </div>
+                <div class="widget-content">
+                    <div class="container-fluid">
+                        <div ng-repeat="(key, data) in v" class="col-xs-12">
+                            <label ng-if="key == 'ressources'">Ressources</label>
+                            <canvas id="line"
+                                    ng-if="key == 'ressources'"
+                                    class="chart chart-line"
+                                    chart-data="data"
+                                    chart-labels="labels"
+                                    chart-series="ressourcesSeries"
+                                    chart-options="options"
+                                    chart-colors="ressourcesColors"
+                            ></canvas>
+                            <label ng-if="key == 'data'">Data</label>
+                            <canvas id="line"
+                                    ng-if="key == 'data'"
+                                    class="chart chart-line"
+                                    chart-data="data"
+                                    chart-labels="labels"
+                                    chart-series="dataSeries"
+                                    chart-options="options"
+                                    chart-colors="dataColors"
+                            ></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 dead-body">
+        <div class="col-sm-12">
+            <label class="">Dead IA :</label>
+        </div>
+        <div class="col-sm-12">
+
+            <div ng-repeat="(name, v) in data" class="col-sm-4 col-md-3" ng-if="v.dead">
+                <span class="title" ng-bind="name"></span>
+                <span class="title pull-right" ng-bind="v.score"></span>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="/angular/angular.min.js"></script>
+    <script src="/chart.js/dist/Chart.min.js"></script>
+    <script src="/socket.io-client/dist/socket.io.min.js"></script>
+    <script src="/angular-chart.js/dist/angular-chart.min.js"></script>
+    <script>
+        angular
+        .module('rushjava_visu', ['chart.js'])
+        .controller('RushJavaVisuController', function ($scope) {
+            var maxPoints = 35;
+
+            $scope.data = {};
+            $scope.ressourcesSeries = ['Minerals', 'Biomass'];
+            $scope.ressourcesColors = ['#0277BD', '#76FF03', '#ff8e72'];
+            $scope.dataSeries = ['Units', 'Misses'];
+            $scope.dataColors = ['#FFA726', '#E53935', '#ff8e72'];
+            $scope.options = {
+                animation : false,
+            }
+            $scope.labels = [];
+
+            var parts = window.location.href.split(/[\s/]+/);
+            var serverName = parts.pop() || parts.pop();
+            $scope.name = serverName;
+
+
+            var socket = io.connect();
+            socket.on('serverDetail_' + serverName, function(data) {
+                $scope.status = data.status;
+                var players = data.data.scores || {};
+                var dt = new Date();
+                //$scope.labels.push(dt.getMinutes() + ':' + dt.getSeconds());
+                $scope.labels.push("");
+                if ($scope.labels.length > maxPoints) {
+                    $scope.labels.shift();
+                }
+                var seen = {};
+
+                Object.keys(players).forEach(function (name) {
+                    seen[name] = true;
+                    if (!$scope.data[name]) {
+                        $scope.data[name] = {
+                            ressources: [[], []],
+                            data: [[], [], []],
+                            dead: false,
+                            score: 0,
+                        };
+                    }
+                    var score = players[name];
+
+                    $scope.data[name].score = players[name].score;
+
+                    var keys = [
+                        {
+                            'name': 'ressources',
+                            'data': ['minerals', 'biomass'],
+                        }, {
+                            'name': 'data',
+                            'data': ['units', 'misses'],
+                        }
+                    ];
+
+                    for (var j in keys) {
+                        var k = keys[j];
+                        for (var i = 0; i < k.data.length; i++) {
+                            $scope.data[name][k.name][i].push(score[k.data[i]]);
+
+                            if ($scope.data[name][k.name][i].length > maxPoints)
+                                $scope.data[name][k.name][i].shift();
+                        }
+                    }
+                });
+                Object.keys($scope.data).forEach(function (name) {
+                    $scope.data[name].dead = !seen[name];
+                });
+                $scope.$apply();
+            });
+        });
+    </script>
+</body>
+</html>

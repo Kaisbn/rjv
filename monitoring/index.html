@@ -1,0 +1,80 @@
+<html>
+<head>
+    <title>JAVA Visualization Tool</title>
+    <link rel="stylesheet" href="bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://intra.acu.epita.fr/theme/Yaka2018/css/theme.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+    .panel-primary {
+        border-color: black;
+    }
+    .panel-primary .panel-heading {
+        border-color: black;
+        background-color: black;
+        color: white;
+    }
+    </style>
+</head>
+<body ng-app="rushjava_visu" ng-controller="RushJavaVisuController">
+    <nav class="navbar text-center fixed-top bg-inverse">
+        <label class="navbar-info" ng-bind="topName"></label>
+    </nav>
+
+    <div class="col-sm-12">
+        <div ng-repeat="(server, v) in data" class="col-sm-6 col-md-4">
+            <div class="widget-box">
+                <div class="widget-header" >
+                    <a ng-bind="server" ng-href="/server/{{server}}"></a>
+                    <span class="title label label-warning pull-right" ng-if="v.players.length == 0">EMPTY</span>
+                    <span class="title label label-danger pull-right" ng-if="v.players.length == 10">FULL</span>
+                    <span class="title label label-primary pull-right" ng-if="v.players.length > 0 && v.players.length < 10" ng-bind="{{v.players.length}} + '/10'"></span>
+                    <span class="title label label-success pull-right" ng-if="v.status == 'up'">ON</span>
+                    <span class="title label label-danger pull-right" ng-if="v.status != 'up'">OFF</span>
+                </div>
+                <div class="widget-content">
+                    <div class="container-fluid">
+                        <div ng-repeat="player in v.players | orderBy : '-score'" >
+                            <label ng-bind="player.name"></label>
+                            <label class="pull-right" ng-bind="player.score"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="angular/angular.min.js"></script>
+    <script src="chart.js/dist/Chart.min.js"></script>
+    <script src="socket.io-client/dist/socket.io.min.js"></script>
+    <script src="angular-chart.js/dist/angular-chart.min.js"></script>
+    <script>
+        angular
+        .module('rushjava_visu', ['chart.js'])
+        .controller('RushJavaVisuController', function ($scope) {
+
+            $scope.data = {};
+
+            $scope.options = {
+                animation : false,
+            }
+            $scope.labels = [];
+            $scope.topName = 'Servers list';
+
+            var socket = io.connect();
+            socket.on('serverList', function(data) {
+                $scope.data = data;
+
+                var count = 0;
+                var total = 0;
+                for (var k in data) {
+                    if (data[k].status == 'up') ++count;
+                    ++total;
+                }
+
+                $scope.topName = 'Server list ' + "(" + count + "/" + total + ")";
+                $scope.$apply();
+            });
+        });
+    </script>
+</body>
+</html>

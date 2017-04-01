@@ -1,0 +1,36 @@
+.navbar {
+  border-radius: 0px;
+}
+
+.navbar-info {
+  height: 50px;
+  padding: 15px 15px;
+  font-size: 18px;
+  line-height: 20px;
+  color: #fff;
+}
+
+.label {
+  font-size: 12px;
+  padding: 4px;
+}
+
+.label + .label {
+  margin-right: 5px;
+}
+
+a, a:hover, .widget-header {
+    color: #fff;
+}
+
+.widget-header {
+    padding: 7px 10px 10px 12px;
+}
+
+.widget-content {
+    padding: 15px;
+}
+
+.dead-body {
+  background: white;
+}
