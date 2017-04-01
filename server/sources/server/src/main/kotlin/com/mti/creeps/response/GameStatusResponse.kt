@@ -8,7 +8,10 @@ import java.util.*
  * @author PSX
  * @since 1.0-SNAPSHOT
  */
-data class GameStatusResponse(var pluginRunning: Boolean, var gameRunning: Boolean, var scores: Map<String, Map<String, Int>>) :
-        Response {
-    constructor() : this(true, false, Collections.emptyMap<String, Map<String, Int>>())
-}
+data class GameStatusResponse(
+        var pluginRunning: Boolean,
+        var gameRunning: Boolean,
+        var startTime: Long,
+        var endTime: Long,
+        var scores: Map<String, Map<String, Int>>
+) : Response

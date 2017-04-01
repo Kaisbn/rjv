@@ -27,7 +27,10 @@ class Creeps(val server: Server, val plugin: CreepsPlugin) {
     var spawnCounter: Long = 0
     val dyeQueue = TreeSet<DyeColor>()
     val reports: MutableMap<String, Report> = HashMap()
+
     var started: Boolean = false
+    var startTime: Long = 0
+    var endTime: Long = 0
 
     init {
         dyeQueue.addAll(arrayOf(
@@ -160,7 +163,7 @@ class Creeps(val server: Server, val plugin: CreepsPlugin) {
             msgs
         }
 
-        return GameStatusResponse(true, started, eachPlayer.get())
+        return GameStatusResponse(true, started, startTime, endTime, eachPlayer.get())
     }
 
     fun findNextSpawnLocation(): Location {
