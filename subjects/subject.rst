@@ -128,6 +128,10 @@ Json body in your request.
 
 If opcode field is different from "action", an error occured:
 
+* "notrunning"
+
+  The game isn't running. It hasn't started yet or it already ended.
+
 * "noplayer"
 
   ``login`` is not matching any player on the server.
