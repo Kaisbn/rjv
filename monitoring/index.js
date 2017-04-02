@@ -31,7 +31,7 @@ const padInt = (s) => {
 
 const dateToTime = (d) => {
     d = parseInt(d);
-    var m = d / 60;
+    var m = parseInt(d / 60);
     m = m < 0 ? 0 : m;
     var s = d % 60;
     s = s < 0 ? 0 : s;
@@ -66,7 +66,7 @@ const getDataFromSrv = (server) => {
         if (response.data.endTime == 0) {
             status[server].status = "Starting in...";
             status[server].remaining = dateToTime((response.data.startTime - now) / 1000);
-        } else if (response.data.endTime >= now) {
+        } else if (response.data.endTime <= now) {
             status[server].status = "Restarting...";
             status[server].remaining = "Soon";
         } else {
