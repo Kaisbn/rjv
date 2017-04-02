@@ -13,7 +13,6 @@ const servers = require('./servers.json').targets;
 var status = {};
 
 
-app.use(Express.static('deps'));
 app.use(Express.static('public'));
 
 
