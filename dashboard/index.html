@@ -74,8 +74,6 @@
             socket.on('serverList', function(data) {
                 $scope.data = data;
 
-                console.log(data);
-
                 var count = 0;
                 var total = 0;
                 for (var k in data) {
