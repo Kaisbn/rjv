@@ -11,6 +11,11 @@
     state: latest
     update_cache: yes
 
+- name: start cronie
+  systemd:
+    name: cronie
+    state: started
+
 - name: create /opt/minecraft
   file:
     path: /opt/minecraft
