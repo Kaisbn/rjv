@@ -10,6 +10,7 @@ import com.mti.creeps.randomId
  */
 open class ErrorResponse(val opcode: String, val error: String, val reportId: String = randomId()) : Response
 
+class NotRunningResponse(val login: String) : ErrorResponse("notrunning", "Game isn't running")
 class NoSuchPlayerResponse(val login: String) : ErrorResponse("noplayer", "No such player")
 class NoSuchAgentResponse(val login: String, val id: String) : ErrorResponse("noagent", "No such agent")
 class NoSuchReportResponse(reportId: String) : ErrorResponse("noreport", "No such report", reportId)

@@ -1,0 +1,3 @@
+[submodule "tools/butler"]
+	path = tools/butler
+	url = git@gitlab.acu.epita.fr:tools/butler.git

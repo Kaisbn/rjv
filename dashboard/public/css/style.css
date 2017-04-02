@@ -1,0 +1,64 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 80px;
+}
+
+.footer {
+  background: white;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  min-height: 80px;
+  background: white;
+}
+
+.navbar {
+  border-radius: 0px;
+}
+
+.navbar-info {
+  height: 50px;
+  padding: 15px 15px;
+  font-size: 18px;
+  line-height: 20px;
+  color: #fff;
+}
+
+.label {
+  font-size: 12px;
+  padding: 4px;
+}
+
+.label + .label {
+  margin-right: 5px;
+}
+
+a, a:hover, .widget-header {
+    color: #fff;
+}
+
+.widget-header {
+  padding: 7px 10px 10px 12px;
+}
+
+.widget-content {
+  padding: 15px;
+}
+
+.players {
+  font-size: 12px;
+}
+
+.playerName {
+  font-style: italic;
+}
+
+
+hr {
+  margin-top: 10px;
+  margin-bottom: 15px;
+}

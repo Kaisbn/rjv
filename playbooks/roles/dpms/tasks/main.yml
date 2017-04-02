@@ -1,0 +1,9 @@
+---
+- name: install vbetool
+  pacman:
+    name: vbetool
+    state: latest
+    update_cache: yes
+
+- name: enable DPMS
+  raw: vbetool dpms off

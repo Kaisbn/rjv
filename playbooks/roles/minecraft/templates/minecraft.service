@@ -1,0 +1,15 @@
+[Unit]
+Description=minecraft service
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/minecraft
+ExecStartPre=-/bin/rm -rf /opt/minecraft/data /opt/minecraft/logs
+ExecStart=/bin/java {{minecraft_jvm_flags}} -jar {{minecraft_jar}} --noconsole -W data
+Restart=on-failure
+RestartSec=3
+SuccessExitStatus=143
+LimitNOFILE={{minecraft_limit_nofile}}
+
+[Install]
+WantedBy=multi-user.target

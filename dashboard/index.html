@@ -1,0 +1,90 @@
+<html>
+<head>
+    <title>Creeps Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://intra.acu.epita.fr/theme/Yaka2018/css/theme.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+    .panel-primary {
+        border-color: black;
+    }
+    .panel-primary .panel-heading {
+        border-color: black;
+        background-color: black;
+        color: white;
+    }
+    </style>
+</head>
+<body ng-app="rushjava_visu" ng-controller="RushJavaVisuController">
+    <nav class="navbar text-center fixed-top bg-inverse">
+        <label class="navbar-info" ng-bind="topName"></label>
+    </nav>
+
+    <div class="col-sm-12">
+        <div ng-repeat="(server, v) in data" class="col-sm-6 col-md-4">
+            <div class="widget-box">
+                <div class="widget-header" >
+                    <a target="_blank" ng-bind="server" ng-href="/server/{{server}}"></a>
+                    <span class="title label label-success pull-right" ng-if="v.status != 'offline'">ON</span>
+                    <span class="title label label-danger pull-right" ng-if="v.status == 'offline'">OFF</span>
+
+                    <span class="title label label-warning pull-right" ng-if="v.players.length == 0">EMPTY</span>
+                    <span class="title label label-danger pull-right" ng-if="v.players.length == 10">FULL</span>
+                    <span class="title label label-primary pull-right" ng-if="v.players.length > 0 && v.players.length < 10" ng-bind="{{v.players.length}} + '/10'"></span>
+                </div>
+                <div class="widget-content">
+                    <div class="row" ng-if="v.remaining.length > 0">
+                        <div class="col-sm-12">
+                            <label class="pull-left" ng-bind="v.status" ng-if="v.remaining.length > 0"></label>
+                            <label class="pull-right" ng-bind="v.remaining" ng-if="v.remaining.length > 0"></label>
+                        </div>
+                    </div>
+                    <hr ng-if="v.players.length > 0">
+                    <div class="row">
+                        <div class="players col-sm-12">
+                            <div ng-repeat="player in v.players | orderBy : '-score'" >
+                                <label class="playerName" ng-bind="player.name"></label>
+                                <label class="pull-right" ng-bind="player.score"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-chart.js/1.1.1/angular-chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.slim.min.js"></script>
+    <script>
+        angular
+        .module('rushjava_visu', ['chart.js'])
+        .controller('RushJavaVisuController', function ($scope) {
+
+            $scope.data = {};
+
+            $scope.options = {
+                animation : false,
+            }
+            $scope.labels = [];
+            $scope.topName = 'Servers list';
+
+            var socket = io.connect();
+            socket.on('serverList', function(data) {
+                $scope.data = data;
+
+                var count = 0;
+                var total = 0;
+                for (var k in data) {
+                    if (data[k].status != 'offline') ++count;
+                    ++total;
+                }
+
+                $scope.topName = 'Server list ' + "(" + count + "/" + total + ")";
+                $scope.$apply();
+            });
+        });
+    </script>
+</body>
+</html>

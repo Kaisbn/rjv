@@ -1,0 +1,49 @@
+---
+- name: install ufw
+  pacman:
+    name: ufw
+    state: latest
+    update_cache: yes
+
+- name: allow SSH
+  ufw:
+    rule: allow
+    name: SSH
+
+- name: allow Minecraft port
+  ufw:
+    rule: allow
+    port: 25565
+
+- name: allow plugin port
+  ufw:
+    rule: allow
+    port: 1664
+
+- name: allow server monitoring
+  ufw:
+    rule: allow
+    port: 9100
+    from: '{{lab_ip}}'
+
+- name: allow minecraft monitoring
+  ufw:
+    rule: allow
+    port: 9225
+    from: '{{lab_ip}}'
+
+- name: set default incoming policy to deny
+  ufw:
+    policy: deny
+    direction: incoming
+
+- name: set default outgoing policy to allow
+  ufw:
+    policy: allow
+    direction: outgoing
+
+- name: enable logging
+  ufw: logging=low
+
+- name: enable ufw
+  ufw: state=enabled

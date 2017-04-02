@@ -1,13 +1,10 @@
-subject:
-  script:
-    - make subject
-    - fab deploy_doc:subjects/subject.pdf
-
-files:
-  script:
-    - fab deploy_doc:files/creeps.pdf
-    - fab deploy_doc:files/creeps-login_l.tar.bz2
+before_script:
+  - git submodule init
+  - git submodule sync
+  - git submodule update
 
 project:
   script:
-    - fab deploy_project
+    - ci deploy_project
+    - make
+    - ci deploy_doc subject.pdf

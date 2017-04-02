@@ -1,15 +1,15 @@
-name: "Rush Minecraft"
-category: "Atelier java"
+project:
+  name: "Rush Minecraft"
+  intra_url: "rush_minecraft"
+  begin:  2016-04-15 21:00:00
+  end:    2016-04-17 11:42:00
+  git_url: git@git.acu.epita.fr:rush-alternatif-2018/login_x-rush-alternatif.git
 
-managers: [dagues_p, dumeig_a, maurer_h, teixei_f]
+managers: [dumeig_a]
 
-news:
-    newsgroup: epita.cours.java.atelier
+newsgroup:
+    name: assistants.projets
     tag: RAM
-
-period:
-    begin:  2016-04-15 21:00:00
-    end:    2016-04-17 11:42:00
 
 languages:
     - id: java
@@ -19,10 +19,6 @@ targets:
     - id: javac
       type: compiler
       name: javac
-
-repositories:
-    - id: YAKA
-      uri: git@git.acu.epita.fr:rush-alternatif-2018/login_x-rush-alternatif.git
 
 submissions:
     - name: Submission
@@ -36,15 +32,16 @@ submissions:
 defenses:
     - name: Defense
       date: 2016-04-17 12:30:00
-      file: soutenance.xml
+      file: defenses/defense.xml
 
 documents:
     - name: subject.pdf
+      filepath: subjects/subject.pdf
       type: subject
       date: 2016-04-15 21:00:00
-    - name: creeps.pdf
-      type: file
-      date: 2016-04-15 21:00:00
-    - name: creeps-login_l.tar.bz2
-      type: file
-      date: 2016-04-15 21:00:00
+#    - name: creeps.pdf
+#      type: file
+#      date: 2016-04-15 21:00:00
+#    - name: creeps-login_l.tar.bz2
+#      type: file
+#      date: 2016-04-15 21:00:00
