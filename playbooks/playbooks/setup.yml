@@ -1,0 +1,11 @@
+---
+- name: Setup nodes
+  user: root
+  hosts: nodes
+  vars:
+    ansible_python_interpreter: "/usr/bin/python2.7"
+  roles:
+    - dpms
+    - firewall
+    - node-exporter
+    - minecraft

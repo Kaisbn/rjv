@@ -1,0 +1,38 @@
+---
+- name: install java-jre
+  pacman:
+    name: jre8-openjdk-headless
+    state: latest
+    update_cache: yes
+
+- name: install cronie
+  pacman:
+    name: cronie
+    state: latest
+    update_cache: yes
+
+- name: create /opt/minecraft
+  file:
+    path: /opt/minecraft
+    state: directory
+    mode: 0755
+
+- name: copy minecraft.tar
+  unarchive:
+    src: minecraft.tar
+    dest: /opt/minecraft
+    mode: 0755
+
+- name: copy minecraft.service
+  template:
+    src: minecraft.service
+    dest: /etc/systemd/system/minecraft.service
+
+- name: start minecraft.service
+  raw: systemctl daemon-reload; systemctl stop minecraft; killall java; systemctl restart minecraft
+
+- name: restart every hour
+  cron:
+    name: restart minecraft
+    minute: '0'
+    job: "systemd restart minecraft"
