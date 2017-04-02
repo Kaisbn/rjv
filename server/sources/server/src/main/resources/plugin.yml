@@ -18,9 +18,6 @@ commands:
   tp:
     description: Teleports the sender to target location (if valid).
     usage: /tp x y z
-  start:
-    description: Start the game.
-    usage: /start
   sphere:
     description: Invoke a sphere of matter. And it will fall.
     usage: /sphere x y z material

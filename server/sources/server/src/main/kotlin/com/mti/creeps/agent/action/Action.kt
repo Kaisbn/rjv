@@ -48,7 +48,7 @@ interface Action<REPORT : Report> {
                 if (agent.player.alive) {
                     creeps(server).game.reports[report!!.reportId] = report!!
                     agent.available = true
-                    server.logger.info("${System.currentTimeMillis()} report ${report!!.reportId} published for agent " + "${agent.id}")
+                    //server.logger.info("${System.currentTimeMillis()} report ${report!!.reportId} published for agent " + "${agent.id}")
                 }
             }
 
@@ -75,7 +75,7 @@ interface Action<REPORT : Report> {
             fun update(report: ErrorReport) {
                 creeps(server).game.reports[report!!.reportId] = report!!
                 agent.available = true
-                server.logger.info("${System.currentTimeMillis()} report ${report!!.reportId} published for agent " + "${agent.id}")
+                //server.logger.info("${System.currentTimeMillis()} report ${report!!.reportId} published for agent " + "${agent.id}")
             }
 
             val report = if (!agent.available) {
