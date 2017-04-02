@@ -40,4 +40,4 @@
   cron:
     name: restart minecraft
     minute: '0'
-    job: "systemd restart minecraft"
+    job: 'systemctl restart minecraft'
