@@ -4,16 +4,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://intra.acu.epita.fr/theme/Yaka2018/css/theme.css">
     <link rel="stylesheet" href="/css/style.css">
-    <style>
-    .panel-primary {
-        border-color: black;
-    }
-    .panel-primary .panel-heading {
-        border-color: black;
-        background-color: black;
-        color: white;
-    }
-    </style>
+    <link href="https://intra.acu.epita.fr/theme/Yaka2018/img/favicon.ico" type="image/x-icon" rel="icon">
 </head>
 <body ng-app="rushjava_visu" ng-controller="RushJavaVisuController">
     <nav class="navbar navbar-info text-center fixed-top bg-inverse">
@@ -24,7 +15,7 @@
     </nav>
 
     <div class="col-sm-12">
-        <div ng-repeat="(name, v) in data" class="col-sm-6 col-md-4" ng-if="!v.dead">
+        <div ng-repeat="(name, v) in data" class="col-sm-6 col-md-4">
             <div class="widget-box">
                 <div class="widget-header">
                     <span class="title" ng-bind="name"></span>
@@ -59,18 +50,6 @@
             </div>
         </div>
     </div>
-    <div class="footer col-sm-12">
-        <div class="col-sm-12">
-            <label>List of dead players:</label>
-        </div>
-        <div class="col-sm-12">
-
-            <div ng-repeat="(name, v) in data" class="col-sm-4 col-md-3" ng-if="v.dead">
-                <span class="title" ng-bind="name"></span>
-                <span class="title pull-right" ng-bind="v.score"></span>
-            </div>
-        </div>
-    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
@@ -96,20 +75,25 @@
             var serverName = parts.pop() || parts.pop();
             $scope.name = serverName;
 
-
             var socket = io.connect();
             socket.on('serverDetail_' + serverName, function(data) {
                 $scope.status = data.status;
                 var players = data.data.scores || {};
                 var dt = new Date();
-                //$scope.labels.push(dt.getMinutes() + ':' + dt.getSeconds());
+
                 $scope.labels.push("");
                 if ($scope.labels.length > maxPoints) {
                     $scope.labels.shift();
                 }
-                var seen = {};
+                $scope.data = {};
 
                 Object.keys(players).forEach(function (name) {
+                    var regex = /^\[(\d+)\] (.*)$/
+                    if (name.match(regex)) {
+                        name = name.match(regex)[1];
+                        console.log(name);
+                    }
+
                     seen[name] = true;
                     if (!$scope.data[name]) {
                         $scope.data[name] = {
@@ -142,9 +126,6 @@
                                 $scope.data[name][k.name][i].shift();
                         }
                     }
-                });
-                Object.keys($scope.data).forEach(function (name) {
-                    $scope.data[name].dead = !seen[name];
                 });
                 $scope.$apply();
             });

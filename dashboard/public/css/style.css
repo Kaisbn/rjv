@@ -7,15 +7,6 @@ body {
   margin-bottom: 80px;
 }
 
-.footer {
-  background: white;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  min-height: 80px;
-  background: white;
-}
-
 .navbar {
   border-radius: 0px;
 }
@@ -61,4 +52,35 @@ a, a:hover, .widget-header {
 hr {
   margin-top: 10px;
   margin-bottom: 15px;
+}
+
+
+
+/*
+** Datatables
+*/
+
+.dataTables_wrapper .dataTables_length {
+    float: left;
+}
+
+.dataTables_wrapper .dataTables_filter {
+    float: right;
+    text-align: right;
+}
+
+.dataTables_wrapper .dataTables_filter input {
+    margin-left: 0.5em;
+}
+
+table.dataTable tbody td:not(:first-child) {
+    padding: 8px 3%;
+}
+
+th, td.td-align-center {
+  text-align:  center;
+}
+
+td.td-align-right {
+  text-align:  right;
 }

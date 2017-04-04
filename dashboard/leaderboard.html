@@ -1,0 +1,89 @@
+<html>
+<head>
+    <title>Creeps Leaderboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://intra.acu.epita.fr/theme/Yaka2018/css/theme.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://intra.acu.epita.fr/theme/Yaka2018/img/favicon.ico" type="image/x-icon" rel="icon">
+</head>
+<body >
+    <nav class="navbar text-center fixed-top bg-inverse">
+        <label class="navbar-info">Leaderboard</label>
+    </nav>
+
+    <div class="col-sm-12">
+        <div class="widget-box">
+            <div class="widget-content">
+                <div class="table-responsive">
+                    <table id="myTable" class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Name</th>
+                                <th>Pseudo</th>
+                                <th>Server</th>
+                                <th>Score</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.slim.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            var t = $('#myTable').DataTable({
+                columnDefs: [
+                    {
+                        className: "td-align-center",
+                        "targets": [3]
+                    }, {
+                        className: "td-align-right",
+                        "targets": [0, 4]
+                    },
+                    {
+                        orderable: false,
+                        "targets": [0]
+                    },
+                    { "width": "10px", "targets": [0] },
+                ],
+                order: [
+                    [4, "desc"]
+                ],
+                scrollY: "calc(100vh - 250px)",
+                scrollCollapse: true,
+                paging: false,
+            });
+
+            var socket = io.connect();
+            socket.on('leaderboard', function(data) {
+                var players = [];
+
+                var i = 1;
+                Object.keys(data).forEach(function(player) {
+                    var tmp = data[player];
+
+                    players.push([
+                        i,
+                        player,
+                        tmp.pseudo,
+                        tmp.server,
+                        tmp.score,
+                    ]);
+
+                    i++;
+                });
+
+                t.clear();
+                t.rows.add(players);
+                t.draw();
+            });
+        });
+    </script>
+</body>
+</html>

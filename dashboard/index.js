@@ -10,19 +10,30 @@ const server = Http.createServer(app);
 const io = SocketIo(server);
 
 const servers = require('./servers.json').targets;
+const students = require('./students.json');
 var status = {};
+
+var players = {};
 
 
 app.use(Express.static('public'));
-
 
 app.get("/", (req, res, next) => {
     res.sendFile(__dirname + "/index.html");
 });
 
+app.get("/leaderboard", (req, res, next) => {
+    res.sendFile(__dirname + "/leaderboard.html");
+})
+
 const fetchServersData = () => {
     io.emit('serverList', status);
     setTimeout(fetchServersData, 3000);
+}
+
+const fetchLeaderboard = () => {
+    io.emit('leaderboard', players);
+    setTimeout(fetchLeaderboard, 3000);
 }
 
 const padInt = (s) => {
@@ -38,26 +49,63 @@ const dateToTime = (d) => {
     return padInt(m) + ":" + padInt(s);
 }
 
+const saveScore = (server, player, score) => {
+    var regex = /^\[(\d+)\] (.*)$/
+    if (player.match(regex)) {
+        var result = player.match(regex);
+        if (result[1] in students) {
+
+            if (!players[students[result[1]]]
+                || players[students[result[1]]].score <= score) {
+                players[students[result[1]]] = {
+                    pseudo: result[2],
+                    score: score,
+                    server: server,
+                };
+            }
+
+            return result[2];
+        } else {
+            console.log("Unknown", result[2]);
+        }
+
+        return player;
+    }
+}
+
 
 const getDataFromSrv = (server) => {
     Axios.get("http://" + server + ":1664/status/game")
     .then((response) => {
-        io.emit('serverDetail_' + server, {
-            status: "online",
-            data: response.data
+
+        var scoresSimplify = [];
+        var scoresDetail = {};
+
+        Object.keys(response.data.scores).forEach(function(player) {
+            var name = saveScore(server, player, response.data.scores[player].score);
+
+            scoresSimplify.push({
+                "name": name,
+                "score": response.data.scores[player].score
+            });
+
+            scoresDetail[name] = response.data.scores[player];
         });
 
-        var scores = [];
-        Object.keys(response.data.scores).map(function(key, index) {
-            scores.push({
-                "name": key,
-                "score": response.data.scores[key].score
-            });
+        io.emit('serverDetail_' + server, {
+            status: "online",
+            data: {
+                pluginRunning: response.data.pluginRunning,
+                gameRunning: response.data.gameRunning,
+                startTime: response.data.startTime,
+                endTime: response.data.endTime,
+                scores: scoresDetail,
+            },
         });
 
         status[server] = {
             status: "online",
-            players: scores,
+            players: scoresSimplify,
         };
 
         var now = Date.now();
@@ -77,7 +125,7 @@ const getDataFromSrv = (server) => {
         setTimeout(getDataFromSrv, 3500, server);
     })
     .catch(function (error) {
-        //console.log(error);
+        console.log(error);
 
         io.emit('serverDetail_' + server, {
             status: "offline",
@@ -86,7 +134,7 @@ const getDataFromSrv = (server) => {
         });
 
         status[server] = { "status": "offline" };
-        setTimeout(getDataFromSrv, 3500, server);
+        setTimeout(getDataFromSrv, 5000, server);
     });;
 }
 
@@ -99,9 +147,10 @@ servers.forEach ((s) => {
 });
 
 fetchServersData();
+fetchLeaderboard();
 
-// app.use(function(req, res) {
-//     res.redirect('/');
-// });
+app.get("*", (req, res, next) => {
+    res.redirect('/');
+});
 
 server.listen(1337);
