@@ -1,0 +1,8 @@
+---
+- name: Setup monitoring
+  user: root
+  hosts: manager
+  vars:
+    ansible_python_interpreter: "/usr/bin/python2.7"
+  roles:
+    - discovery

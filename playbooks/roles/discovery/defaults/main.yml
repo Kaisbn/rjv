@@ -1,0 +1,2 @@
+monitoring_path: '/root/creeps/prometheus'
+dashboard_path: '/root/creeps-dashboard'

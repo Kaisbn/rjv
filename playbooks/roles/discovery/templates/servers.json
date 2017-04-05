@@ -1,0 +1,7 @@
+{
+  "targets": [
+    {% for host in groups['nodes'] %}
+      "{{ hostvars[host]['ansible_default_ipv4']['address'] }}"{% if not loop.last %},{% endif %}
+    {% endfor %}
+  ]
+}
