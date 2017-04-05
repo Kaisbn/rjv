@@ -382,11 +382,11 @@ Report structure
 
 ``scan``, ``scan5``, ``scan9``
 ------------------------------
-``scan``: Gives information on the 9 blocks forming the cube centered on the agent.
+``scan``: Gives information on the 3x3x3 cube centered on the agent.
 
-``scan5``: Gives information on the 125 blocks forming the cube centered on the agent.
+``scan5``: Gives information on the 5x5x5 cube centered on the agent.
 
-``scan9``: Gives information on the 729 blocks forming the cube centered on the agent.
+``scan9``: Gives information on the 9x9x9 cube centered on the agent.
 
 Report structure
 
