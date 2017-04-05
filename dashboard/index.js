@@ -3,6 +3,7 @@ const Express = require("express");
 const Axios = require("axios");
 const Http = require("http");
 const SocketIo = require("socket.io");
+const fs = require("fs");
 
 // Instanciate
 const app = Express();
@@ -12,8 +13,12 @@ const io = SocketIo(server);
 const servers = require('./servers.json').targets;
 const students = require('./students.json');
 var status = {};
-
 var players = {};
+
+if (fs.existsSync('leaderboard.json')) {
+    players = require('./leaderboard.json')
+}
+
 
 
 app.use(Express.static('public'));
@@ -25,6 +30,13 @@ app.get("/", (req, res, next) => {
 app.get("/leaderboard", (req, res, next) => {
     res.sendFile(__dirname + "/leaderboard.html");
 })
+
+const saveLeaderboard = () => {
+    var json = JSON.stringify(players);
+    fs.writeFile('leaderboard.json', json, 'utf8');
+
+    setTimeout(saveLeaderboard, 5000);
+}
 
 const fetchServersData = () => {
     io.emit('serverList', status);
@@ -149,6 +161,7 @@ servers.forEach ((s) => {
 
 fetchServersData();
 fetchLeaderboard();
+saveLeaderboard();
 
 app.get("*", (req, res, next) => {
     res.redirect('/');
