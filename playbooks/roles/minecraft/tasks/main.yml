@@ -27,6 +27,8 @@
     src: minecraft.tar
     dest: /opt/minecraft
     mode: 0755
+  tags:
+    - update
 
 - name: copy minecraft.service
   template:
@@ -39,5 +41,5 @@
 - name: restart every hour
   cron:
     name: restart minecraft
-    minute: '0'
+    minute: '{{ (10 * groups.nodes.index(inventory_hostname)) % 60 }}'
     job: 'systemctl restart minecraft'
