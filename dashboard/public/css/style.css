@@ -38,6 +38,9 @@ a, a:hover, .widget-header {
 
 .widget-content {
   padding: 15px;
+}
+
+.listing .widget-content {
   height: 290px;
 }
 
