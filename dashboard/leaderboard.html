@@ -8,9 +8,12 @@
     <link href="https://intra.acu.epita.fr/theme/Yaka2018/img/favicon.ico" type="image/x-icon" rel="icon">
 </head>
 <body >
-    <nav class="navbar text-center fixed-top bg-inverse">
-        <label class="navbar-info">Leaderboard</label>
+    <nav class="navbar navbar-info text-center fixed-top bg-inverse">
+        <a href="/"><span class="glyphicon glyphicon-home pull-left" aria-hidden="true"></span></a>
+        <label>Leaderboard</label>
+        <a href="/leaderboard"><span class="glyphicon glyphicon-star pull-right" aria-hidden="true"></span></a>
     </nav>
+
 
     <div class="col-sm-12">
         <div class="widget-box">
@@ -48,7 +51,7 @@
                     },
                     {
                         orderable: false,
-                        "targets": [0]
+                        "targets": [0, 3]
                     },
                     { "width": "10px", "targets": [0] },
                 ],
@@ -60,23 +63,36 @@
                 paging: false,
             });
 
+            t.on( 'order.dt search.dt', function () {
+                t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+                    if (i < 3)
+                        cell.innerHTML = '<span class="glyphicon glyphicon-star rank-' + i +'" aria-hidden="true"></span>';
+                    else
+                        cell.innerHTML = i+1;
+                } );
+            } ).draw();
+
+            $(document).on('click', 'td:nth-child(4)', function () {
+                var win = window.open('/server/' + $(this).html(), '_blank');
+                if (win) {
+                    win.focus();
+                }
+            });
+
             var socket = io.connect();
             socket.on('leaderboard', function(data) {
                 var players = [];
 
-                var i = 1;
                 Object.keys(data).forEach(function(player) {
                     var tmp = data[player];
 
                     players.push([
-                        i,
+                        "",
                         player,
                         tmp.pseudo,
                         tmp.server,
                         tmp.score,
                     ]);
-
-                    i++;
                 });
 
                 t.clear();

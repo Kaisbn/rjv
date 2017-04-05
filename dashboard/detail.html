@@ -10,8 +10,9 @@
     <nav class="navbar navbar-info text-center fixed-top bg-inverse">
         <a href="/"><span class="glyphicon glyphicon-home pull-left" aria-hidden="true"></span></a>
         <label class="" ng-bind="name"></label>
-        <span class=" label label-success pull-right" ng-if="status != 'offline'">ON</span>
-        <span class=" label label-danger pull-right" ng-if="status == 'offline'">OFF</span>
+        <span class="label label-success" ng-if="status != 'offline'">ON</span>
+        <span class="label label-danger" ng-if="status == 'offline'">OFF</span>
+        <a href="/leaderboard"><span class="glyphicon glyphicon-star pull-right" aria-hidden="true"></span></a>
     </nav>
 
     <div class="col-sm-12">
@@ -85,21 +86,22 @@
                 if ($scope.labels.length > maxPoints) {
                     $scope.labels.shift();
                 }
+
+                var tmp = $scope.data;
                 $scope.data = {};
 
                 Object.keys(players).forEach(function (name) {
                     var regex = /^\[(\d+)\] (.*)$/
                     if (name.match(regex)) {
                         name = name.match(regex)[1];
-                        console.log(name);
                     }
 
-                    seen[name] = true;
-                    if (!$scope.data[name]) {
+                    if (name in tmp && tmp[name]) {
+                        $scope.data[name] = tmp[name];
+                    } else {
                         $scope.data[name] = {
                             ressources: [[], []],
                             data: [[], [], []],
-                            dead: false,
                             score: 0,
                         };
                     }

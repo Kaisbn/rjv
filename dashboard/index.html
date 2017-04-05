@@ -7,8 +7,10 @@
     <link href="https://intra.acu.epita.fr/theme/Yaka2018/img/favicon.ico" type="image/x-icon" rel="icon">
 </head>
 <body ng-app="rushjava_visu" ng-controller="RushJavaVisuController">
-    <nav class="navbar text-center fixed-top bg-inverse">
-        <label class="navbar-info" ng-bind="topName"></label>
+    <nav class="navbar navbar-info text-center fixed-top bg-inverse">
+        <a href="/"><span class="glyphicon glyphicon-home pull-left" aria-hidden="true"></span></a>
+        <label ng-bind="topName"></label>
+        <a href="/leaderboard"><span class="glyphicon glyphicon-star pull-right" aria-hidden="true"></span></a>
     </nav>
 
     <div class="col-sm-12">

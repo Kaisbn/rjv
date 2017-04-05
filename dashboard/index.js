@@ -51,6 +51,7 @@ const dateToTime = (d) => {
 
 const saveScore = (server, player, score) => {
     var regex = /^\[(\d+)\] (.*)$/
+
     if (player.match(regex)) {
         var result = player.match(regex);
         if (result[1] in students) {
@@ -68,9 +69,9 @@ const saveScore = (server, player, score) => {
         } else {
             console.log("Unknown", result[2]);
         }
-
-        return player;
     }
+
+    return player;
 }
 
 
