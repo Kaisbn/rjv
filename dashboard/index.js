@@ -126,7 +126,7 @@ const getDataFromSrv = (server) => {
         setTimeout(getDataFromSrv, 3500, server);
     })
     .catch(function (error) {
-        console.log(error);
+        //console.log(error);
 
         io.emit('serverDetail_' + server, {
             status: "offline",
