@@ -32,7 +32,7 @@
                             <label class="pull-right" ng-bind="v.remaining" ng-if="v.remaining.length > 0"></label>
                         </div>
                     </div>
-                    <hr ng-if="v.players.length > 0">
+                    <hr>
                     <div class="row">
                         <div class="players col-sm-12">
                             <div ng-repeat="player in v.players | orderBy : '-score'" >

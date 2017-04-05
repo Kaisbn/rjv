@@ -33,7 +33,7 @@ const fetchServersData = () => {
 
 const fetchLeaderboard = () => {
     io.emit('leaderboard', players);
-    setTimeout(fetchLeaderboard, 3000);
+    setTimeout(fetchLeaderboard, 5000);
 }
 
 const padInt = (s) => {

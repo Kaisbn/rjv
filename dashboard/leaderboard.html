@@ -19,6 +19,13 @@
         <div class="widget-box">
             <div class="widget-content">
                 <div class="table-responsive">
+                    <label class="refresh pull-left">REFRESH</label>
+                    <div class="pull-left">
+                        <div class="btn-group btn-toggle">
+                            <button class="btn btn-sm btn-switch">ON</button>
+                            <button class="btn btn-sm btn-switch active">OFF</button>
+                          </div>
+                    </div>
                     <table id="myTable" class="table table-condensed">
                         <thead>
                             <tr>
@@ -63,6 +70,14 @@
                 paging: false,
             });
 
+            var load = false;
+            var fetch = false;
+
+            $('.btn-toggle').click(function() {
+                $(this).find('.btn-switch').toggleClass('active');
+                fetch = !fetch;
+            });
+
             t.on( 'order.dt search.dt', function () {
                 t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
                     if (i < 3)
@@ -95,11 +110,15 @@
                     ]);
                 });
 
-                t.clear();
-                t.rows.add(players);
-                t.draw();
+                if (!load || fetch) {
+                    t.clear();
+                    t.rows.add(players);
+                    t.draw();
+                }
+                load = true;
             });
         });
+
     </script>
 </body>
 </html>

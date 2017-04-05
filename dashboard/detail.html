@@ -91,11 +91,6 @@
                 $scope.data = {};
 
                 Object.keys(players).forEach(function (name) {
-                    var regex = /^\[(\d+)\] (.*)$/
-                    if (name.match(regex)) {
-                        name = name.match(regex)[1];
-                    }
-
                     if (name in tmp && tmp[name]) {
                         $scope.data[name] = tmp[name];
                     } else {

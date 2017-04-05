@@ -42,6 +42,8 @@ a, a:hover, .widget-header {
 
 .players {
   font-size: 12px;
+  height: 75px;
+  overflow-y: scroll;
 }
 
 .playerName {
@@ -73,6 +75,30 @@ td:nth-child(4) {
 
 td:nth-child(4):hover {
   color: black;
+}
+
+.refresh {
+  margin-right: 10px;
+  padding-top: 4px;
+}
+
+
+.btn-switch:not(.active) {
+  color: #333;
+  background-color: #fff;
+  border-color: #ccc;
+}
+
+.btn-switch.active {
+  background-color: #91010b;
+  border-color: #73010b;
+  color: white;
+}
+
+
+.btn-switch.active:focus, .btn-switch.active:hover {
+  color: #fff;
+  background-color: #742020;
 }
 
 .rank-0 {
