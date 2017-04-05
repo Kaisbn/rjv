@@ -48,7 +48,6 @@ a, a:hover, .widget-header {
 .players {
   font-size: 12px;
   height: 210px;
-  overflow-y: auto;
 }
 
 .playerName {
