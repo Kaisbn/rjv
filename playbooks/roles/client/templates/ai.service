@@ -1,0 +1,15 @@
+[Unit]
+Description=AI service
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/minecraft
+ExecStartPre=-/bin/rm -rf /opt/minecraft/data /opt/minecraft/logs
+ExecStart=/bin/java {{ai_jvm_flags}} -jar {{ai_jar}} {{ai_host}} {{ai_port}} {{ai_login}}
+Restart=on-failure
+RestartSec=3
+SuccessExitStatus=143
+LimitNOFILE={{ai_limit_nofile}}
+
+[Install]
+WantedBy=multi-user.target

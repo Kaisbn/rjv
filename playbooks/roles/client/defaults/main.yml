@@ -1,0 +1,9 @@
+ai_jar: 'ai.jar'
+ai_host: 'localhost'
+ai_port: '1664'
+ai_login: 'test'
+
+nb_ai: 1
+
+ai_limit_nofile: 500000
+ai_jvm_flags: '-Xmx8G -Xms8G'
