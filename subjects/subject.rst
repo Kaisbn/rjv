@@ -97,7 +97,7 @@ Register you as a player using the provided ``login`` - valid logins: ^[a-z0-9.-
         "probeId" : "a1b2c3d4e",    // Initial probe ID
     }
 
-If error field is not null, an error occured:
+If error field is not null, an error occurred:
 
 * "login not available"
 
@@ -126,7 +126,7 @@ Json body in your request.
         "misses" : 0                // Number of misses
     }
 
-If opcode field is different from "action", an error occured:
+If opcode field is different from "action", an error occurred:
 
 * "notrunning"
 
@@ -135,7 +135,7 @@ If opcode field is different from "action", an error occured:
 * "noplayer"
 
   ``login`` is not matching any player on the server.
-  You have been kick for inactivy.
+  You have been kick for inactivity.
 
 * "unavailable"
 
@@ -145,7 +145,7 @@ If opcode field is different from "action", an error occured:
 
 * "nomoney"
 
-  Your ressources are not sufficiant for the moment. Retry later when they do.
+  Your resources are not sufficient for the moment. Retry later when they do.
 
 * "dead"
 
@@ -295,13 +295,13 @@ Report structure
 .. code:: raw
 
     {
-        "opcode" : "status",        // Action opcode.
+        "opcode" : "status",        // Action opcode
         "reportId" : "1a2b3c4d5",   // Report ID
         "id" : "a1b2c3d4e",         // Agent ID
         "login" : "login_x",        // Player login
         "status" : "alive"          // Can be "alive" or "dead"
         "causeOfDeath" : "",        // Can be "release", "tnt" or "lava"
-        "location" : {}             // A Location object.
+        "location" : {}             // A Location object
     }
 
 
@@ -315,11 +315,11 @@ Report structure
 .. code:: raw
 
     {
-        "opcode" : "move",          // Action opcode.
+        "opcode" : "move",          // Action opcode
         "reportId" : "1a2b3c4d5",   // Report ID
         "id" : "a1b2c3d4e",         // Agent ID
         "login" : "login_x",        // Player login
-        "location" : {}             // A Location object.
+        "location" : {}             // A Location object
     }
 
 ``convert``
@@ -333,13 +333,13 @@ Report structure
 .. code:: raw
 
     {
-        "opcode" : "convert",       // Action opcode.
+        "opcode" : "convert",       // Action opcode
         "reportId" : "1a2b3c4d5",   // Report ID
         "id" : "a1b2c3d4e",         // Agent ID
         "login" : "login_x",        // Player login
         "status" : "alive"          // Can be "alive" or "dead"
         "causeOfDeath" : "",        // Can be "release", "tnt" or "lava"
-        "location" : {}             // A Location object.
+        "location" : {}             // A Location object
     }
 
 ``mine``
@@ -352,7 +352,7 @@ Report structure
 .. code:: raw
 
     {
-        "opcode" : "mine",          // Action opcode.
+        "opcode" : "mine",          // Action opcode
         "reportId" : "1a2b3c4d5",   // Report ID
         "id" : "a1b2c3d4e",         // Agent ID
         "login" : "login_x",        // Player login
@@ -360,7 +360,7 @@ Report structure
         "biomassEarned" : 42,       // Biomass earned by the action
         "status" : "alive",         // Can be "alive" or "dead"
         "causeOfDeath" : "",        // Can be "release", "tnt" or "lava"
-        "location" : {}             // A Location object.
+        "location" : {}             // A Location object
     }
 
 ``playerstatus``
@@ -372,7 +372,7 @@ Report structure
 .. code:: raw
 
     {
-        "opcode" : "playerstatus",  // Action opcode.
+        "opcode" : "playerstatus",  // Action opcode
         "reportId" : "1a2b3c4d5",   // Report ID
         "id" : "a1b2c3d4e",         // Agent ID
         "login" : "login_x",        // Player login
@@ -393,7 +393,7 @@ Report structure
 .. code:: raw
 
     {
-        "opcode" : "scan",          // Action opcode.
+        "opcode" : "scan",          // Action opcode
         "reportId" : "1a2b3c4d5",   // Report ID
         "id" : "a1b2c3d4e",         // Agent ID
         "login" : "login_x",        // Player login
@@ -452,12 +452,12 @@ Report structure
 ----------
 Invokes a sphere of matter around the templar.
 
-You must provide the ``material`` argument in the json body of your POST request.
+You must provide the ``material`` argument in the Json body of your POST request.
 
 .. code:: raw
 
     {
-        "material" : "lava"         // Material can be water, sand, lava or tnt
+        "material" : "lava"         // Material can be "water", "sand", "lava" or "tnt"
     }
 
 Report structure
@@ -465,7 +465,7 @@ Report structure
 .. code:: raw
 
     {
-        "opcode" : "sphere",        // Action opcode.
+        "opcode" : "sphere",        // Action opcode
         "reportId" : "1a2b3c4d5",   // Report ID
         "id" : "a1b2c3d4e",         // Agent ID
         "login" : "login_x"         // Player login
@@ -480,7 +480,7 @@ Report structure
 .. code:: raw
 
     {
-        "opcode" : "ion",           // Action opcode.
+        "opcode" : "ion",           // Action opcode
         "reportId" : "1a2b3c4d5",   // Report ID
         "id" : "a1b2c3d4e",         // Agent ID
         "login" : "login_x"         // Player login
@@ -488,14 +488,15 @@ Report structure
 
 ``laser``
 ---------
-Fires orbital laser, nothing should left before the bedrock is reached. Ouch-much.
+Fires orbital laser, nothing should left before the bedrock is reached.
+Ouch-much.
 
 Report structure
 
 .. code:: raw
 
     {
-        "opcode" : "laser",         // Action opcode.
+        "opcode" : "laser",         // Action opcode
         "reportId" : "1a2b3c4d5",   // Report ID
         "id" : "a1b2c3d4e",         // Agent ID
         "login" : "login_x"         // Player login
@@ -503,14 +504,14 @@ Report structure
 
 ``release``
 -----------
-Releases the agent, giving you some ressources back depending on the unit type.
+Releases the agent, giving you some resources back depending on the unit type.
 
 Report structure
 
 .. code:: raw
 
     {
-        "opcode" : "release",       // Action opcode.
+        "opcode" : "release",       // Action opcode
         "reportId" : "1a2b3c4d5",   // Report ID
         "id" : "a1b2c3d4e",         // Agent ID
         "login" : "login_x",        // Player login
@@ -538,29 +539,37 @@ Behaviour and Design Tips
 
 Agents and threading model
 --------------------------
-Even though it would be possible to implement an IA over a single execution thread, said IA would be very limited in
-terms of capabilities. We **strongly** encourage you to adopt a more advanced design, where each agent will be executed
-as a separate execution thread (not necessarily as a system thread though, as we have seen they can be
-quite limited). This would allow you to scale up to dozen or even thousands of agents on general-availability
-computer depending on your implementation.
+Even though it would be possible to implement an IA over a single execution
+thread, said IA would be very limited in terms of capabilities. We **strongly**
+encourage you to adopt a more advanced design, where each agent will be executed
+as a separate execution thread (not necessarily as a system thread though, as
+we have seen they can be quite limited). This would allow you to scale up to
+dozen or even thousands of agents on general-availability computer depending on
+your implementation.
 
-As such things as coroutines, fibers, green threads or agent systems are not available to you in this project, we
-suggest you take interest in the reactor pattern, especially implementations like the one found in the Rx project
-(note that you are not allowed to use the library, only try to understand and emulate it). Using CompletableFuture
-and its sibling classes presented in this projects own presentation should allow you to do so in no time.
+As such things as coroutines, fibers, green threads or agent systems are not
+available to you in this project, we suggest you take interest in the reactor
+pattern, especially implementations like the one found in the Rx project
+(note that you are not allowed to use the library, only try to understand and
+emulate it). Using CompletableFuture and its sibling classes presented in this
+projects own presentation should allow you to do so in no time.
 
 Here and there...
 -----------------
 As a conclusion to this chapter, let me sum it up for you.
 You should develop a mechanism that will:
 
-* Take a command, some code to execute after completion and some code to execute should any error occur.
-* Ideally, the ``after completion`` code and the error code should be implemented using the same mechanism, thus
-  creating a chaining feature.
-* Have this mechanism class execute the code on a separate thread of execution, by any means you see fit.
-* Have it wait for the execution of the command (plus some added safety time buffer).
+* Take a command, some code to execute after completion and some code to execute
+  should any error occur.
+* Ideally, the ``after completion`` code and the error code should be
+  implemented using the same mechanism, thus creating a chaining feature.
+* Have this mechanism class execute the code on a separate thread of execution,
+  by any means you see fit.
+* Have it wait for the execution of the command (plus some added safety time
+  buffer).
 * Have it retrieve the execution report and interpret it.
-* Based on the report interpretation, choose to trigger either the next action or the error code.
+* Based on the report interpretation, choose to trigger either the next action
+  or the error code.
 
 So, in pseudo-code your IA might look like that:
 
@@ -577,8 +586,9 @@ So, in pseudo-code your IA might look like that:
      }
 
 
-Add in some clever use of SAMs, lambdas, a scheduler, a strategy and maybe even some observers and it should be quite
-easy to start playing with probes and templars.
+Add in some clever use of SAMs, lambdas, a scheduler, a strategy and maybe even
+some observers and it should be quite easy to start playing with probes and
+templars.
 
 
 Technicalities
@@ -586,8 +596,8 @@ Technicalities
 The project structure is provided to you in the form of the
 project-login_l.tar.gz file.
 
-The build-system used by this project is maven. Configuration file - pom.xml - is
-provided. Unless explicitly told by an assistant, do not modifiy this file.
+The build-system used by this project is maven. Configuration file - pom.xml -
+is provided. Unless explicitly told by an assistant, do not modify this file.
 
 All your source code needs to be placed under the ``${root}/src/main/java/``
 folder. Entry point is defined in ``com.epita.Creeps::main``.
