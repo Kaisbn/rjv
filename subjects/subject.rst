@@ -137,7 +137,7 @@ If opcode field is different from "action", an error occurred:
   ``login`` is not matching any player on the server.
   You have been kick for inactivity.
 
-* "unavailable"
+* "agent not available"
 
   Your agent is already doing something. Wait until he finished before sending
   it another job. Note that your missed calls counter has increased. If it goes
