@@ -457,7 +457,7 @@ You must provide the ``material`` argument in the Json body of your POST request
 .. code:: raw
 
     {
-        "material" : "lava"         // Material can be "water", "sand", "lava" or "tnt"
+        "material" : "lava"         // Can be "water", "sand", "lava" or "tnt"
     }
 
 Report structure
