@@ -19,8 +19,6 @@ if (fs.existsSync('leaderboard.json')) {
     players = require('./leaderboard.json')
 }
 
-
-
 app.use(Express.static('public'));
 
 app.get("/", (req, res, next) => {

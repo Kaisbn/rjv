@@ -18,14 +18,15 @@
             <div class="widget-box">
                 <div class="widget-header" >
                     <a target="_blank" ng-bind="server" ng-href="/server/{{server}}"></a>
-                    <span class="title label label-success pull-right" ng-if="v.status != 'offline'">ON</span>
+                    <span class="title label label-success pull-right" ng-if="v.status != 'offline' && !v.status.includes('Restarting')">ON</span>
                     <span class="title label label-danger pull-right" ng-if="v.status == 'offline'">OFF</span>
+                    <span class="title label label-danger pull-right" ng-if="v.status.includes('Restarting')">Restarting</span>
 
                     <span class="title label label-warning pull-right" ng-if="v.players.length == 0">EMPTY</span>
                     <span class="title label label-danger pull-right" ng-if="v.players.length == 10">FULL</span>
                     <span class="title label label-primary pull-right" ng-if="v.players.length > 0 && v.players.length < 10" ng-bind="{{v.players.length}} + '/10'"></span>
                 </div>
-                <div class="widget-content">
+                <div class="widget-content" ng-class="{'restarting': v.status.includes('Restarting') || v.status == 'offline'}">
                     <div class="row" ng-if="v.remaining.length > 0">
                         <div class="col-sm-12">
                             <label class="pull-left" ng-bind="v.status" ng-if="v.remaining.length > 0"></label>
@@ -71,7 +72,10 @@
                 var count = 0;
                 var total = 0;
                 for (var k in data) {
-                    if (data[k].status != 'offline') ++count;
+                    if (data[k].status != 'offline'
+                        && !data[k].status.includes('Restarting')) {
+                        ++count;
+                    }
                     ++total;
                 }
 

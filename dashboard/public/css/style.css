@@ -38,12 +38,17 @@ a, a:hover, .widget-header {
 
 .widget-content {
   padding: 15px;
+  height: 290px;
+}
+
+.widget-content.restarting {
+  background-color: rgba(105, 88, 88, 0.1);
 }
 
 .players {
   font-size: 12px;
-  height: 75px;
-  overflow-y: scroll;
+  height: 210px;
+  overflow-y: auto;
 }
 
 .playerName {
@@ -78,7 +83,7 @@ td:nth-child(4):hover {
 }
 
 .noplayer {
-  padding: 30px;
+  padding: 25% 0px;
 }
 
 .div-refresh {
@@ -91,20 +96,20 @@ td:nth-child(4):hover {
 }
 
 
-.btn-switch:not(.active) {
+.btn-switch:not(.enable) {
   color: #333;
   background-color: #fff;
   border-color: #ccc;
 }
 
-.btn-switch.active {
+.btn-switch.enable {
   background-color: #91010b;
   border-color: #73010b;
   color: white;
 }
 
 
-.btn-switch.active:focus, .btn-switch.active:hover {
+.btn-switch.enable:focus, .btn-switch.enable:hover {
   color: #fff;
   background-color: #742020;
 }
