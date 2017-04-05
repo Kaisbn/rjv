@@ -4,7 +4,7 @@ Description=node-exporter service
 [Service]
 Type=simple
 WorkingDirectory=/opt/node-exporter
-ExecStart=/opt/node-exporter/node-exporter -log.level info \
+ExecStart=/opt/node-exporter/node_exporter -log.level info \
     -collectors.enabled conntrack,filefd,filesystem,loadavg,meminfo,netdev,netstat,sockstat,stat,systemd,time,uname,vmstat
 
 [Install]
