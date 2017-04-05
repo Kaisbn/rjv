@@ -39,6 +39,9 @@
                                 <label class="playerName" ng-bind="player.name"></label>
                                 <label class="pull-right" ng-bind="player.score"></label>
                             </div>
+                            <div ng-if="v.players.length == 0" class="noplayer text-center">
+                                <label> No player on this server</label>
+                            </div>
                         </div>
                     </div>
                 </div>
