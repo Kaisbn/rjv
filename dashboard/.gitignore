@@ -1,4 +1,4 @@
 node_modules/
 npm-debug.log
-leaderboard.json
-servers.json
+data/leaderboard.json
+data/servers.json
