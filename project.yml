@@ -1,15 +1,31 @@
 project:
-  name: "Rush Minecraft"
-  intra_url: "rush_minecraft"
-  begin:  2016-04-15 21:00:00
-  end:    2016-04-17 11:42:00
-  git_url: git@git.acu.epita.fr:rush-alternatif-2018/login_x-rush-alternatif.git
+  name: "Rush Java"
+  intra_url: "rush_java"
+  begin:  "2017-04-13 11:00:00"
+  end:    "2017-04-14 23:42:00"
+  git_url: git@git.acu.epita.fr:rush-java-2019/login_x-rush-java.git
 
-managers: [dumeig_a]
+managers:
+    - login: boutin_a
+      fullname: Maxime Boutin
+    - login: deutsc_d
+      fullname: Thibault Deutsch
+    - login: fresne_m
+      fullname: Marc Fresne
+    - login: liotie_f
+      fullname: Thibault Liotier
+    - login: lugand_j
+      fullname: Jérémy Lugand
+    - login: orfila_c
+      fullname: Cyprien Orfila
+    - login: vidal_m
+      fullname: Mathieu Vidal
+    - login: youino_f
+      fullname: Florent Youino
 
 newsgroup:
     name: assistants.projets
-    tag: RAM
+    tag: RJV
 
 languages:
     - id: java
@@ -22,23 +38,20 @@ targets:
 
 submissions:
     - name: Submission
-      period:
-        begin:  2016-04-17 09:00:00
-        end:    2016-04-17 11:42:00
-      vcs:
-        id:     YAKA
-        tag:    submission
+      begin:  "2017-04-14 21:00:00"
+      end:    "2017-04-14 23:42:00"
+      tag:    submission
 
 defenses:
     - name: Defense
-      date: 2016-04-17 12:30:00
-      file: defenses/defense.xml
+      begin: "2017-04-20 20:00:00"
+      filepath: defenses/defense.xml
 
 documents:
     - name: subject.pdf
       filepath: subjects/subject.pdf
       type: subject
-      date: 2016-04-15 21:00:00
+      begin: "2017-04-13 11:00:00"
 #    - name: creeps.pdf
 #      type: file
 #      date: 2016-04-15 21:00:00
