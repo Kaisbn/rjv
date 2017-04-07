@@ -85,7 +85,12 @@ Use it to detected if the game has started or not.
 
 GET /init/login
 ---------------
-Register you as a player using the provided ``login`` - valid logins: ^[a-z0-9.-_]+$.
+Register you as a player using the provided ``login`` - valid logins:
+^\[\d+\] [a-z0-9.-_]+$.
+
+The first part of your login [\d+\] must be your UID (from the intranet)
+enclosed by brackets. This will allow us to identify yours AIs but this part
+will not be display.
 
 .. code:: raw
 
