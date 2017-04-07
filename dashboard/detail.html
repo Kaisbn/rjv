@@ -10,8 +10,8 @@
     <nav class="navbar navbar-info text-center fixed-top bg-inverse">
         <a href="/"><span class="glyphicon glyphicon-home pull-left" aria-hidden="true"></span></a>
         <label class="" ng-bind="name"></label>
-        <span class="label label-success" ng-if="status != 'offline'">ON</span>
-        <span class="label label-danger" ng-if="status == 'offline'">OFF</span>
+        <span class="label label-success" ng-if="status == 'ON'">ON</span>
+        <span class="label label-danger" ng-if="status == 'OFF'">OFF</span>
         <a href="/leaderboard"><span class="glyphicon glyphicon-star pull-right" aria-hidden="true"></span></a>
     </nav>
 
@@ -97,12 +97,12 @@
                         $scope.data[name] = {
                             ressources: [[], []],
                             data: [[], [], []],
-                            score: 0,
+                            players: 0,
                         };
                     }
                     var score = players[name];
 
-                    $scope.data[name].score = players[name].score;
+                    $scope.data[name].players = players[name].players;
 
                     var keys = [
                         {

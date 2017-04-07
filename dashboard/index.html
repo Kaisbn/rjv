@@ -13,34 +13,35 @@
         <a href="/leaderboard"><span class="glyphicon glyphicon-star pull-right" aria-hidden="true"></span></a>
     </nav>
 
+    <label>Search: <input ng-model="searchText"></label>
+
     <div class="listing col-sm-12">
-        <div ng-repeat="(server, v) in data" class="col-sm-6 col-md-4">
+        <div ng-repeat="serv in data | filter:searchText | orderBy:['-status', 'name']" class="col-sm-6 col-md-4">
             <div class="widget-box">
                 <div class="widget-header" >
-                    <a target="_blank" ng-bind="server" ng-href="/server/{{server}}"></a>
-                    <span class="title label label-success pull-right" ng-if="v.status != 'offline' && !v.status.includes('Restarting')">ON</span>
-                    <span class="title label label-danger pull-right" ng-if="v.status == 'offline'">OFF</span>
-                    <span class="title label label-danger pull-right" ng-if="v.status.includes('Restarting')">Restarting</span>
+                    <a ng-bind="serv.name" ng-href="/server/{{serv.name}}"></a>
+                    <span class="title label pull-right label-{{serv.status}}">{{serv.status}}</span>
 
-                    <span class="title label label-warning pull-right" ng-if="v.players.length == 0">EMPTY</span>
-                    <span class="title label label-danger pull-right" ng-if="v.players.length == 10">FULL</span>
-                    <span class="title label label-primary pull-right" ng-if="v.players.length > 0 && v.players.length < 10" ng-bind="{{v.players.length}} + '/10'"></span>
+                    <span class="title label {{serv.content.class}} pull-right" ng-bind="serv.content.text" ng-if="serv.content.text.length != ''"></span>
                 </div>
-                <div class="widget-content" ng-class="{'restarting': v.status.includes('Restarting') || v.status == 'offline'}">
-                    <div class="row" ng-if="v.remaining.length > 0">
+                <div class="widget-content" ng-class="{'off': serv.status != 'ON'}">
+                    <div class="row" ng-if="serv.message">
                         <div class="col-sm-12">
-                            <label class="pull-left" ng-bind="v.status" ng-if="v.remaining.length > 0"></label>
-                            <label class="pull-right" ng-bind="v.remaining" ng-if="v.remaining.length > 0"></label>
+                            <label class="pull-left" ng-bind="serv.message"></label>
+                            <label class="pull-right" ng-if="serv.remaining > 0">
+                                <timer end-time="serv.remaining">{{mminutes}}:{{sseconds}}</timer>
+                            </label>
+                            <label class="pull-right" ng-if="serv.remaining.length > 0" ng-bind="serv.remaining"></label>
                         </div>
                     </div>
                     <hr>
                     <div class="row">
                         <div class="players col-sm-12">
-                            <div ng-repeat="player in v.players | orderBy : '-score'" >
+                            <div ng-repeat="player in serv.players | orderBy : '-score'" >
                                 <label class="playerName" ng-bind="player.name"></label>
                                 <label class="pull-right" ng-bind="player.score"></label>
                             </div>
-                            <div ng-if="v.players.length == 0" class="noplayer text-center">
+                            <div ng-if="serv.players.length == 0" class="noplayer text-center">
                                 <label> No player on this server</label>
                             </div>
                         </div>
@@ -52,35 +53,78 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/humanize-duration/3.10.0/humanize-duration.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-timer/1.3.5/angular-timer.min.js"></script>
     <script>
-        angular
-        .module('rushjava_visu', [])
-        .controller('RushJavaVisuController', function ($scope) {
+        const padInt = (s) => {
+            return (s.toString().length < 2 ? "0" : "") + s;
+        }
 
-            $scope.data = {};
+        const dateToTime = (d) => {
+            d = parseInt(d);
+            var m = parseInt(d / 60);
+            m = m < 0 ? 0 : m;
+            var s = d % 60;
+            s = s < 0 ? 0 : s;
+            return padInt(m) + ":" + padInt(s);
+        }
+
+        angular
+        .module('rushjava_visu', ["timer"])
+        .controller('RushJavaVisuController', function ($scope, $interval) {
+            $scope.timerRunning = true;
+
+            $scope.toggles = [{ state: false }, { state: false }];
+
+            $scope.data = [];
 
             $scope.options = {
                 animation : false,
             }
             $scope.labels = [];
             $scope.topName = 'Servers list';
+            var first = true;
 
             var socket = io.connect();
             socket.on('serverList', function(data) {
-                $scope.data = data;
+                var servs = [];
 
                 var count = 0;
                 var total = 0;
                 for (var k in data) {
-                    if (data[k].status != 'offline'
-                        && !data[k].status.includes('Restarting')) {
+                    data[k].name = k;
+                    if (data[k].status == 'ON') {
                         ++count;
                     }
                     ++total;
+
+                    data[k].content = { class: "", text: "" };
+                    if (data[k].status != "OFF") {
+                        if (data[k].players.length == 0) {
+                            data[k].content.text = "EMPTY";
+                            data[k].content.class = "label-warning";
+                        } else if (data[k].players.length == 10) {
+                            data[k].content.text = "FULL";
+                            data[k].content.class = "label-danger";
+                        } else {
+                            data[k].content.text = data[k].players.length + '/10';
+                            data[k].content.class = "label-primary";
+                        }
+                    }
+
+                    servs.push(data[k]);
                 }
 
+
+                
+                $scope.data = servs;
                 $scope.topName = 'Server list ' + "(" + count + "/" + total + ")";
-                $scope.$apply();
+
+                if (first)
+                    $scope.$apply();
+
+                first = false;
             });
         });
     </script>

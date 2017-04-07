@@ -28,6 +28,13 @@ body {
   margin-right: 5px;
 }
 
+.label-ON {background-color:#5cb85c}
+.label-ON[href]:focus,.label-ON[href]:hover {background-color:#449d44}
+
+.label-OFF {background-color:#d9534f}
+.label-OFF[href]:focus,.label-OFF[href]:hover { background-color:#c9302c}
+
+
 a, a:hover, .widget-header {
     color: #fff;
 }
@@ -44,7 +51,7 @@ a, a:hover, .widget-header {
   height: 290px;
 }
 
-.widget-content.restarting {
+.widget-content.off {
   background-color: rgba(105, 88, 88, 0.1);
 }
 

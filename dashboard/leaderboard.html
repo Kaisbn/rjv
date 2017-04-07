@@ -90,10 +90,7 @@
             } ).draw();
 
             $(document).on('click', 'td:nth-child(4)', function () {
-                var win = window.open('/server/' + $(this).html(), '_blank');
-                if (win) {
-                    win.focus();
-                }
+                location.href = '/server/' + $(this).html();
             });
 
             var socket = io.connect();

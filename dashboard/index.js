@@ -46,19 +46,6 @@ const fetchLeaderboard = () => {
     setTimeout(fetchLeaderboard, 5000);
 }
 
-const padInt = (s) => {
-    return (s.toString().length < 2 ? "0" : "") + s;
-}
-
-const dateToTime = (d) => {
-    d = parseInt(d);
-    var m = parseInt(d / 60);
-    m = m < 0 ? 0 : m;
-    var s = d % 60;
-    s = s < 0 ? 0 : s;
-    return padInt(m) + ":" + padInt(s);
-}
-
 const saveScore = (server, player, score) => {
     var regex = /^\[(\d+)\] (.*)$/
 
@@ -104,7 +91,7 @@ const getDataFromSrv = (server) => {
         });
 
         io.emit('serverDetail_' + server, {
-            status: "online",
+            status: "ON",
             data: {
                 pluginRunning: response.data.pluginRunning,
                 gameRunning: response.data.gameRunning,
@@ -115,22 +102,26 @@ const getDataFromSrv = (server) => {
         });
 
         status[server] = {
-            status: "online",
+            status: "ON",
+            message: "",
+            remaining: "",
             players: scoresSimplify,
         };
 
         var now = Date.now();
-        var servStatus = "offline";
 
         if (response.data.endTime == 0) {
-            status[server].status = "Starting in...";
-            status[server].remaining = dateToTime((response.data.startTime - now) / 1000);
+            status[server].status = "ON";
+            status[server].message = "Starting in...";
+            status[server].remaining = response.data.startTime;
         } else if (response.data.endTime <= now) {
-            status[server].status = "Restarting...";
+            status[server].status = "OFF";
+            status[server].message = "Restarting...";
             status[server].remaining = "Soon";
         } else {
-            status[server].status = "Remaining time..";
-            status[server].remaining = dateToTime((response.data.endTime - now) / 1000);
+            status[server].status = "ON";
+            status[server].message = "Remaining time..";
+            status[server].remaining = response.data.endTime;
         }
 
         setTimeout(getDataFromSrv, 3500, server);
@@ -139,12 +130,12 @@ const getDataFromSrv = (server) => {
         //console.log(error);
 
         io.emit('serverDetail_' + server, {
-            status: "offline",
+            status: "OFF",
             remaining: "",
             data: {}
         });
 
-        status[server] = { "status": "offline" };
+        status[server] = { status: "OFF" };
         setTimeout(getDataFromSrv, 5000, server);
     });;
 }
