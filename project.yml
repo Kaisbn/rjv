@@ -8,11 +8,11 @@ project:
 managers:
     - login: boutin_a
       fullname: Maxime Boutin
-    - login: deutsc_d
+    - login: deutsc_t
       fullname: Thibault Deutsch
     - login: fresne_m
       fullname: Marc Fresne
-    - login: liotie_f
+    - login: liotie_t
       fullname: Thibault Liotier
     - login: lugand_j
       fullname: Jérémy Lugand
@@ -21,7 +21,7 @@ managers:
     - login: vidal_m
       fullname: Mathieu Vidal
     - login: youino_f
-      fullname: Florent Youino
+      fullname: Florent Youinou
 
 newsgroup:
     name: assistants.projets
