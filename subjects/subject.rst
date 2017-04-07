@@ -46,6 +46,10 @@ been reached.
 Server Interface
 ================
 
+You can monitor all the servers running via ``https://creeps.acu.epita.fr/``
+
+Your AI should connect to one of the available IP using the port 1664.
+
 In order to interact with the server, it exposes 4 services over HTTP:
 
 * GET /status
