@@ -7,14 +7,14 @@
 
 - name: compute variables
   set_fact:
-    ai_jar: 'ai_{{ client_index % nb_ai }}.jar'
-    ai_host: '{{ nodes_ips[client_index % nb_nodes] }}'
-    ai_login: '{{ ansible_default_ipv4.address }}'
+    ai_jar: 'ai_{{ (client_index | int) % nb_ai }}.jar'
+    ai_host: '{{ nodes_ips[(client_index | int) % (nb_nodes | int)] }}'
+    ai_login: '[{{ uuid | list | random}}] {{(client_index | int) % nb_ai}} - {{ ansible_default_ipv4.address }} - '
 
 - name: install java-jre
   pacman:
     name: jre8-openjdk-headless
-    state: laai
+    state: latest
     update_cache: yes
 
 - name: create /opt/minecraft
@@ -24,7 +24,7 @@
     mode: 0755
 
 - name: copy ai.tar
-  unarchive:
+  copy:
     src: '{{ ai_jar }}'
     dest: /opt/minecraft
     mode: 0755
