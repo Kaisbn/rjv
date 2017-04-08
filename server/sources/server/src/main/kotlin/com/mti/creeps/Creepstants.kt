@@ -43,11 +43,6 @@ val NEXUS_BIOMASS: Int = 300;
 val NEXUS_SPAWNTIME: Int = TICKRATE * 15;
 val NEXUS_SPAWNTIME_READYUP: Int = TICKRATE * 0;
 
-val PYLON_MINERAL: Int = 100;
-val PYLON_BIOMASS: Int = 50;
-val PYLON_SPAWNTIME: Int = TICKRATE * 8;
-val PYLON_SPAWNTIME_READYUP: Int = TICKRATE * 0;
-
 
 // Actions ------------------------------------------------------------------------------------------------------------
 

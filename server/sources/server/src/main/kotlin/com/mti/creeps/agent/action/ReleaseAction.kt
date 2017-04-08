@@ -26,7 +26,6 @@ class ReleaseAction() : Action<ReleaseReport> {
             is Nexus -> agent.player.updateResources(50, 50)
             is Templar -> agent.player.updateResources(10, 30)
             is Beacon -> agent.player.updateResources(10, 25)
-            is Pylon -> agent.player.updateResources(5, 20)
         }
 
         world.spawnParticle(Particle.CRIT_MAGIC, agent.location, 20)
