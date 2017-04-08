@@ -565,6 +565,7 @@ templars.
 
 Technicalities
 ==============
+
 The project structure is provided to you in the form of the
 project-login_l.tar.gz file.
 
@@ -583,3 +584,12 @@ Import project:
 
 1. File > Open
 2. Browse and select the pom.xml file at the root of the project.
+
+
+Usage
+-----
+
+During the defense, your program will be executed as follow :
+
+.. code:: raw
+    java -jar myIA.jar [HOSTNAME] [PORT] [USERNAME]
