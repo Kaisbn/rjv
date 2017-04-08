@@ -56,7 +56,7 @@ In order to interact with the server, it exposes 4 services over HTTP:
 * GET /report/``reportId``
 * POST /command/``login``/``agentId``/``opcode``
 
-You're allowed to use Unirest library.
+You're allowed to use Unirest with Gson library.
 
     .. code:: java
 
