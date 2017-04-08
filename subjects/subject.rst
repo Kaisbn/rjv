@@ -593,4 +593,5 @@ Usage
 During the defense, your program will be executed as follow :
 
 .. code:: raw
+
     java -jar myIA.jar [HOSTNAME] [PORT] [USERNAME]
