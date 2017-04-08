@@ -170,7 +170,8 @@ Retrieve the report with the given reportId.
 
 You will find response structure for each opcode in command section.
 
-If ``reportId`` does not exist you will get:
+The report is available after the duration specified for each task. If
+``reportId`` does not exist or is not ready yet, you will get:
 
 .. code:: raw
 
