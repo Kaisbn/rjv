@@ -123,7 +123,7 @@ Json body in your request.
     {
         "opcode" : "action",        // Information about command transmission success
         "reportId" : "1a2b3c4d5",   // Report ID
-        "error" : "",               // Error description
+        "error" : null,             // Error description
         "login" : "",               // Player login - might be empty
         "id" : "",                  // Agent ID - might be empty
         "misses" : 0                // Number of misses
@@ -417,7 +417,7 @@ Report structure
         "login" : "login_x",        // Player login
         "type" : "probe",           // Unit type
         "location" : {},            // Location object
-        "error" : ""                // Error description
+        "error" : null              // Error description
     }
 
 ``sphere``

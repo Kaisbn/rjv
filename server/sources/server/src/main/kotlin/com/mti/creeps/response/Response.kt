@@ -8,4 +8,4 @@ package com.mti.creeps.response
  */
 interface Response
 
-data class NoRespomse(val opcode: String = "noresponse") : Response
+data class NoResponse(val opcode: String = "noresponse") : Response

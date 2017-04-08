@@ -15,9 +15,8 @@ data class InitResponse(
         var startZ: Int?,
         var baseId: String?,
         var probeId: String?) : Response {
-    constructor(error: String) : this(error, null, null, null, null, null, null, null)
 
-    constructor() : this(null, null, null, null, null, null, null, null)
+    constructor(error: String) : this(error, null, null, null, null, null, null, null)
 
     constructor(login: String,
                 color: String,

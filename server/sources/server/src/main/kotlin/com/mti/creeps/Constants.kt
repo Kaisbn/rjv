@@ -4,7 +4,7 @@ import com.mti.creeps.agent.action.NoAction
 import com.mti.creeps.agent.action.report.*
 import com.mti.creeps.response.ActionResponse
 import com.mti.creeps.response.AgentDeadResponse
-import com.mti.creeps.response.NoRespomse
+import com.mti.creeps.response.NoResponse
 import com.mti.creeps.response.Response
 
 val reports: Map<String, Class<out Response>> = mapOf(
@@ -17,7 +17,7 @@ val reports: Map<String, Class<out Response>> = mapOf(
         "mine" to MineReport::class.java,
         "status" to StatusReport::class.java,
         "playerstatus" to PlayerStatusReport::class.java,
-        "noresponse" to NoRespomse::class.java,
+        "noresponse" to NoResponse::class.java,
         "sphere" to SphereReport::class.java,
         "ion" to IonDischargeReport::class.java,
         "laser" to LaserReport::class.java,
