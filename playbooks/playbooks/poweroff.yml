@@ -4,7 +4,22 @@
   hosts: nodes
   vars_prompt:
       - name: 'check_poweroff'
-        prompt: 'Poweroff everything? [y/n]'
+        prompt: 'Poweroff all nodes? [y/n]'
+        default: 'n'
+        private: no
+  vars:
+    ansible_python_interpreter: "/usr/bin/python2.7"
+  tasks:
+  - name: Poweroff
+    raw: poweroff
+    when: check_poweroff == 'y'
+
+- name: Poweroff clients
+  user: root
+  hosts: clients
+  vars_prompt:
+      - name: 'check_poweroff'
+        prompt: 'Poweroff all clients? [y/n]'
         default: 'n'
         private: no
   vars:

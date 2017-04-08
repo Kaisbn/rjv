@@ -1,0 +1,38 @@
+---
+- name: set global variables
+  set_fact:
+    client_index: '{{ groups.clients.index(inventory_hostname) }}'
+    nb_nodes: '{{ groups.nodes | length }}'
+    nodes_ips: "{{ groups.nodes | map('extract', hostvars, ['ansible_default_ipv4', 'address']) | list }}"
+
+- name: compute variables
+  set_fact:
+    ai_jar: 'ai_{{ (client_index | int) % nb_ai }}.jar'
+    ai_host: '{{ nodes_ips[(client_index | int) % (nb_nodes | int)] }}'
+    ai_login: '[{{ uuid | list | random}}] {{(client_index | int) % nb_ai}} - {{ ansible_default_ipv4.address }} - '
+
+- name: install java-jre
+  pacman:
+    name: jre8-openjdk-headless
+    state: latest
+    update_cache: yes
+
+- name: create /opt/minecraft
+  file:
+    path: /opt/minecraft
+    state: directory
+    mode: 0755
+
+- name: copy ai.tar
+  copy:
+    src: '{{ ai_jar }}'
+    dest: /opt/minecraft
+    mode: 0755
+
+- name: copy ai.service
+  template:
+    src: ai.service
+    dest: /etc/systemd/system/ai.service
+
+- name: start client.service
+  raw: systemctl daemon-reload; systemctl stop ai; killall java; systemctl restart ai

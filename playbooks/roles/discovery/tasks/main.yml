@@ -1,0 +1,20 @@
+---
+- name: 'ensure {{monitoring_path}} directory exsits'
+  file:
+    state: directory
+    path: '{{monitoring_path}}'
+
+- name: generate nodes.json
+  template:
+    src: nodes.json
+    dest: '{{monitoring_path}}/nodes.json'
+
+- name: generate minecraft.json
+  template:
+    src: minecraft.json
+    dest: '{{monitoring_path}}/minecraft.json'
+
+- name: generate servers.json
+  template:
+    src: servers.json
+    dest: '{{dashboard_path}}/servers.json'

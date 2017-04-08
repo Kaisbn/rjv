@@ -6,6 +6,7 @@ server/*
 !server/BuildTools.jar
 !server/server.properties
 !server/plugins/AD-NR.jar
+!server/plugins/prometheus-exporter.jar
 
 sources/ai/ai.iml
 sources/ai/target/
