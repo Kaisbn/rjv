@@ -194,6 +194,7 @@ mining, scanning, they can also build nexus.
 
 Opcodes available:
 
+* ``noop``
 * ``status``
 * ``release``
 * ``convert``
@@ -209,6 +210,7 @@ Scouts are useful to have a quick and wide overview of surrounding world with
 
 Opcodes available:
 
+* ``noop``
 * ``status``
 * ``release``
 * ``convert``
@@ -221,6 +223,7 @@ Your wizardry thing. It can invoke giant blob of matter pretty much anywhere.
 
 Opcodes available:
 
+* ``noop``
 * ``status``
 * ``release``
 * ``sphere``
@@ -233,6 +236,7 @@ blown, executes one of its destructive commands and profit.
 
 Opcodes available:
 
+* ``noop``
 * ``status``
 * ``release``
 * ``ion``
@@ -249,6 +253,7 @@ report over you current situation.
 
 Opcodes available:
 
+* ``noop``
 * ``status``
 * ``release``
 * ``playerstatus``
@@ -261,6 +266,7 @@ you own.
 
 Opcodes available:
 
+* ``noop``
 * ``status``
 * ``release``
 * ``transfer``
