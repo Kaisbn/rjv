@@ -9,10 +9,10 @@ package com.mti.creeps.response
 data class ActionResponse(
         var opcode: String = "",
         var reportId: String = "",
-        var error: String = "",
+        var error: String?,
         var login: String = "",
         var id: String = "",
         var misses: Int = 0) : Response {
-    constructor() : this("", "", "")
+
     constructor(opcode: String, reportId: String) : this(opcode, reportId, "")
 }
