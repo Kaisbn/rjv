@@ -25,10 +25,9 @@ Different kind of agents are available:
   * Beacons - can produce some cataclysmic effects best triggered in your
     opponent's courtyard.
 
-You can also spawn buildings:
+You can also spawn building:
 
 * nexus - allows the creation of agents.
-* pylons -  allows teleportation of units.
 
 Every block of the game can be converted to your color, adding 1 to your score.
 At any point of the game, if a player has no more blocks he owns, he has lost
@@ -259,17 +258,6 @@ Opcodes available:
 * ``playerstatus``
 * ``spawn:probe``, ``spawn:scout``, ``spawn:beacon``, ``spawn:templar``
 
-Pylon
-~~~~~
-This building allows you to transfer units on the same block to any other pylon
-you own.
-
-Opcodes available:
-
-* ``noop``
-* ``status``
-* ``release``
-* ``transfer``
 
 Commands
 ========
@@ -414,7 +402,7 @@ Report structure
         }
     }
 
-``spawn:beacon``, ``spawn:nexus``, ``spawn:probe``, ``spawn:pylon``, ``spawn:scout``, ``spawn:templar``
+``spawn:beacon``, ``spawn:nexus``, ``spawn:probe``, ``spawn:scout``, ``spawn:templar``
 -------------------------------------------------------------------------------------------------------
 Spawns the given unit at the place it has been invoked.
 
@@ -430,32 +418,6 @@ Report structure
         "type" : "probe",           // Unit type
         "location" : {},            // Location object
         "error" : ""                // Error description
-    }
-
-``transfer``
-------------
-Transfer unit from one pylon to another.
-Unit to transfer must be at the same coordinate as the pylon.
-
-You must provide the agentId of the unit and the agentId of the destination
-pylon.
-
-.. code:: raw
-
-    {
-        "targetId" : "1a2b3c4d5",   // Destination pylon ID
-        "agentId" : "a1b2c3d4e"     // Agent ID
-    }
-
-Report structure
-
-.. code:: raw
-
-    {
-        "opcode" : "transfer",      // Action opcode.
-        "reportId" : "1a2b3c4d5",   // Report ID
-        "id" : "a1b2c3d4e",         // Agent ID
-        "login" : "login_x"         // Player login
     }
 
 ``sphere``
