@@ -57,7 +57,7 @@
         <div ng-if="!data.length">
              <span class="glyphicon glyphicon-refresh spinning"></span>
         </div>
-        <div ng-repeat="serv in data | filter:searchText | orderBy:['-status', 'name']" class="col-sm-6 col-md-4">
+        <div ng-repeat="serv in data | filter:searchText | orderBy:['-status', '-message', '-remaining', 'name']" class="col-sm-6 col-md-4">
             <div class="widget-box">
                 <div class="widget-header" >
                     <a ng-bind="serv.name" ng-href="/server/{{serv.name}}"></a>
