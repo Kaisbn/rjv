@@ -44,7 +44,7 @@ Subject
 Units
 -----
 
-Agents
+Units
 ~~~~~~
 
 Peaceful
@@ -58,9 +58,6 @@ Harmful
 
 * Templar
 * Beacon
-
-Building
-~~~~~~~~
 
 Spawner
 ^^^^^^^
