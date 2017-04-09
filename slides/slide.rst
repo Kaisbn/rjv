@@ -59,8 +59,8 @@ Harmful
 * Templar
 * Beacon
 
-Spawner
-^^^^^^^
+Building
+^^^^^^^^
 
 * Nexus
 
@@ -120,7 +120,7 @@ Sphere
 
 
 
-Game rules
+Life Cycle
 ----------
 
 Server Life Cycle
@@ -207,7 +207,7 @@ Search
 Graphs evolutions
 ^^^^^^^^^^^^^^^^^
 
-* Resources 
+* Resources
 * Units
 * Misses
 
