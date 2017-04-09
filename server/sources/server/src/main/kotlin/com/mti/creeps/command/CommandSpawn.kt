@@ -21,7 +21,7 @@ class CommandSpawn : CommandExecutor {
     val radius = 5
 
     override fun onCommand(sender: CommandSender?, command: Command?, label: String?, args: Array<out String>?): Boolean {
-        if (sender is Player) {
+        if (sender is Player && sender.isOp) {
             if (args != null && args.size == 4) {
                 val x = args[0].toDouble()
                 val y = args[1].toDouble()
