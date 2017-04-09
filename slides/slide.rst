@@ -36,7 +36,7 @@ Artificial Intelligence
 
 -  5 types of unit
 -  2 kinds of resources
--  Conquer most blocks or destroy the other
+-  Conquer most blocks or destroy the others
 
 Subject
 =======
