@@ -1,7 +1,7 @@
 package com.mti.creeps.agent.action.report
 
 class ErrorReport(
-        val error: String = "",
+        error: String?,
         opcode: String = "",
         reportId: String = "",
         id: String = "",

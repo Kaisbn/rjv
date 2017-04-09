@@ -7,7 +7,7 @@ class SpawnReport(reportId: String,
                   login: String,
                   var type: String,
                   var location: BlockStatus?,
-                  val error: String? = "") :
+                  val error: String? = null) :
         Report("spawn", reportId, id, login) {
-    constructor() : this("", "", "", "", null, "")
+    constructor() : this("", "", "", "", null, null)
 }

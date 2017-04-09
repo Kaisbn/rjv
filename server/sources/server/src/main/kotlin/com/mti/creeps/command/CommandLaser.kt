@@ -17,7 +17,7 @@ class CommandLaser : CommandExecutor {
     val DEFAULT_ION_CANNON_DEPTH = 10;
 
     override fun onCommand(sender: CommandSender?, command: Command?, label: String?, args: Array<out String>?): Boolean {
-        if (sender is Player && (sender.isOp || sender.name == "psyclik") && args != null
+        if (sender is Player && sender.isOp && args != null
                 && (args.size == 0 || args.size == 2)) {
 
 
