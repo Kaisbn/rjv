@@ -1,0 +1,123 @@
+<html>
+<head>
+    <title>Creeps Leaderboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://intra.acu.epita.fr/theme/Yaka2018/css/theme.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://intra.acu.epita.fr/theme/Yaka2018/img/favicon.ico" type="image/x-icon" rel="icon">
+</head>
+<body >
+    <nav class="navbar navbar-info text-center fixed-top bg-inverse">
+        <a href="/"><span class="glyphicon glyphicon-home pull-left" aria-hidden="true"></span></a>
+        <label>Leaderboard</label>
+        <a href="/leaderboard"><span class="glyphicon glyphicon-star pull-right" aria-hidden="true"></span></a>
+    </nav>
+
+
+    <div class="col-sm-12">
+        <div class="widget-box">
+            <div class="widget-content">
+                <div class="table-responsive">
+                    <div class="div-refresh pull-left">
+                        <label class="refresh pull-left">REFRESH</label>
+                        <div class="pull-left">
+                            <div class="btn-group btn-toggle">
+                                <button class="btn btn-sm btn-switch active">ON</button>
+                                <button class="btn btn-sm btn-switch active enable">OFF</button>
+                              </div>
+                        </div>
+                    </div>
+                    <table id="myTable" class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Name</th>
+                                <th>Pseudo</th>
+                                <th>Server</th>
+                                <th>Score</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.slim.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            var t = $('#myTable').DataTable({
+                columnDefs: [
+                    {
+                        className: "td-align-center",
+                        "targets": [3]
+                    }, {
+                        className: "td-align-right",
+                        "targets": [0, 4]
+                    },
+                    {
+                        orderable: false,
+                        "targets": [0, 3]
+                    },
+                    { "width": "10px", "targets": [0] },
+                ],
+                order: [
+                    [4, "desc"]
+                ],
+                scrollY: "calc(100vh - 250px)",
+                scrollCollapse: true,
+                paging: false,
+            });
+
+            var load = false;
+            var fetch = false;
+
+            $('.btn-toggle').on('click', function() {
+                $(this).find('.btn-switch').toggleClass('enable');
+                fetch = !fetch;
+            });
+
+            t.on( 'order.dt search.dt', function () {
+                t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+                    if (i < 3)
+                        cell.innerHTML = '<span class="glyphicon glyphicon-star rank-' + i +'" aria-hidden="true"></span>';
+                    else
+                        cell.innerHTML = i+1;
+                } );
+            } ).draw();
+
+            $(document).on('click', 'td:nth-child(4)', function () {
+                location.href = '/server/' + $(this).html();
+            });
+
+            var socket = io.connect();
+            socket.on('leaderboard', function(data) {
+                var players = [];
+
+                Object.keys(data).forEach(function(player) {
+                    var tmp = data[player];
+
+                    players.push([
+                        "",
+                        player,
+                        tmp.pseudo,
+                        tmp.server,
+                        tmp.score,
+                    ]);
+                });
+
+                if (!load || fetch) {
+                    t.clear();
+                    t.rows.add(players);
+                    t.draw();
+                }
+                load = true;
+            });
+        });
+
+    </script>
+</body>
+</html>

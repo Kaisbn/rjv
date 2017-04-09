@@ -4,47 +4,86 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://intra.acu.epita.fr/theme/Yaka2018/css/theme.css">
     <link rel="stylesheet" href="css/style.css">
-    <style>
-    .panel-primary {
-        border-color: black;
-    }
-    .panel-primary .panel-heading {
-        border-color: black;
-        background-color: black;
-        color: white;
-    }
-    </style>
+    <link href="https://intra.acu.epita.fr/theme/Yaka2018/img/favicon.ico" type="image/x-icon" rel="icon">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 </head>
 <body ng-app="rushjava_visu" ng-controller="RushJavaVisuController">
-    <nav class="navbar text-center fixed-top bg-inverse">
-        <label class="navbar-info" ng-bind="topName"></label>
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <symbol xmlns="http://www.w3.org/2000/svg" id="sbx-icon-search-6" viewBox="0 0 40 40">
+    <path d="M28.295 32.517c-2.93 2.086-6.51 3.312-10.38 3.312C8.02 35.83 0 27.81 0 17.914 0 8.02 8.02 0 17.915 0 27.81 0 35.83 8.02 35.83 17.915c0 3.87-1.227 7.45-3.313 10.38l6.61 6.61c1.166 1.165 1.163 3.057 0 4.22-1.167 1.167-3.057 1.167-4.226-.002l-6.605-6.606zm-10.38.326c8.245 0 14.928-6.683 14.928-14.928 0-8.245-6.683-14.93-14.928-14.93-8.245 0-14.93 6.685-14.93 14.93 0 8.245 6.685 14.928 14.93 14.928zm0-26.573c-6.43 0-11.645 5.214-11.645 11.645 0 .494.4.895.896.895.495 0 .896-.4.896-.895 0-5.442 4.41-9.853 9.853-9.853.494 0 .895-.4.895-.896 0-.495-.4-.896-.895-.896z" fill-rule="evenodd" />
+    </symbol>
+    <symbol xmlns="http://www.w3.org/2000/svg" id="sbx-icon-clear-3" viewBox="0 0 20 20">
+    <path d="M8.114 10L.944 2.83 0 1.885 1.886 0l.943.943L10 8.113l7.17-7.17.944-.943L20 1.886l-.943.943-7.17 7.17 7.17 7.17.943.944L18.114 20l-.943-.943-7.17-7.17-7.17 7.17-.944.943L0 18.114l.943-.943L8.113 10z" fill-rule="evenodd" />
+    </symbol>
+</svg>
+
+
+    <nav class="navbar navbar-info text-center fixed-top bg-inverse">
+        <a href="/"><span class="glyphicon glyphicon-home pull-left" aria-hidden="true"></span></a>
+        <label>Creeps Dashboard</label>
+        <a href="/leaderboard"><span class="glyphicon glyphicon-star pull-right" aria-hidden="true"></span></a>
     </nav>
 
-    <div class="col-sm-12">
-        <div ng-repeat="(server, v) in data" class="col-sm-6 col-md-4">
+    <div class="content-nav">
+        <div class="col-xs-12 widget-box widget-content">
+            <div class="hidden-xs col-md-4 pull-left">
+                <span><b ng-bind="infos.total"></b> TOTAL</span>
+                <span><b ng-bind="infos.on"></b> ON</span>
+                <span><b ng-bind="infos.empty"></b> EMPTY</span>
+                <span ng-if="infos.players < 2"><b ng-bind="infos.players"></b> PLAYER</span>
+                <span ng-if="infos.players > 1"><b ng-bind="infos.players"></b> PLAYERS</span>
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12 pull-right">
+                <form novalidate="novalidate" onsubmit="return false;" class="searchbox sbx-custom">
+                    <div role="search" class="sbx-twitter__wrapper">
+                        <input ng-model="searchText" type="search" name="search" placeholder="Search for on, empty, players, ..." autocomplete="off" required="required" class="sbx-custom__input">
+                        <button type="submit" title="Submit your search query." class="sbx-custom__submit">
+                          <svg role="img" aria-label="Search">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#sbx-icon-search-6"></use>
+                          </svg>
+                        </button>
+                        <button type="reset" title="Clear the search query." class="sbx-custom__reset">
+                          <svg role="img" aria-label="Reset">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#sbx-icon-clear-3"></use>
+                          </svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="listing col-xs-12">
+        <div ng-if="!data.length">
+             <span class="glyphicon glyphicon-refresh spinning"></span>
+        </div>
+        <div ng-repeat="serv in data | filter:searchText | orderBy:['-status', 'name']" class="col-sm-6 col-md-4">
             <div class="widget-box">
                 <div class="widget-header" >
-                    <a target="_blank" ng-bind="server" ng-href="/server/{{server}}"></a>
-                    <span class="title label label-success pull-right" ng-if="v.status != 'offline'">ON</span>
-                    <span class="title label label-danger pull-right" ng-if="v.status == 'offline'">OFF</span>
+                    <a ng-bind="serv.name" ng-href="/server/{{serv.name}}"></a>
+                    <span class="title label pull-right label-{{serv.status}}">{{serv.status}}</span>
 
-                    <span class="title label label-warning pull-right" ng-if="v.players.length == 0">EMPTY</span>
-                    <span class="title label label-danger pull-right" ng-if="v.players.length == 10">FULL</span>
-                    <span class="title label label-primary pull-right" ng-if="v.players.length > 0 && v.players.length < 10" ng-bind="{{v.players.length}} + '/10'"></span>
+                    <span class="title label {{serv.content.class}} pull-right" ng-bind="serv.content.text"></span>
                 </div>
-                <div class="widget-content">
-                    <div class="row" ng-if="v.remaining.length > 0">
+                <div class="widget-content" ng-class="{'off': serv.status != 'ON'}">
+                    <div class="row" ng-if="serv.message">
                         <div class="col-sm-12">
-                            <label class="pull-left" ng-bind="v.status" ng-if="v.remaining.length > 0"></label>
-                            <label class="pull-right" ng-bind="v.remaining" ng-if="v.remaining.length > 0"></label>
+                            <label class="pull-left" ng-bind="serv.message"></label>
+                            <label class="pull-right" ng-if="serv.remaining > 0">
+                                <timer end-time="serv.remaining">{{mminutes}}:{{sseconds}}</timer>
+                            </label>
+                            <label class="pull-right" ng-if="serv.remaining.length > 0" ng-bind="serv.remaining"></label>
                         </div>
                     </div>
-                    <hr ng-if="v.players.length > 0">
+                    <hr>
                     <div class="row">
                         <div class="players col-sm-12">
-                            <div ng-repeat="player in v.players | orderBy : '-score'" >
+                            <div ng-repeat="player in serv.players | orderBy : '-score'" >
                                 <label class="playerName" ng-bind="player.name"></label>
                                 <label class="pull-right" ng-bind="player.score"></label>
+                            </div>
+                            <div ng-if="serv.players.length == 0" class="noplayer text-center">
+                                <label> No player on this server</label>
                             </div>
                         </div>
                     </div>
@@ -54,36 +93,92 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-chart.js/1.1.1/angular-chart.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/humanize-duration/3.10.0/humanize-duration.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-timer/1.3.5/angular-timer.min.js"></script>
     <script>
-        angular
-        .module('rushjava_visu', ['chart.js'])
-        .controller('RushJavaVisuController', function ($scope) {
+        const padInt = (s) => {
+            return (s.toString().length < 2 ? "0" : "") + s;
+        }
 
-            $scope.data = {};
+        const dateToTime = (d) => {
+            d = parseInt(d);
+            var m = parseInt(d / 60);
+            m = m < 0 ? 0 : m;
+            var s = d % 60;
+            s = s < 0 ? 0 : s;
+            return padInt(m) + ":" + padInt(s);
+        }
+
+        angular
+        .module('rushjava_visu', ["timer"])
+        .controller('RushJavaVisuController', function ($scope, $interval) {
+            $scope.timerRunning = true;
+
+            $scope.toggles = [{ state: false }, { state: false }];
+
+            $scope.data = [];
 
             $scope.options = {
                 animation : false,
             }
             $scope.labels = [];
-            $scope.topName = 'Servers list';
+
+            $scope.infos = {
+                total: 0,
+                on: 0,
+                empty: 0,
+                players: 0,
+            }
 
             var socket = io.connect();
             socket.on('serverList', function(data) {
-                $scope.data = data;
+                var servs = [];
+
+                $scope.infos = {
+                    total: 0,
+                    on: 0,
+                    empty: 0,
+                    players: 0,
+                }
 
                 var count = 0;
                 var total = 0;
                 for (var k in data) {
-                    if (data[k].status != 'offline') ++count;
-                    ++total;
+                    data[k].name = k;
+                    if (data[k].status == 'ON') {
+                        $scope.infos.on++;
+                    }
+                    $scope.infos.total++;
+
+                    data[k].content = { class: "", text: "" };
+                    if (data[k].status != "OFF") {
+                        $scope.infos.players += data[k].players.length;
+                        if (data[k].players.length == 0) {
+                            $scope.infos.empty++;
+                            data[k].content.text = "EMPTY";
+                            data[k].content.class = "label-warning";
+                        } else if (data[k].players.length == 10) {
+                            data[k].content.text = "FULL";
+                            data[k].content.class = "label-danger";
+                        } else {
+                            data[k].content.text = data[k].players.length + '/10';
+                            data[k].content.class = "label-primary";
+                        }
+                    }
+
+                    servs.push(data[k]);
                 }
 
-                $scope.topName = 'Server list ' + "(" + count + "/" + total + ")";
+                $scope.data = servs;
                 $scope.$apply();
             });
+        });
+    </script>
+    <script type="text/javascript">
+        document.querySelector('.searchbox [type="reset"]').addEventListener('click', function() {
+            this.parentNode.querySelector('input').focus();
         });
     </script>
 </body>
