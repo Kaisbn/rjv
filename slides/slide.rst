@@ -34,7 +34,7 @@ Multithreaded HTTP client
 Artificial Intelligence
 ^^^^^^^^^^^^^^^^^^^^^^^
 
--  5 types of unit
+-  5 types of units
 -  2 kinds of resources
 -  Conquer most blocks or destroy the others
 
