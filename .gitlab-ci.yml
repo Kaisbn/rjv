@@ -8,4 +8,5 @@ project:
     - ci deploy_project
     - make
     - ci deploy_doc subject.pdf
+    - ci deploy_doc slides.pdf
     - ci deploy_doc creeps.tar.bz2
