@@ -53,5 +53,6 @@ documents:
       type: subject
       begin: "2017-04-13 11:00:00"
     - name: creeps.tar.bz2
+      filepath: files/creeps.tar.bz2
       type: file
       begin: "2017-04-13 11:00:00"
