@@ -92,11 +92,55 @@ Harmful
 * ``ion``
 * ``laser``
 
+Laser
+~~~~~
+
+.. figure:: slides/pictures/laser.png
+    :align: center
+    :width: 80%
+
+
+Ion
+~~~
+
+.. figure:: slides/pictures/ion.png
+    :align: left
+    :width: 60%
+
+
+.. figure:: slides/pictures/ionexplode.png
+    :align: right
+    :width: 60%
+
+Sphere
+~~~~~~
+
+.. figure:: slides/pictures/sphere.png
+    :align: center
+    :width: 80%
+
+
+
+
 
 Game rules
-~~~~~~~~~
+----------
 
-* Game cycle graph
+Server Life Cycle
+~~~~~~~~~~~~~~~~~
+
+
+.. figure:: slides/pictures/server_life_cycle.png
+    :align: center
+    :width: 80%
+
+AI Life Cycle
+~~~~~~~~~~~~~
+
+.. figure:: slides/pictures/ai_life_cycle.png
+    :align: center
+    :width: 80%
+
 
 
 Tips
@@ -170,7 +214,8 @@ Graphs evolutions
 * Units
 * Misses
 
-Leaderboard
+
+LeaderBoard
 ^^^^^^^^^^^
 
 * Be the best
@@ -183,7 +228,23 @@ Conclusion
 Conclusion
 ----------
 
-Conclusion
-~~~~~~~~~~
+Simple AI
+~~~~~~~~~
+
+.. figure:: slides/pictures/littleai.png
+    :align: center
+    :width: 80%
+
+
+Advanced AI
+~~~~~~~~~~~
+
+.. figure:: slides/pictures/advancedai.png
+    :align: center
+    :width: 80%
+
+
+Questions
+~~~~~~~~~
 
 .. showcase:: Any questions?
