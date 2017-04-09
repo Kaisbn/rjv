@@ -1,0 +1,6 @@
+/*
+!.gitignore
+!BuildTools.jar
+!server.properties
+!plugins/AD-NR.jar
+!plugins/prometheus-exporter.jar
