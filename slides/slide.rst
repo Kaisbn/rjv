@@ -92,14 +92,12 @@ Harmful
 * ``ion``
 * ``laser``
 
+
 Game rules
-----------
-
-* Visual render via Minecraft client
-
-* Dashboard player stats and leaderboard
+~~~~~~~~~
 
 * Game cycle graph
+
 
 Tips
 ====
@@ -132,6 +130,52 @@ Take a look at
 
 * ``Runnable``, ``Callable``
 * ``Executor``, ``ExecutorService``, ``ScheduleExecutorService``
+
+
+Overview
+===========
+
+Visual render
+-------------
+
+Visual render
+~~~~~~~~~~~~
+
+Graphic render
+^^^^^^^^^^^^^^
+
+* Minecraft client
+* Visualize your AI behaviour
+* ``/tp x y z``
+
+
+Dashboard
+---------
+
+Dashboard
+~~~~~~~~~
+
+Search
+^^^^^^
+
+* List servers
+* Quickly find an empty server
+* ...
+
+
+Graphs evolutions
+^^^^^^^^^^^^^^^^^
+
+* Resources 
+* Units
+* Misses
+
+Leaderboard
+^^^^^^^^^^^
+
+* Be the best
+
+
 
 Conclusion
 ==========
