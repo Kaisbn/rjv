@@ -52,6 +52,10 @@ documents:
       filepath: subjects/subject.pdf
       type: subject
       begin: "2017-04-13 11:00:00"
+    - name: slides.pdf
+      filepath: slides/slides.pdf
+      type: slide
+      begin: "2017-04-13 11:00:00"
     - name: creeps.tar.bz2
       filepath: files/creeps.tar.bz2
       type: file
