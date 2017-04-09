@@ -10,13 +10,13 @@ const app = Express();
 const server = Http.createServer(app);
 const io = SocketIo(server);
 
-const servers = require('./servers.json').targets;
-const students = require('./students.json');
+const servers = require('./data/servers.json').targets;
+const students = require('./data/students.json');
 var status = {};
 var players = {};
 
-if (fs.existsSync('leaderboard.json')) {
-    players = require('./leaderboard.json')
+if (fs.existsSync('./data/leaderboard.json')) {
+    players = require('./data/leaderboard.json')
 }
 
 app.use(Express.static('public'));
@@ -31,7 +31,7 @@ app.get("/leaderboard", (req, res, next) => {
 
 const saveLeaderboard = () => {
     var json = JSON.stringify(players);
-    fs.writeFile('leaderboard.json', json, 'utf8');
+    fs.writeFile('./data/leaderboard.json', json, 'utf8');
 
     setTimeout(saveLeaderboard, 5000);
 }

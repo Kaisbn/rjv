@@ -30,6 +30,10 @@ body {
   font-size: 20px;
 }
 
+.dashboard-content {
+  margin-top: 20px;
+}
+
 .label {
   font-size: 12px;
   padding: 4px;
