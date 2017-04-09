@@ -573,7 +573,7 @@ Technicalities
 ==============
 
 The project structure is provided to you in the form of the
-project-login_l.tar.gz file.
+``creeps.tar.bz2`` file.
 
 The build-system used by this project is maven. Configuration file - pom.xml -
 is provided. Unless explicitly told by an assistant, do not modify this file.
