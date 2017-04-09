@@ -60,7 +60,7 @@ Harmful
 * Beacon
 
 Building
-~~~~~~~~~
+~~~~~~~~
 
 Spawner
 ^^^^^^^
@@ -90,20 +90,19 @@ Harmful
 
 * ``sphere``
 * ``ion``
+* ``laser``
 
 Game rules
 ----------
 
-* Json API
-
-* Graphic render via minecraft client
+* Graphic render via Minecraft client
 
 * Dashboard player stats and leaderboard
 
 * Game cycle graph
 
 Tips
-===========
+====
 
 Project
 -------
