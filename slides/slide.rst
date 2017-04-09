@@ -27,7 +27,7 @@ What we expect from you
 Multithreaded HTTP client
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
--  Asynchonous Java
+-  Asynchronous Java
 -  Unirest
 -  Gson
 
@@ -35,7 +35,7 @@ Artificial Intelligence
 ^^^^^^^^^^^^^^^^^^^^^^^
 
 -  6 types of unit
--  2 kinds of ressources
+-  2 kinds of resources
 -  Conquer most blocks or destroy the other
 
 Subject
