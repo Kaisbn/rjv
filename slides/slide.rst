@@ -116,6 +116,7 @@ Project
 
   * Reactor
   * Strategy
+  * Observer
 
 Thread
 ~~~~~~
