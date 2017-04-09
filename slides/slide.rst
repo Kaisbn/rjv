@@ -95,7 +95,7 @@ Harmful
 Game rules
 ----------
 
-* Graphic render via Minecraft client
+* Visual render via Minecraft client
 
 * Dashboard player stats and leaderboard
 
