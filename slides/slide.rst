@@ -34,9 +34,9 @@ Multithreaded HTTP client
 Artificial Intelligence
 ^^^^^^^^^^^^^^^^^^^^^^^
 
--  5 types of unit
+-  6 types of unit
 -  2 kinds of ressources
--  Conquert most blocks or destroy the other
+-  Conquer most blocks or destroy the other
 
 Subject
 =======
@@ -59,18 +59,13 @@ Harmful
 * Templar
 * Beacon
 
-Buildings
+Building
 ~~~~~~~~~
 
 Spawner
 ^^^^^^^
 
 * Nexus
-
-Mover
-^^^^^
-
-* Pylon
 
 Commands
 --------
@@ -85,7 +80,6 @@ Peaceful
 * ``convert``
 * ``status``
 * ``release``
-* ``transfer``
 * ``playerstatus``
 * ``scan``, ``scan5``, ``scan9``
 * ``moveup``, ``movedown``, ``movenorth``, ``movesouth``, ``movewest``, ``moveeast``
@@ -130,7 +124,7 @@ Thread
 Avoid
 ^^^^^
 
-* Do not mangae your thread by hands
+* Do not manage your threads by hands
 * Useless sleep
 
 Take a look at
