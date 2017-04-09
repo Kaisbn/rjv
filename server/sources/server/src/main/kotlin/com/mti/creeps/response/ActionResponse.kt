@@ -14,5 +14,5 @@ data class ActionResponse(
         var id: String = "",
         var misses: Int = 0) : Response {
 
-    constructor(opcode: String, reportId: String) : this(opcode, reportId, "")
+    constructor(opcode: String, reportId: String) : this(opcode, reportId, null)
 }
