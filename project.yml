@@ -52,9 +52,6 @@ documents:
       filepath: subjects/subject.pdf
       type: subject
       begin: "2017-04-13 11:00:00"
-#    - name: creeps.pdf
-#      type: file
-#      date: 2016-04-15 21:00:00
-#    - name: creeps-login_l.tar.bz2
-#      type: file
-#      date: 2016-04-15 21:00:00
+    - name: creeps.tar.bz2
+      type: file
+      begin: "2017-04-13 11:00:00"

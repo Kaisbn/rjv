@@ -6,7 +6,9 @@ THEME   = yaka2018
 
 include tools/butler/samples/template.mk
 
-all:: subject.pdf slide.pdf clean
+EXERCICE_NAME = ex_battleship
+
+all:: subject.pdf slide.pdf clean given-files
 
 subject.pdf: DOCTYPE=subject
 subject.pdf: DOCNAME=Subject
@@ -17,10 +19,13 @@ slide.pdf: DOCTYPE=slide
 slide.pdf: DOCNAME=Slide
 slide.pdf: slides/slide.pdf
 
+given-files:
+	tar -jcvf files/creeps.tar.bz2 -C files ./creeps
+
 clean: subjects/subject.clean
 clean: slides/slide.clean
 
 distclean: clean
-	${RM} subjects/*.pdf slides/*.pdf
+	${RM} subjects/*.pdf slides/*.pdf files/creeps.tar.bz2
 
-.PHONY: all clean distclean
+.PHONY: all clean distclean given-files
