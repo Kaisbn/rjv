@@ -30,8 +30,8 @@ You can also spawn building:
 * nexus - allows the creation of agents.
 
 Every block of the game can be converted to your color, adding 1 to your score.
-At any point of the game, if a player has no more blocks he owns, he has lost
-and retire from the game.
+At any point of the game, if a player does not own at least one block any more,
+he has lost and retire from the game.
 
 Block can also be mined, gathering resources *and* converting them at the same
 time.
@@ -69,7 +69,8 @@ Documentation can be found at http://unirest.io/java.html.
 
 GET /status
 -----------
-Return the current status of the server.
+
+Returns the current status of the server.
 Use it to detected if the game has started or not.
 
 .. code:: raw
@@ -77,14 +78,16 @@ Use it to detected if the game has started or not.
     {
         "pluginRunning" : true,     // Ignore
         "gameRunning" : true,       // Game status
-        "scores" : {                // List of player and associated scores
-            "login_x" : 9
+        "scores" : {                // List of players and associated scores
+            "login_x" : 9,
+            "login_y" : 4
         }
     }
 
 
 GET /init/login
 ---------------
+
 Register you as a player using the provided ``login`` - valid logins:
 ^\[\d+\] [a-z0-9.-_]+$.
 
@@ -117,11 +120,12 @@ If error field is not null, an error occurred:
 
 POST /command/login/agentId/opcode
 ----------------------------------
-Order the agent with the given ``agentId`` to perform the command with the
+
+Orders the agent with the given ``agentId`` to perform the command with the
 given ``opcode``.
 
 Even if the command does not take any argument, you **MUST** provide a
-Json body in your request.
+Json body in your request, i.e. ``{}``.
 
 .. code:: raw
 
@@ -171,7 +175,8 @@ If opcode field is different from "action", an error occurred:
 
 GET /report/reportId
 --------------------
-Retrieve the report with the given reportId.
+
+Retrieves the report with the given reportId.
 
 You will find response structure for each opcode in command section.
 
@@ -194,7 +199,8 @@ Agents
 
 Probe
 ~~~~~
-Part of your first units, probes are versatile ; capable of converting
+
+Part of your first units, probes are versatile; capable of converting
 mining, scanning, they can also build nexus.
 
 Opcodes available:
@@ -210,6 +216,7 @@ Opcodes available:
 
 Scout
 ~~~~~
+
 Scouts are useful to have a quick and wide overview of surrounding world with
 ``scan9``. Note that they cannot mine nor build.
 
@@ -224,6 +231,7 @@ Opcodes available:
 
 Templar
 ~~~~~~~
+
 Your wizardry thing. It can invoke giant blob of matter pretty much anywhere.
 
 Opcodes available:
@@ -236,6 +244,7 @@ Opcodes available:
 
 Beacon
 ~~~~~~
+
 This breaks things. Once spawned, move it to the location of something you want
 blown, executes one of its destructive commands and profit.
 
@@ -253,6 +262,7 @@ Buildings
 
 Nexus
 ~~~~~
+
 Part of your first unit, nexus allow you to spawn units and get a detailed
 report over you current situation.
 
@@ -267,9 +277,10 @@ Opcodes available:
 
 Commands
 ========
-Each commands has an execution time and might have a cost or a rewards in
+
+Each command has an execution duration and might have a cost or a reward in
 biomass/minerals.
-Those informations are available in Creepstants.java.
+Those information are available in Creepstants.java.
 
 Each kind of block has a different yield in biomass and minerals, they are
 described in BlockValues.java
@@ -282,19 +293,20 @@ A location object looks like this:
 .. code:: raw
 
     {
-        "x" : 32,                   // X coordinate
-        "y" : 32,                   // Y coordinate
-        "z" : 32,                   // Z coordinate
+        "x" : 32,                 // X coordinate
+        "y" : 32,                 // Y coordinate
+        "z" : 32,                 // Z coordinate
         "type" : "AIR",             // Material
         "player" : "login_x"        // Owner if any
     }
 
 ``status``
 ----------
+
 Provides agent status.
 Location is relative to the block the agent is currently on.
 
-Report structure
+Report structure:
 
 .. code:: raw
 
@@ -311,10 +323,11 @@ Report structure
 
 ``moveup``, ``movedown``, ``movenorth``, ``movesouth``, ``movewest``, ``moveeast``
 ----------------------------------------------------------------------------------
+
 Moves the agent according to the direction suffix.
 Agents can move through any kind of terrain but are limited on Y axis : 1 < y < 256.
 
-Report structure
+Report structure:
 
 .. code:: raw
 
@@ -328,11 +341,12 @@ Report structure
 
 ``convert``
 -----------
+
 Converts the block to your color, giving you one point.
-Beware though, converting lava or some other nasty block will have very bad
+Beware though, converting lava or some others nasty blocks will have very bad
 side-effects.
 
-Report structure
+Report structure:
 
 .. code:: raw
 
@@ -348,10 +362,11 @@ Report structure
 
 ``mine``
 --------
+
 Mines the block for resource and converts it.
 As with converting, make sure you are not mining anything exploding or hot...
 
-Report structure
+Report structure:
 
 .. code:: raw
 
@@ -369,9 +384,10 @@ Report structure
 
 ``playerstatus``
 ----------------
+
 Provides player status.
 
-Report structure
+Report structure:
 
 .. code:: raw
 
@@ -386,13 +402,14 @@ Report structure
 
 ``scan``, ``scan5``, ``scan9``
 ------------------------------
+
 ``scan``: Gives information on the 3x3x3 cube centered on the agent.
 
 ``scan5``: Gives information on the 5x5x5 cube centered on the agent.
 
 ``scan9``: Gives information on the 9x9x9 cube centered on the agent.
 
-Report structure
+Report structure:
 
 .. code:: raw
 
@@ -410,9 +427,10 @@ Report structure
 
 ``spawn:beacon``, ``spawn:nexus``, ``spawn:probe``, ``spawn:scout``, ``spawn:templar``
 -------------------------------------------------------------------------------------------------------
+
 Spawns the given unit at the place it has been invoked.
 
-Report structure
+Report structure:
 
 .. code:: raw
 
@@ -428,6 +446,7 @@ Report structure
 
 ``sphere``
 ----------
+
 Invokes a sphere of matter around the templar.
 
 You must provide the ``material`` argument in the Json body of your POST request.
@@ -435,10 +454,10 @@ You must provide the ``material`` argument in the Json body of your POST request
 .. code:: raw
 
     {
-        "material" : "lava"         // Can be "water", "sand", "lava" or "tnt"
+        "material" : "lava"         // Can be "water", "sand", "lava", or "tnt"
     }
 
-Report structure
+Report structure:
 
 .. code:: raw
 
@@ -451,9 +470,10 @@ Report structure
 
 ``ion``
 -------
-Triggers an Ion Cannon discharge for orbital barge "Litany of Fury." Ouch.
 
-Report structure
+Triggers an Ion Cannon discharge for orbital barge "Litany of Fury." Ouch!
+
+Report structure:
 
 .. code:: raw
 
@@ -466,10 +486,11 @@ Report structure
 
 ``laser``
 ---------
-Fires orbital laser, nothing should left before the bedrock is reached.
-Ouch-much.
 
-Report structure
+Fires orbital laser, nothing should left before the bedrock is reached.
+Ouch-much!
+
+Report structure:
 
 .. code:: raw
 
@@ -482,9 +503,10 @@ Report structure
 
 ``release``
 -----------
+
 Releases the agent, giving you some resources back depending on the unit type.
 
-Report structure
+Report structure:
 
 .. code:: raw
 
@@ -499,14 +521,15 @@ Report structure
 
 ``noop``
 --------
+
 Does nothing, for testing purpose.
 
-Report structure
+Report structure:
 
 .. code:: raw
 
     {
-        "opcode" : "scan9",         // Action opcode.
+        "opcode" : "noop",         // Action opcode.
         "reportId" : "1a2b3c4d5",   // Report ID
         "id" : "a1b2c3d4e",         // Agent ID
         "login" : "login_x"         // Player login
@@ -517,13 +540,19 @@ Behaviour and Design Tips
 
 Agents and threading model
 --------------------------
+
 Even though it would be possible to implement an IA over a single execution
-thread, said IA would be very limited in terms of capabilities. We **strongly**
-encourage you to adopt a more advanced design, where each agent will be executed
-as a separate execution thread (not necessarily as a system thread though, as
-we have seen they can be quite limited). This would allow you to scale up to
-dozen or even thousands of agents on general-availability computer depending on
-your implementation.
+thread, said IA would be very limited in terms of capabilities. You **Must**
+adopt a more advanced design, where each agent will be executed as a separate
+execution thread (not necessarily as a system thread though, as we have seen
+they can be quite limited). This would allow you to scale up to dozen or even
+thousands of agents on general-availability computer depending on your
+implementation.
+
+.. block:: warning
+
+    Proper usage of Threads will be checked during your defense.
+    If you don't use multithreading you will get a zero.
 
 As such things as coroutines, fibers, green threads or agent systems are not
 available to you in this project, we suggest you take interest in the reactor
@@ -534,7 +563,8 @@ projects own presentation should allow you to do so in no time.
 
 Here and there...
 -----------------
-As a conclusion to this chapter, let me sum it up for you.
+
+As a conclusion to this chapter, let us sum it up for you.
 You should develop a mechanism that will:
 
 * Take a command, some code to execute after completion and some code to execute
@@ -564,7 +594,7 @@ So, in pseudo-code your IA might look like that:
      }
 
 
-Add in some clever use of SAMs, lambdas, a scheduler, a strategy and maybe even
+Add in some clever use of SAMs (Single Abstract Method), lambdas, a scheduler, a strategy and maybe even
 some observers and it should be quite easy to start playing with probes and
 templars.
 
@@ -575,8 +605,9 @@ Technicalities
 The project structure is provided to you in the form of the
 ``creeps.tar.bz2`` file.
 
-The build-system used by this project is maven. Configuration file - pom.xml -
-is provided. Unless explicitly told by an assistant, do not modify this file.
+The build-system used by this project is gradle. Configuration files
+- build.gradle and settings.gradle - are provided. Unless explicitly told by
+an assistant, do not modify those files.
 
 All your source code needs to be placed under the ``${root}/src/main/java/``
 folder. Entry point is defined in ``com.epita.Creeps::main``.
@@ -589,7 +620,7 @@ You are allowed to use two libraries for this project:
 Import project:
 
 1. File > Open
-2. Browse and select the pom.xml file at the root of the project.
+2. Browse and select the build.gradle file at the root of the project.
 
 
 Usage

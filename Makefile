@@ -12,7 +12,6 @@ all:: subject.pdf slides.pdf clean given-files
 
 subject.pdf: DOCTYPE=subject
 subject.pdf: DOCNAME=Subject
-subject.pdf: BUTLERFLAGS+= --tree=subjects/tree.yml
 subject.pdf: subjects/subject.pdf
 
 slides.pdf: DOCTYPE=slide
