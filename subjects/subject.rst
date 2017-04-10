@@ -542,12 +542,12 @@ Agents and threading model
 --------------------------
 
 Even though it would be possible to implement an IA over a single execution
-thread, said IA would be very limited in terms of capabilities. We **strongly**
-encourage you to adopt a more advanced design, where each agent will be executed
-as a separate execution thread (not necessarily as a system thread though, as
-we have seen they can be quite limited). This would allow you to scale up to
-dozen or even thousands of agents on general-availability computer depending on
-your implementation.
+thread, said IA would be very limited in terms of capabilities. You **Must**
+adopt a more advanced design, where each agent will be executed as a separate
+execution thread (not necessarily as a system thread though, as we have seen
+they can be quite limited). This would allow you to scale up to dozen or even
+thousands of agents on general-availability computer depending on your
+implementation.
 
 As such things as coroutines, fibers, green threads or agent systems are not
 available to you in this project, we suggest you take interest in the reactor
