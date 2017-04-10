@@ -93,19 +93,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/humanize-duration/3.10.0/humanize-duration.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-timer/1.3.5/angular-timer.min.js"></script>
     <script>
-        const padInt = (s) => {
-            return (s.toString().length < 2 ? "0" : "") + s;
-        }
-
-        const dateToTime = (d) => {
-            d = parseInt(d);
-            var m = parseInt(d / 60);
-            m = m < 0 ? 0 : m;
-            var s = d % 60;
-            s = s < 0 ? 0 : s;
-            return padInt(m) + ":" + padInt(s);
-        }
-
         angular
             .module('rushjava_visu', ["timer"])
             .controller('RushJavaVisuController', function ($scope, $interval) {
