@@ -282,9 +282,9 @@ A location object looks like this:
 .. code:: raw
 
     {
-        "x" : "32",                 // X coordinate
-        "y" : "32",                 // Y coordinate
-        "z" : "32",                 // Z coordinate
+        "x" : 32,                   // X coordinate
+        "y" : 32,                   // Y coordinate
+        "z" : 32,                   // Z coordinate
         "type" : "AIR",             // Material
         "player" : "login_x"        // Owner if any
     }
