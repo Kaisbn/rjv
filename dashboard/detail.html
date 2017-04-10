@@ -10,41 +10,50 @@
     <nav class="navbar navbar-info text-center fixed-top bg-inverse">
         <a href="/"><span class="glyphicon glyphicon-home pull-left" aria-hidden="true"></span></a>
         <label class="" ng-bind="name"></label>
-        <span class="label label-success" ng-if="status == 'ON'">ON</span>
-        <span class="label label-danger" ng-if="status == 'OFF'">OFF</span>
+        <span class="title label label-{{status.status}}">{{status.status}}</span>
         <a href="/leaderboard"><span class="glyphicon glyphicon-star pull-right" aria-hidden="true"></span></a>
     </nav>
 
+    <div class="content-nav">
+        <div class="col-xs-12 widget-box widget-content">
+            <div class="hidden-xs col-md-4 pull-left">
+                <span ng-if="players.length < 2"><b ng-bind="players.length"></b> PLAYER</span>
+                <span ng-if="players.length > 1"><b ng-bind="players.length"></b> PLAYERS</span>
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12 pull-right text-right">
+                <span>
+                    {{status.message.toUpperCase()}}
+
+                    <b ng-if="status.remaining > 0"><timer end-time="status.remaining">{{mminutes}}:{{sseconds}}</timer></b>
+                    <b ng-if="status.remaining.length > 0" ng-bind="status.remaining"></b>
+                </span>
+            </div>
+        </div>
+    </div>
+
+
     <div class="col-sm-12 dashboard-content">
-        <div ng-repeat="(name, v) in data" class="col-sm-6 col-md-4">
+        <div ng-repeat="player in players" class="col-sm-6 col-md-4">
             <div class="widget-box">
                 <div class="widget-header">
-                    <span class="title" ng-bind="name"></span>
-                    <span class="title label label-danger pull-right" ng-bind="v.score"></span>
+                    <span class="title" ng-bind="player.name"></span>
+                    <span class="title label label-danger pull-right" ng-bind="player.score"></span>
                 </div>
                 <div class="widget-content">
                     <div class="container-fluid">
-                        <div ng-repeat="(key, data) in v" class="col-xs-12">
-                            <label ng-if="key == 'ressources'">Ressources</label>
+                        <div ng-repeat="key in ['ressources', 'data']" class="col-xs-12">
+                            <label ng-if="legend.hasOwnProperty(key)">{{key}}</label>
                             <canvas id="line"
-                                    ng-if="key == 'ressources'"
                                     class="chart chart-line"
-                                    chart-data="data"
+                                    chart-data="player[key]"
                                     chart-labels="labels"
-                                    chart-series="ressourcesSeries"
+                                    chart-series="legend[key].series"
                                     chart-options="options"
-                                    chart-colors="ressourcesColors"
+                                    chart-colors="legend[key].colors"
                             ></canvas>
-                            <label ng-if="key == 'data'">Data</label>
-                            <canvas id="line"
-                                    ng-if="key == 'data'"
-                                    class="chart chart-line"
-                                    chart-data="data"
-                                    chart-labels="labels"
-                                    chart-series="dataSeries"
-                                    chart-options="options"
-                                    chart-colors="dataColors"
-                            ></canvas>
+                            <div class="pull-right">
+                                <label ng-repeat="l in legend[key].series"> <span class="glyphicon glyphicon-minus legendDash" aria-hidden="true" style="color: {{legend[key].colors[$index]}}"></span> {{l}}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -56,21 +65,36 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-chart.js/1.1.1/angular-chart.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/humanize-duration/3.10.0/humanize-duration.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-timer/1.3.5/angular-timer.min.js"></script>
     <script>
         angular
-        .module('rushjava_visu', ['chart.js'])
+        .module('rushjava_visu', ['chart.js', 'timer'])
         .controller('RushJavaVisuController', function ($scope) {
             var maxPoints = 35;
 
-            $scope.data = {};
-            $scope.ressourcesSeries = ['Minerals', 'Biomass'];
-            $scope.ressourcesColors = ['#0277BD', '#76FF03', '#ff8e72'];
-            $scope.dataSeries = ['Units', 'Misses'];
-            $scope.dataColors = ['#FFA726', '#E53935', '#ff8e72'];
+            $scope.playersJSON = {};
+            $scope.players = [];
+            $scope.legend = {
+                ressources: {
+                    series: ['Minerals', 'Biomass'],
+                    colors: ['#0277BD', '#76FF03', '#ff8e72']
+                },
+                data: {
+                    series: ['Units', 'Misses'],
+                    colors: ['#FFA726', '#E53935', '#ff8e72']
+                },
+            };
             $scope.options = {
                 animation : false,
             }
             $scope.labels = [];
+            $scope.status = {
+                status: "~",
+                message: "",
+                remaining: "",
+            }
 
             var parts = window.location.href.split(/[\s/]+/);
             var serverName = parts.pop() || parts.pop();
@@ -78,7 +102,12 @@
 
             var socket = io.connect();
             socket.on('serverDetail_' + serverName, function(data) {
-                $scope.status = data.status;
+                $scope.status = {
+                    status: data.status,
+                    message: data.message,
+                    remaining: data.remaining,
+                }
+
                 var players = data.data.scores || {};
                 var dt = new Date();
 
@@ -87,14 +116,15 @@
                     $scope.labels.shift();
                 }
 
-                var tmp = $scope.data;
-                $scope.data = {};
+                var tmp = $scope.playersJSON;
+                $scope.playersJSON = {};
+                $scope.players = [];
 
                 Object.keys(players).forEach(function (name) {
                     if (name in tmp && tmp[name]) {
-                        $scope.data[name] = tmp[name];
+                        $scope.playersJSON[name] = tmp[name];
                     } else {
-                        $scope.data[name] = {
+                        $scope.playersJSON[name] = {
                             ressources: [[], []],
                             data: [[], [], []],
                             players: 0,
@@ -102,7 +132,7 @@
                     }
                     var score = players[name];
 
-                    $scope.data[name].score = players[name].score;
+                    $scope.playersJSON[name].score = players[name].score;
 
                     var keys = [
                         {
@@ -117,12 +147,19 @@
                     for (var j in keys) {
                         var k = keys[j];
                         for (var i = 0; i < k.data.length; i++) {
-                            $scope.data[name][k.name][i].push(score[k.data[i]]);
+                            $scope.playersJSON[name][k.name][i].push(score[k.data[i]]);
 
-                            if ($scope.data[name][k.name][i].length > maxPoints)
-                                $scope.data[name][k.name][i].shift();
+                            if ($scope.playersJSON[name][k.name][i].length > maxPoints)
+                                $scope.playersJSON[name][k.name][i].shift();
                         }
                     }
+
+                    $scope.players.push({
+                        name: name,
+                        ressources: $scope.playersJSON[name].ressources,
+                        data: $scope.playersJSON[name].data,
+                        score: $scope.playersJSON[name].score
+                    });
                 });
                 $scope.$apply();
             });

@@ -90,39 +90,35 @@ const getDataFromSrv = (server) => {
             scoresDetail[name] = response.data.scores[player];
         });
 
-        io.emit('serverDetail_' + server, {
-            status: "ON",
+        var statusDetail = {};
+        var now = Date.now();
+        if (response.data.endTime == 0) {
+            statusDetail.status = "ON";
+            statusDetail.message = "Starting in ";
+            statusDetail.remaining = response.data.startTime;
+        } else if (response.data.endTime <= now) {
+            statusDetail.status = "OFF";
+            statusDetail.message = "Restarting ";
+            statusDetail.remaining = "Soon";
+        } else {
+            statusDetail.status = "ON";
+            statusDetail.message = "Remaining time ";
+            statusDetail.remaining = response.data.endTime;
+        }
+
+        io.emit('serverDetail_' + server, Object.assign({}, statusDetail, {
             data: {
                 pluginRunning: response.data.pluginRunning,
                 gameRunning: response.data.gameRunning,
                 startTime: response.data.startTime,
                 endTime: response.data.endTime,
                 scores: scoresDetail,
-            },
-        });
+            }})
+        );
 
-        status[server] = {
-            status: "ON",
-            message: "",
-            remaining: "",
+        status[server] = Object.assign({}, statusDetail, {
             players: scoresSimplify,
-        };
-
-        var now = Date.now();
-
-        if (response.data.endTime == 0) {
-            status[server].status = "ON";
-            status[server].message = "Starting in...";
-            status[server].remaining = response.data.startTime;
-        } else if (response.data.endTime <= now) {
-            status[server].status = "OFF";
-            status[server].message = "Restarting...";
-            status[server].remaining = "Soon";
-        } else {
-            status[server].status = "ON";
-            status[server].message = "Remaining time..";
-            status[server].remaining = response.data.endTime;
-        }
+        });
 
         setTimeout(getDataFromSrv, 3500, server);
     })
