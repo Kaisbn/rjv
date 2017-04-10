@@ -26,7 +26,7 @@
         </question>
 
         <question title="Minecraft begins" type="qcu" shuffled-answers="false">
-            <ask>Is "gameRunning" checked ?</ask>
+            <ask>Is "gameRunning" checked?</ask>
             <answer value="0">Yes</answer>
             <answer value="-25">No</answer>
             <explanation></explanation>
@@ -34,17 +34,17 @@
 
 
        <question title="Destroy them all !" type="qcu" shuffled-answers="false">
-            <ask>Is the AI impressive ?</ask>
-            <answer value="250">Such an amazing AI !</answer>
-            <answer value="150">Great !</answer>
-            <answer value="70">Pretty cool !</answer>
+            <ask>Is the AI impressive?</ask>
+            <answer value="250">Such an amazing AI!</answer>
+            <answer value="150">Great!</answer>
+            <answer value="70">Pretty cool!</answer>
             <answer value="10">Very simple AI (single probe)</answer>
             <answer value="0">It does not work</answer>
             <explanation></explanation>
         </question>
 
        <question title="Many things I can do" type="qcm" shuffled-answers="false">
-            <ask>What does the AI do ?</ask>
+            <ask>What does the AI do?</ask>
             <answer value="5">Single probe</answer>
             <answer value="50">Multiple probes</answer>
             <answer value="5">Single scout</answer>
@@ -60,14 +60,14 @@
 
 
        <question title="Choose wisely..." type="qcu" shuffled-answers="false">
-            <ask>Did the student used the given async helper ?</ask>
+            <ask>Did the student used the given async helper?</ask>
             <answer value="125">No, would have been too easy</answer>
             <answer value="50">Sure, I am not crazy</answer>
             <explanation></explanation>
         </question>
 
        <question title="I sware I tried!" type="qcu" shuffled-answers="false">
-            <ask>Does the student have a scheduler ?</ask>
+            <ask>Does the student have a scheduler?</ask>
             <answer value="0">No, there is nothing but the given code</answer>
             <answer value="10">Yes, but it does not work at all</answer>
             <answer value="20">Yes, but it works but it's really dirty</answer>
@@ -77,7 +77,7 @@
         </question>
 
        <question title="CompletableFuture" type="qcu" shuffled-answers="false">
-            <ask>What is a CompletableFuture ? What is it used for?</ask>
+            <ask>What is a CompletableFuture? What is it used for?</ask>
             <answer value="100">Correct</answer>
             <answer value="50">Meh</answer>
             <answer value="-50">No</answer>
@@ -85,7 +85,7 @@
        </question>
 
        <question title="Wait for it..." type="qcu" shuffled-answers="false">
-            <ask>How do you launch a function with a delay ?</ask>
+            <ask>How do you launch a function with a delay?</ask>
             <answer value="100">Best practice</answer>
             <answer value="50">Dirty</answer>
             <answer value="-50">No</answer>
@@ -93,7 +93,7 @@
         </question>
 
        <question title="Let's go to the pool" type="qcu" shuffled-answers="false">
-            <ask>What is a Thread Pool? What object is used to easily manage it in java ?</ask>
+            <ask>What is a Thread Pool? What object is used to easily manage it in java?</ask>
             <answer value="100">Exact</answer>
             <answer value="50">Meh</answer>
             <answer value="-50">No</answer>
@@ -109,17 +109,10 @@
         </question>
 
         <question title="Remarks" type="qcu" shuffled-answers="false">
-            <ask>What about the rush ? (no points)</ask>
+            <ask>What about the rush? (no points)</ask>
             <answer value="0">Awesome !</answer>
             <answer value="0">Too hard</answer>
             <answer value="0">I'd rather do the classic rush</answer>
-            <explanation></explanation>
-        </question>
-
-        <question title="Boss question" type="qcu" shuffled-answers="false">
-            <ask>Est-ce que Tsu est motivé?</ask>
-            <answer value="0">Oui</answer>
-            <answer value="0">Non</answer>
             <explanation></explanation>
         </question>
 
