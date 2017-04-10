@@ -549,6 +549,11 @@ they can be quite limited). This would allow you to scale up to dozen or even
 thousands of agents on general-availability computer depending on your
 implementation.
 
+.. block:: warning
+
+    Proper usage of Threads will be checked during your defense.
+    If you don't use multithreading you will get a zero.
+
 As such things as coroutines, fibers, green threads or agent systems are not
 available to you in this project, we suggest you take interest in the reactor
 pattern, especially implementations like the one found in the Rx project
@@ -589,7 +594,7 @@ So, in pseudo-code your IA might look like that:
      }
 
 
-Add in some clever use of SAMs, lambdas, a scheduler, a strategy and maybe even
+Add in some clever use of SAMs (Single Abstract Method), lambdas, a scheduler, a strategy and maybe even
 some observers and it should be quite easy to start playing with probes and
 templars.
 
