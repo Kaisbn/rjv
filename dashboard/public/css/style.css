@@ -95,6 +95,10 @@ hr {
 }
 
 
+.legend-bar {
+  margin-top: -20px;
+}
+
 .legendDash {
   margin: 0px 0px 0px 7px;
 }

@@ -37,11 +37,11 @@
             <div class="widget-box">
                 <div class="widget-header">
                     <span class="title" ng-bind="player.name"></span>
-                    <span class="title label label-danger pull-right" ng-bind="player.score"></span>
+                    <span class="title label label-danger pull-right" ng-bind="player.score[0].slice(-1).pop()"></span>
                 </div>
                 <div class="widget-content">
                     <div class="container-fluid">
-                        <div ng-repeat="key in ['ressources', 'data']" class="col-xs-12">
+                        <div ng-repeat="key in ['ressources', 'data', 'score']" class="col-xs-12">
                             <label ng-if="legend.hasOwnProperty(key)">{{key}}</label>
                             <canvas id="line"
                                     class="chart chart-line"
@@ -51,7 +51,7 @@
                                     chart-options="options"
                                     chart-colors="legend[key].colors"
                             ></canvas>
-                            <div class="pull-right">
+                            <div class="legend-bar pull-right">
                                 <label ng-repeat="l in legend[key].series"> <span class="glyphicon glyphicon-minus legendDash" aria-hidden="true" style="color: {{legend[key].colors[$index]}}"></span> {{l}}
                             </div>
                         </div>
@@ -84,6 +84,10 @@
                 data: {
                     series: ['Units', 'Misses'],
                     colors: ['#FFA726', '#E53935', '#ff8e72']
+                },
+                score: {
+                    series: ['Score'],
+                    colors: ['#000', '#ff8e72']
                 },
             };
             $scope.options = {
@@ -126,13 +130,14 @@
                     } else {
                         $scope.playersJSON[name] = {
                             ressources: [[], []],
-                            data: [[], [], []],
+                            data: [[], []],
+                            score: [[]],
                             players: 0,
                         };
                     }
                     var score = players[name];
 
-                    $scope.playersJSON[name].score = players[name].score;
+                    //$scope.playersJSON[name].score = players[name].score;
 
                     var keys = [
                         {
@@ -153,6 +158,10 @@
                                 $scope.playersJSON[name][k.name][i].shift();
                         }
                     }
+
+                    $scope.playersJSON[name]['score'][0].push(players[name].score);
+                    if ($scope.playersJSON[name]["score"][0].length > maxPoints)
+                        $scope.playersJSON[name]['score'][0].shift();
 
                     $scope.players.push({
                         name: name,
