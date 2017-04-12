@@ -561,44 +561,6 @@ pattern, especially implementations like the one found in the Rx project
 emulate it). Using CompletableFuture and its sibling classes presented in this
 projects own presentation should allow you to do so in no time.
 
-Here and there...
------------------
-
-As a conclusion to this chapter, let us sum it up for you.
-You should develop a mechanism that will:
-
-* Take a command, some code to execute after completion and some code to execute
-  should any error occur.
-* Ideally, the ``after completion`` code and the error code should be
-  implemented using the same mechanism, thus creating a chaining feature.
-* Have this mechanism class execute the code on a separate thread of execution,
-  by any means you see fit.
-* Have it wait for the execution of the command (plus some added safety time
-  buffer).
-* Have it retrieve the execution report and interpret it.
-* Based on the report interpretation, choose to trigger either the next action
-  or the error code.
-
-So, in pseudo-code your IA might look like that:
-
-.. code:: java
-
-     public void advanceAndMine(Command andThen) {
-         command("movenorth",
-             command("movenorth",
-                command("mine", () -> andThen.invoke, () -> this.handleError()),
-                () -> this.handleError(),
-             )
-             () -> this.handleError()
-         )
-     }
-
-
-Add in some clever use of SAMs (Single Abstract Method), lambdas, a scheduler, a strategy and maybe even
-some observers and it should be quite easy to start playing with probes and
-templars.
-
-
 Technicalities
 ==============
 
@@ -630,4 +592,4 @@ During the defense, your program will be executed as follow :
 
 .. code:: raw
 
-    java -jar myIA.jar [HOSTNAME] [PORT] [USERNAME]
+    java -jar creeps.jar [HOSTNAME] [PORT] [USERNAME]
