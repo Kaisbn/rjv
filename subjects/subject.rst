@@ -610,12 +610,12 @@ The build-system used by this project is gradle. Configuration files
 an assistant, do not modify those files.
 
 All your source code needs to be placed under the ``${root}/src/main/java/``
-folder. Entry point is defined in ``com.epita.Creeps::main``.
+folder. Entry point is defined in ``com.epita.creeps.Program::main``.
 
 You are allowed to use two libraries for this project:
 
 * Unirest: for REST calls.
-* Gson: for Json parsing. See ``com.epita.utils.Json``.
+* Gson: for Json parsing. See ``com.epita.creeps.utils.Json``.
 
 Import project:
 
