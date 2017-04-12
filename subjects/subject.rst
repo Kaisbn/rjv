@@ -89,7 +89,7 @@ GET /init/login
 ---------------
 
 Register you as a player using the provided ``login`` - valid logins:
-``^\[\d+\]\s[a-z0-9.-_]+$``.
+``^\[\d+\]\s[a-zA-Z0-9._-]+$``.
 
 The first part of your login ``[\d+\]`` must be your UID (from the intranet)
 enclosed by brackets. This will allow us to identify yours AIs but this part
