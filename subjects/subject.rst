@@ -130,7 +130,7 @@ Json body in your request, i.e. ``{}``.
 .. code:: raw
 
     {
-        "opcode" : "action",        // Information about command transmission success
+        "opcode" : "action",        // Information about command success
         "reportId" : "1a2b3c4d5",   // Report ID
         "error" : null,             // Error description
         "login" : "",               // Player login - might be empty
