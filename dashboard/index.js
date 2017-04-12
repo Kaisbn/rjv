@@ -47,7 +47,7 @@ const fetchLeaderboard = () => {
 }
 
 const saveScore = (server, player, score) => {
-    var regex = /^\[(\d+)\] (.*)$/
+    var regex = /^\[(\d+)\]\s([a-zA-Z0-9._-]+)$/
 
     if (player.match(regex)) {
         var result = player.match(regex);
