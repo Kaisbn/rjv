@@ -89,11 +89,12 @@ GET /init/login
 ---------------
 
 Register you as a player using the provided ``login`` - valid logins:
-``^\[\d+\] [a-z0-9.-_]+$``.
+``^\[\d+\]\s[a-zA-Z0-9._-]+$``.
 
 The first part of your login ``[\d+\]`` must be your UID (from the intranet)
 enclosed by brackets. This will allow us to identify yours AIs but this part
 will not be display.
+You **must** use your own UID. Using another's UID will be considered as cheat.
 
 .. code:: raw
 
@@ -130,7 +131,7 @@ Json body in your request, i.e. ``{}``.
 .. code:: raw
 
     {
-        "opcode" : "action",        // Information about command transmission success
+        "opcode" : "action",        // Information about command success
         "reportId" : "1a2b3c4d5",   // Report ID
         "error" : null,             // Error description
         "login" : "",               // Player login - might be empty
@@ -561,44 +562,6 @@ pattern, especially implementations like the one found in the Rx project
 emulate it). Using CompletableFuture and its sibling classes presented in this
 projects own presentation should allow you to do so in no time.
 
-Here and there...
------------------
-
-As a conclusion to this chapter, let us sum it up for you.
-You should develop a mechanism that will:
-
-* Take a command, some code to execute after completion and some code to execute
-  should any error occur.
-* Ideally, the ``after completion`` code and the error code should be
-  implemented using the same mechanism, thus creating a chaining feature.
-* Have this mechanism class execute the code on a separate thread of execution,
-  by any means you see fit.
-* Have it wait for the execution of the command (plus some added safety time
-  buffer).
-* Have it retrieve the execution report and interpret it.
-* Based on the report interpretation, choose to trigger either the next action
-  or the error code.
-
-So, in pseudo-code your IA might look like that:
-
-.. code:: java
-
-     public void advanceAndMine(Command andThen) {
-         command("movenorth",
-             command("movenorth",
-                command("mine", () -> andThen.invoke, () -> this.handleError()),
-                () -> this.handleError(),
-             )
-             () -> this.handleError()
-         )
-     }
-
-
-Add in some clever use of SAMs (Single Abstract Method), lambdas, a scheduler, a strategy and maybe even
-some observers and it should be quite easy to start playing with probes and
-templars.
-
-
 Technicalities
 ==============
 
@@ -610,12 +573,12 @@ The build-system used by this project is gradle. Configuration files
 an assistant, do not modify those files.
 
 All your source code needs to be placed under the ``${root}/src/main/java/``
-folder. Entry point is defined in ``com.epita.Creeps::main``.
+folder. Entry point is defined in ``com.epita.creeps.Program::main``.
 
 You are allowed to use two libraries for this project:
 
 * Unirest: for REST calls.
-* Gson: for Json parsing. See ``com.epita.utils.Json``.
+* Gson: for Json parsing. See ``com.epita.creeps.utils.Json``.
 
 Import project:
 
@@ -630,4 +593,4 @@ During the defense, your program will be executed as follow :
 
 .. code:: raw
 
-    java -jar myIA.jar [HOSTNAME] [PORT] [USERNAME]
+    java -jar creeps.jar [HOSTNAME] [PORT] [USERNAME]
