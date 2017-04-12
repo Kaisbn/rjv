@@ -216,7 +216,7 @@ LeaderBoard
 ^^^^^^^^^^^
 
 * Be the best
-
+* The first fifty will receive a bonus during the defense
 
 
 Conclusion
