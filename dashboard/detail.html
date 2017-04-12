@@ -34,7 +34,7 @@
 
 
     <div class="col-sm-12 dashboard-content">
-        <div ng-repeat="player in players" class="col-sm-6 col-md-4">
+        <div ng-repeat="player in players | orderBy:['-score[0].slice(-1).pop()']" class="col-sm-6 col-md-4">
             <div class="widget-box">
                 <div class="widget-header">
                     <span class="title" ng-bind="player.name"></span>
@@ -93,6 +93,19 @@
             };
             $scope.options = {
                 animation : false,
+                scales: {
+                    yAxes: [
+                        {
+                            ticks: {
+                                callback: function(label, index, labels) {
+                                    if (label >= 1000)
+                                        return label/1000+'k';
+                                    return label;
+                                }
+                            },
+                        }
+                    ]
+                }
             }
             $scope.labels = [];
             $scope.status = {
@@ -174,6 +187,8 @@
                 $scope.$apply();
             });
         });
+
+
     </script>
 </body>
 </html>
