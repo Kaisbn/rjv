@@ -1,30 +1,24 @@
-SHELL=/bin/bash
-BUTLER ?= tools/butler/butler.py
+SLIDES_DIR = slides
+SUBJECT_DIR = subjects
+SLIDES_PDF = slides.pdf
+SUBJECT_PDF = subject.pdf
 
-TEAM 	= yaka
-THEME   = yaka2018
+all:: slides subject given-files
 
-include tools/butler/samples/template.mk
+slides:
+	${MAKE} -C ${SLIDES_DIR} all
 
-EXERCICE_NAME = ex_battleship
-
-all:: subject.pdf slides.pdf clean given-files
-
-subject.pdf: DOCTYPE=subject
-subject.pdf: DOCNAME=Subject
-subject.pdf: subjects/subject.pdf
-
-slides.pdf: DOCTYPE=slide
-slides.pdf: DOCNAME=Slides
-slides.pdf: slides/slides.pdf
+subject:
+	${MAKE} -C ${SUBJECT_DIR} all
 
 given-files:
 	tar -jcvf files/creeps.tar.bz2 -C files ./creeps
 
-clean: subjects/subject.clean
-clean: slides/slides.clean
+clean:
+	${MAKE} -C ${SLIDES_DIR} clean
+	${MAKE} -C ${SUBJECT_DIR} clean
+	${RM} ${SLIDES_PDF}
+	${RM} ${SUBJECT_PDF}
+	${RM} files/creeps.tar.bz2
 
-distclean: clean
-	${RM} subjects/*.pdf slides/*.pdf files/creeps.tar.bz2
-
-.PHONY: all clean distclean given-files
+.PHONY: slides subject tarball

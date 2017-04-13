@@ -92,7 +92,7 @@ Harmful
 Laser
 ~~~~~
 
-.. figure:: slides/pictures/laser.png
+.. figure:: pictures/laser.png
     :align: center
     :width: 80%
 
@@ -100,19 +100,19 @@ Laser
 Ion
 ~~~
 
-.. figure:: slides/pictures/ion.png
+.. figure:: pictures/ion.png
     :align: left
     :width: 60%
 
 
-.. figure:: slides/pictures/ionexplode.png
+.. figure:: pictures/ionexplode.png
     :align: right
     :width: 60%
 
 Sphere
 ~~~~~~
 
-.. figure:: slides/pictures/sphere.png
+.. figure:: pictures/sphere.png
     :align: center
     :width: 80%
 
@@ -127,14 +127,14 @@ Server Life Cycle
 ~~~~~~~~~~~~~~~~~
 
 
-.. figure:: slides/pictures/server_life_cycle.png
+.. figure:: pictures/server_life_cycle.png
     :align: center
     :width: 80%
 
 AI Life Cycle
 ~~~~~~~~~~~~~
 
-.. figure:: slides/pictures/ai_life_cycle.png
+.. figure:: pictures/ai_life_cycle.png
     :align: center
     :width: 80%
 
@@ -228,7 +228,7 @@ Conclusion
 Simple AI
 ~~~~~~~~~
 
-.. figure:: slides/pictures/littleai.png
+.. figure:: pictures/littleai.png
     :align: center
     :width: 80%
 
@@ -236,7 +236,7 @@ Simple AI
 Advanced AI
 ~~~~~~~~~~~
 
-.. figure:: slides/pictures/advancedai.png
+.. figure:: pictures/advancedai.png
     :align: center
     :width: 80%
 

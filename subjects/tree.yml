@@ -1,0 +1,44 @@
+files:
+    - id: src
+      path: './src/'
+      description: 'Contains your source files.'
+      mandatory: yes
+
+    - id: tests
+      path: './tests/'
+      description: 'Contains everything related to your tests.'
+      mandatory: yes
+
+    - id: todo
+      path: './TODO'
+      description: 'Lists what still needs to be implemented. It must be
+        updated regularly.'
+      mandatory: yes
+
+    - id: readme
+      path: './README'
+      description: 'Describes your project, its algorithms and how to use it,
+        in a correct English.'
+      mandatory: yes
+
+    - id: authors
+      path: './AUTHORS'
+      description: 'Lists the project authors’ logins (leader
+        first) as follows: an asterisk \file{*}, a space,
+      a \emph{login} (e.g. \texttt{login\_x}) and a newline. Thus:\\
+      \begin{tabular}{p{0.2cm}l}
+        & \texttt{42sh\$ cat -e AUTHORS}\\
+        & \texttt{* login\_x\$}\\
+        & \texttt{42sh\$}
+      \end{tabular}'
+      mandatory: yes
+
+    - id: build.gradle
+      path: './build.gradle'
+      description: 'Gradle configuration file.'
+      mandatory: yes
+
+    - id: settings.gradle
+      path: './settings.gradle'
+      description: 'Gradle settings file.'
+      mandatory: yes
