@@ -41,11 +41,6 @@ public class Creepstants {
     public static Integer NEXUS_BIOMASS = 300;
     public static Integer NEXUS_SPAWNTIME = TICKRATE * 15;
 
-    public static Integer PYLON_MINERAL = 100;
-    public static Integer PYLON_BIOMASS = 50;
-    public static Integer PYLON_SPAWNTIME = TICKRATE * 8;
-
-
 // Actions ------------------------------------------------------------------------------------------------------------
 
     public static Integer NOOP_TIME = TICKRATE * 1;
