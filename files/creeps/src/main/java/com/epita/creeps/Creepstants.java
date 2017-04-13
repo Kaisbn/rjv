@@ -48,42 +48,17 @@ public class Creepstants {
 
 // Actions ------------------------------------------------------------------------------------------------------------
 
-    public static Integer NOOP_POSTTIME = TICKRATE * 0;
-    public static Integer NOOP_PRETIME = TICKRATE * 1;
-
-    public static Integer RELEASE_POSTTIME = TICKRATE * 0;
-    public static Integer RELEASE_PRETIME = TICKRATE * 1;
-
-    public static Integer DEFAULT_CONVERT_POSTTIME = TICKRATE * 0;
-    public static Integer DEFAULT_CONVERT_PRETIME = TICKRATE / 2;
-
-    public static Integer DEFAULT_MINE_POSTTIME = TICKRATE * 0;
-    public static Integer DEFAULT_MINE_PRETIME = TICKRATE * 1;
-
-    public static Integer DEFAULT_MOVE_POSTTIME = TICKRATE * 0;
-    public static Integer DEFAULT_MOVE_PRETIME = TICKRATE / 2;
-
-    public static Integer DEFAULT_PLAYERSTATUS_POSTTIME = TICKRATE / 2;
-    public static Integer DEFAULT_PLAYERSTATUS_PRETIME = TICKRATE / 2;
-
-    public static Integer DEFAULT_SCAN3_POSTTIME = TICKRATE / 2;
-    public static Integer DEFAULT_SCAN3_PRETIME = TICKRATE / 2;
-
-    public static Integer DEFAULT_SCAN5_POSTTIME = TICKRATE;
-    public static Integer DEFAULT_SCAN5_PRETIME = TICKRATE;
-
-    public static Integer DEFAULT_SCAN9_POSTTIME = TICKRATE * 2;
-    public static Integer DEFAULT_SCAN9_PRETIME = TICKRATE * 2;
-
-    public static Integer DEFAULT_STATUS_POSTTIME = TICKRATE / 4;
-    public static Integer DEFAULT_STATUS_PRETIME = TICKRATE / 4;
-
-    public static Integer DEFAULT_SPHERE_POSTTIME = TICKRATE * 5;
-    public static Integer DEFAULT_SPHERE_PRETIME = TICKRATE * 5;
-
-    public static Integer DEFAULT_IONDISCHARGE_POSTTIME = TICKRATE * 5;
-    public static Integer DEFAULT_IONDISCHARGE_PRETIME = TICKRATE * 5;
-
-    public static Integer DEFAULT_ORBITALLASER_POSTTIME = TICKRATE * 10;
-    public static Integer DEFAULT_ORBITALLASER_PRETIME = TICKRATE * 10;
+    public static Integer NOOP_TIME = TICKRATE * 1;
+    public static Integer RELEASE_TIME = TICKRATE * 1;
+    public static Integer DEFAULT_CONVERT_TIME = TICKRATE / 2;
+    public static Integer DEFAULT_MINE_TIME = TICKRATE * 1;
+    public static Integer DEFAULT_MOVE_TIME = TICKRATE / 2;
+    public static Integer DEFAULT_PLAYERSTATUS_TIME = TICKRATE * 1;
+    public static Integer DEFAULT_SCAN3_TIME = TICKRATE * 1;
+    public static Integer DEFAULT_SCAN5_TIME = TICKRATE * 2;
+    public static Integer DEFAULT_SCAN9_TIME = TICKRATE * 4;
+    public static Integer DEFAULT_STATUS_TIME = TICKRATE / 2;
+    public static Integer DEFAULT_SPHERE_TIME = TICKRATE * 10;
+    public static Integer DEFAULT_IONDISCHARGE_TIME = TICKRATE * 10;
+    public static Integer DEFAULT_ORBITALLASER_TIME = TICKRATE * 20;
 }
