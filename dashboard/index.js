@@ -63,8 +63,6 @@ const saveScore = (server, player, score) => {
             }
 
             return result[2];
-        } else {
-            console.log("Unknown", result[2]);
         }
     }
 
@@ -123,8 +121,6 @@ const getDataFromSrv = (server) => {
         setTimeout(getDataFromSrv, 3500, server);
     })
     .catch(function (error) {
-        //console.log(error);
-
         io.emit('serverDetail_' + server, {
             status: "OFF",
             remaining: "",
