@@ -33,17 +33,17 @@ const saveLeaderboard = () => {
     var json = JSON.stringify(players);
     fs.writeFile('./data/leaderboard.json', json, 'utf8');
 
-    setTimeout(saveLeaderboard, 5000);
+    setTimeout(saveLeaderboard, 60000);
 }
 
 const fetchServersData = () => {
     io.emit('serverList', status);
-    setTimeout(fetchServersData, 3000);
+    setTimeout(fetchServersData, 5000);
 }
 
 const fetchLeaderboard = () => {
     io.emit('leaderboard', players);
-    setTimeout(fetchLeaderboard, 5000);
+    setTimeout(fetchLeaderboard, 30000);
 }
 
 const saveScore = (server, player, score) => {
@@ -118,7 +118,7 @@ const getDataFromSrv = (server) => {
             players: scoresSimplify,
         });
 
-        setTimeout(getDataFromSrv, 3500, server);
+        setTimeout(getDataFromSrv, 5000, server);
     })
     .catch(function (error) {
         io.emit('serverDetail_' + server, {
@@ -128,7 +128,7 @@ const getDataFromSrv = (server) => {
         });
 
         status[server] = { status: "OFF" };
-        setTimeout(getDataFromSrv, 5000, server);
+        setTimeout(getDataFromSrv, 10000, server);
     });;
 }
 
