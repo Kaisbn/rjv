@@ -6,6 +6,7 @@ before_script:
 project:
   script:
     - ci deploy_project
+    - ci deploy_exam
     - make
     - ci deploy_doc subject.pdf
     - ci deploy_doc slides.pdf

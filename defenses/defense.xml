@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <defense duration="900" evaluated="true">
-    <group title="Rush Alternatif Minecraft">
+    <group title="Rush JAVA">
 
        <question title="Build" type="qcu" shuffled-answers="false">
             <ask>Does it compile?</ask>
