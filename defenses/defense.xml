@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
-<defense duration="900" evaluated="true">
-    <group title="Rush JAVA">
-
+<defense duration="780" evaluated="true">
+    <group title="Rush Java">
        <question title="Build" type="qcu" shuffled-answers="false">
             <ask>Does it compile?</ask>
             <answer value="50">Yes</answer>
@@ -9,19 +8,40 @@
             <explanation></explanation>
         </question>
 
-       <question title="I am tired..." type="qcu" shuffled-answers="false">
-            <ask>Does the code contain any useless Sleep?</ask>
-            <answer value="50">Not at all</answer>
-            <answer value="15">A few</answer>
-            <answer value="-50">A lot</answer>
+        <question title="You should not pass" type="qcu" shuffled-answers="false">
+            <ask>Is there unauthorized import?</ask>
+            <answer value="0">NO</answer>
+            <answer value="-100">YES</answer>
             <explanation></explanation>
         </question>
 
-       <question title="Units" type="qcu" shuffled-answers="false">
-            <ask>What are the different units available on the server?</ask>
-            <answer value="100">Perfect</answer>
-            <answer value="50">Some are missing</answer>
-            <answer value="-50">That's bad</answer>
+        <question title="Call me maybe" type="qcu" shuffled-answers="false">
+            <ask>What's the difference between callable and runnable?</ask>
+            <answer value="0">OK</answer>
+            <answer value="-50">KO</answer>
+            <explanation></explanation>
+        </question>
+
+        <question title="Let me explain.." type="qcu" shuffled-answers="false">
+            <ask>Explain the report system</ask>
+            <answer value="0">OK</answer>
+            <answer value="-100">KO</answer>
+            <explanation></explanation>
+        </question>
+
+       <question title="I am tired..." type="qcu" shuffled-answers="false">
+            <ask>Does the code contain any useless Sleep?</ask>
+            <answer value="0">No</answer>
+            <answer value="-100">Yes</answer>
+            <explanation></explanation>
+        </question>
+
+        <question title="Units" type="qcu" shuffled-answers="false">
+            <ask>How many type of units used?</ask>
+            <answer value="0">2</answer>
+            <answer value="25">3</answer>
+            <answer value="50">4</answer>
+            <answer value="75">5</answer>
             <explanation></explanation>
         </question>
 
@@ -32,57 +52,27 @@
             <explanation></explanation>
         </question>
 
-
-       <question title="Destroy them all !" type="qcu" shuffled-answers="false">
-            <ask>Is the AI impressive?</ask>
-            <answer value="250">Such an amazing AI!</answer>
-            <answer value="150">Great!</answer>
-            <answer value="70">Pretty cool!</answer>
-            <answer value="10">Very simple AI (single probe)</answer>
-            <answer value="0">It does not work</answer>
-            <explanation></explanation>
-        </question>
-
        <question title="Many things I can do" type="qcm" shuffled-answers="false">
             <ask>What does the AI do?</ask>
-            <answer value="5">Single probe</answer>
             <answer value="50">Multiple probes</answer>
+            <answer value="60">Mutliple Nexus</answer>
             <answer value="5">Single scout</answer>
             <answer value="5">Multiple scouts</answer>
             <answer value="5">Single templar</answer>
             <answer value="10">Multiple templars</answer>
             <answer value="5">Single beacon</answer>
             <answer value="5">Mutliple beacons</answer>
-            <answer value="5">Single Nexus</answer>
-            <answer value="60">Mutliple Nexus</answer>
-            <explanation></explanation>
-        </question>
-
-
-       <question title="Choose wisely..." type="qcu" shuffled-answers="false">
-            <ask>Did the student used the given async helper?</ask>
-            <answer value="125">No, would have been too easy</answer>
-            <answer value="50">Sure, I am not crazy</answer>
             <explanation></explanation>
         </question>
 
        <question title="I sware I tried!" type="qcu" shuffled-answers="false">
             <ask>Does the student have a scheduler?</ask>
-            <answer value="0">No, there is nothing but the given code</answer>
-            <answer value="10">Yes, but it does not work at all</answer>
-            <answer value="20">Yes, but it works but it's really dirty</answer>
-            <answer value="20">Yes, does not really work but pretty cool implementation though</answer>
-            <answer value="100">Yes, and it's really cool and beautiful</answer>
+            <answer value="100">Yes and he can explain it!</answer>
+            <answer value="50">Yes</answer>
+            <answer value="10">Meh</answer>
+            <answer value="0">No</answer>
             <explanation></explanation>
         </question>
-
-       <question title="CompletableFuture" type="qcu" shuffled-answers="false">
-            <ask>What is a CompletableFuture? What is it used for?</ask>
-            <answer value="100">Correct</answer>
-            <answer value="50">Meh</answer>
-            <answer value="-50">No</answer>
-            <explanation></explanation>
-       </question>
 
        <question title="Wait for it..." type="qcu" shuffled-answers="false">
             <ask>How do you launch a function with a delay?</ask>
@@ -92,19 +82,31 @@
             <explanation></explanation>
         </question>
 
+       <question title="Destroy them all!" type="qcu" shuffled-answers="false">
+            <ask>Is the AI impressive?</ask>
+            <answer value="250">Such an amazing AI! I can't see the sun</answer>
+            <answer value="150">Great!</answer>
+            <answer value="70">Pretty simple! (one nexus but multiple directions)</answer>
+            <answer value="10">Basic AI (single line)</answer>
+            <answer value="0">It does not work</answer>
+            <explanation></explanation>
+        </question>
+
        <question title="Let's go to the pool" type="qcu" shuffled-answers="false">
             <ask>What is a Thread Pool? What object is used to easily manage it in java?</ask>
             <answer value="100">Exact</answer>
-            <answer value="50">Meh</answer>
             <answer value="-50">No</answer>
             <explanation></explanation>
        </question>
 
-        <question title="You're the doc, doc!" type="qcu" shuffled-answers="false">
-            <ask>Is the code documented?</ask>
-            <answer value="50">A lot of doc, easy to understand</answer>
-            <answer value="20">Some green lines over some function</answer>
-            <answer value="0">No</answer>
+       <question title="I'm the best!" type="qcu" shuffled-answers="false">
+            <ask>Is the student in the leaderboard?</ask>
+            <answer value="200">You can't beat me (Top 50)</answer>
+            <answer value="100">Work hard, play hard (Top 100)</answer>
+            <answer value="50">Can do better (Top 150)</answer>
+            <answer value="25">Good try (Top 200)</answer>
+            <answer value="10">Did you even try ?</answer>
+            <answer value="-50">Ghost</answer>
             <explanation></explanation>
         </question>
 
@@ -112,7 +114,6 @@
             <ask>What about the rush? (no points)</ask>
             <answer value="0">Awesome !</answer>
             <answer value="0">Too hard</answer>
-            <answer value="0">I'd rather do the classic rush</answer>
             <explanation></explanation>
         </question>
 
