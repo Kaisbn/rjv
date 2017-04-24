@@ -22,6 +22,13 @@
             <explanation></explanation>
         </question>
 
+        <question title="Minecraft begins" type="qcu" shuffled-answers="false">
+            <ask>Is "gameRunning" checked?</ask>
+            <answer value="25">Yes</answer>
+            <answer value="0">No</answer>
+            <explanation></explanation>
+        </question>
+
         <question title="Call me maybe" type="qcu" shuffled-answers="false">
             <ask>What's the difference between callable and runnable?</ask>
             <answer value="50">OK</answer>
@@ -38,18 +45,13 @@
         </question>
 
         <question title="Units" type="qcu" shuffled-answers="false">
-            <ask>How many type of units used?</ask>
-            <answer value="0">2</answer>
-            <answer value="25">3</answer>
-            <answer value="50">4</answer>
-            <answer value="75">5</answer>
-            <explanation></explanation>
-        </question>
-
-        <question title="Minecraft begins" type="qcu" shuffled-answers="false">
-            <ask>Is "gameRunning" checked?</ask>
-            <answer value="25">Yes</answer>
-            <answer value="0">No</answer>
+            <ask>What are the different types of units?</ask>
+            <answer value="0">0</answer>
+            <answer value="10">1</answer>
+            <answer value="20">2</answer>
+            <answer value="30">3</answer>
+            <answer value="40">4</answer>
+            <answer value="50">5</answer>
             <explanation></explanation>
         </question>
 
