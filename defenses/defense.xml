@@ -15,6 +15,13 @@
             <explanation></explanation>
         </question>
 
+       <question title="I am tired..." type="qcu" shuffled-answers="false">
+            <ask>Does the code contain any useless Sleep?</ask>
+            <answer value="0">No</answer>
+            <answer value="-300">Yes</answer>
+            <explanation></explanation>
+        </question>
+
         <question title="Call me maybe" type="qcu" shuffled-answers="false">
             <ask>What's the difference between callable and runnable?</ask>
             <answer value="50">OK</answer>
@@ -27,13 +34,6 @@
             <ask>Explain the report system</ask>
             <answer value="100">OK</answer>
             <answer value="0">KO</answer>
-            <explanation></explanation>
-        </question>
-
-       <question title="I am tired..." type="qcu" shuffled-answers="false">
-            <ask>Does the code contain any useless Sleep?</ask>
-            <answer value="0">No</answer>
-            <answer value="-300">Yes</answer>
             <explanation></explanation>
         </question>
 
@@ -82,16 +82,6 @@
             <explanation></explanation>
         </question>
 
-       <question title="Destroy them all!" type="qcu" shuffled-answers="false">
-            <ask>Is the AI impressive?</ask>
-            <answer value="250">Such an amazing AI! I can't see the sun</answer>
-            <answer value="150">Great!</answer>
-            <answer value="70">Pretty simple! (one nexus but multiple directions)</answer>
-            <answer value="10">Basic AI (single line)</answer>
-            <answer value="0">It does not work</answer>
-            <explanation></explanation>
-        </question>
-
        <question title="Let's go to the pool" type="qcu" shuffled-answers="false">
             <ask>What is a Thread Pool? What object is used to easily manage it in java?</ask>
             <answer value="100">OK</answer>
@@ -108,6 +98,16 @@
             <answer value="25">Good try (Top 200)</answer>
             <answer value="10">Did you even try ?</answer>
             <answer value="-50">Ghost</answer>
+            <explanation></explanation>
+        </question>
+
+       <question title="Destroy them all!" type="qcu" shuffled-answers="false">
+            <ask>Is the AI impressive?</ask>
+            <answer value="250">Such an amazing AI! I can't see the sun</answer>
+            <answer value="150">Great!</answer>
+            <answer value="70">Pretty simple! (one nexus but multiple directions)</answer>
+            <answer value="10">Basic AI (single line)</answer>
+            <answer value="0">It does not work</answer>
             <explanation></explanation>
         </question>
 
