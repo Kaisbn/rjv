@@ -4,35 +4,36 @@
        <question title="Build" type="qcu" shuffled-answers="false">
             <ask>Does it compile?</ask>
             <answer value="50">Yes</answer>
-            <answer value="-100">No</answer>
+            <answer value="0">No</answer>
             <explanation></explanation>
         </question>
 
         <question title="You should not pass" type="qcu" shuffled-answers="false">
             <ask>Is there unauthorized import?</ask>
             <answer value="0">NO</answer>
-            <answer value="-100">YES</answer>
+            <answer value="-200">YES</answer>
             <explanation></explanation>
         </question>
 
         <question title="Call me maybe" type="qcu" shuffled-answers="false">
             <ask>What's the difference between callable and runnable?</ask>
-            <answer value="0">OK</answer>
-            <answer value="-50">KO</answer>
+            <answer value="50">OK</answer>
+            <answer value="20">MEH</answer>
+            <answer value="0">KO</answer>
             <explanation></explanation>
         </question>
 
         <question title="Let me explain.." type="qcu" shuffled-answers="false">
             <ask>Explain the report system</ask>
-            <answer value="0">OK</answer>
-            <answer value="-100">KO</answer>
+            <answer value="100">OK</answer>
+            <answer value="0">KO</answer>
             <explanation></explanation>
         </question>
 
        <question title="I am tired..." type="qcu" shuffled-answers="false">
             <ask>Does the code contain any useless Sleep?</ask>
             <answer value="0">No</answer>
-            <answer value="-100">Yes</answer>
+            <answer value="-300">Yes</answer>
             <explanation></explanation>
         </question>
 
@@ -47,8 +48,8 @@
 
         <question title="Minecraft begins" type="qcu" shuffled-answers="false">
             <ask>Is "gameRunning" checked?</ask>
-            <answer value="0">Yes</answer>
-            <answer value="-25">No</answer>
+            <answer value="25">Yes</answer>
+            <answer value="0">No</answer>
             <explanation></explanation>
         </question>
 
@@ -69,16 +70,15 @@
             <ask>Does the student have a scheduler?</ask>
             <answer value="100">Yes and he can explain it!</answer>
             <answer value="50">Yes</answer>
-            <answer value="10">Meh</answer>
             <answer value="0">No</answer>
             <explanation></explanation>
         </question>
 
        <question title="Wait for it..." type="qcu" shuffled-answers="false">
             <ask>How do you launch a function with a delay?</ask>
-            <answer value="100">Best practice</answer>
+            <answer value="150">Best practice</answer>
             <answer value="50">Dirty</answer>
-            <answer value="-50">No</answer>
+            <answer value="0">No</answer>
             <explanation></explanation>
         </question>
 
@@ -94,8 +94,9 @@
 
        <question title="Let's go to the pool" type="qcu" shuffled-answers="false">
             <ask>What is a Thread Pool? What object is used to easily manage it in java?</ask>
-            <answer value="100">Exact</answer>
-            <answer value="-50">No</answer>
+            <answer value="100">OK</answer>
+            <answer value="40">MEH</answer>
+            <answer value="0">KO</answer>
             <explanation></explanation>
        </question>
 
