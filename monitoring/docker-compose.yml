@@ -1,0 +1,17 @@
+version: '3'
+services:
+  prometheus:
+    image: prom/prometheus
+    expose:
+      - "9090"
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./prometheus:/opt/prometheus:ro
+    links:
+      - mysql-exporter
+  grafana:
+    image: grafana/grafana
+    links:
+      - prometheus
+    ports:
+      - "3000:3000"

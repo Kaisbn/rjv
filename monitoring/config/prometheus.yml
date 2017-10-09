@@ -1,0 +1,17 @@
+global:
+  scrape_interval: 5s
+  external_labels:
+    monitor: 'atlantis-monitor'
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+  - job_name: 'node'
+    file_sd_configs:
+      - files:
+        - '/opt/prometheus/nodes.json'
+  - job_name: 'minecraft'
+    file_sd_configs:
+      - files:
+        - '/opt/prometheus/minecraft.json'
