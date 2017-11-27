@@ -1,24 +1,33 @@
-SLIDES_DIR = slides
-SUBJECT_DIR = subjects
-SLIDES_PDF = slides.pdf
-SUBJECT_PDF = subject.pdf
+SPHINX_FLAGS = -T -E
+BUILDDIR = _build
+SLIDESDIR = slides
 
-all:: slides subject given-files
+all: all-tex
+
+all-tex:
+	sphinx-build -M latex . $(BUILDDIR) $(SPHINX_FLAGS)
+
+all-assistant-tex: BUILDDIR = _build_assistant
+all-assistant-tex: SPHINX_FLAGS += -t assistant
+all-assistant-tex:
+	sphinx-build -M latex . $(BUILDDIR) $(SPHINX_FLAGS)
+
+exercises_list:
+	sphinx-build -M exercises_list . $(BUILDDIR) $(SPHINX_FLAGS)
+
+all-pdf: all-tex
+	$(MAKE) -C $(BUILDDIR)/latex all-pdf
+
+all-assistant-pdf: BUILDDIR = _build_assistant
+all-assistant-pdf: SPHINX_FLAGS += -t assistant
+all-assistant-pdf: all-assistant-tex
+	$(MAKE) -C $(BUILDDIR)/latex all-pdf
 
 slides:
-	${MAKE} -C ${SLIDES_DIR} all
-
-subject:
-	${MAKE} -C ${SUBJECT_DIR} all
-
-given-files:
-	tar -jcvf files/creeps.tar.bz2 -C files ./creeps
+	$(MAKE) -C $(SLIDESDIR) all
 
 clean:
-	${MAKE} -C ${SLIDES_DIR} clean
-	${MAKE} -C ${SUBJECT_DIR} clean
-	${RM} ${SLIDES_PDF}
-	${RM} ${SUBJECT_PDF}
-	${RM} files/creeps.tar.bz2
+	rm -rf _build/* _build_assistant/*
+	$(MAKE) -C $(SLIDESDIR) clean
 
-.PHONY: slides subject tarball
+.PHONY: slides
