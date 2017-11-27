@@ -1,31 +1,17 @@
-DOCNAME = Slides
-TARGET = slides.pdf
-TEAM   = yaka
-THEME  = yaka2018
+TARGET  = slides.pdf
+THEME   = yaka2019
+PROJECT = ../project.yml
 
 RM           ?= rm -f
-BUTLER       ?= ../tools/butler/butler.py
-BUTLERFLAGS   = --docname="${DOCNAME}" --theme=${THEME} --doctype=slide --team=${TEAM}
-LATEX         = xelatex
-LATEXFLAGS    = -halt-on-error -no-shell-escape
+BUTLERFLAGS   = --project=${PROJECT} --theme=${THEME}
 
-
-all: ${TARGET}
+all: $(TARGET)
 
 clean:
 	${RM} ${TARGET}
-	${RM} *.aux *.log *.out *.toc
+	$(RM) *.out *.aux *.log
 
-.rst.tex:
-	${BUTLER} ${BUTLERFLAGS} $< -o $@
-
-.tex.pdf:
-	${LATEX} ${LATEXFLAGS} $<
-	${LATEX} ${LATEXFLAGS} -jobname=${@:%.pdf=%} $< >/dev/null
-	${LATEX} ${LATEXFLAGS} -jobname=${@:%.pdf=%} $< >/dev/null
-	${RM} ${@:.pdf=.aux} ${@:.pdf=.log} ${@:.pdf=.out} ${@:.pdf=.toc} \
-	  ${@:.pdf=.nav} ${@:.pdf=.snm} ${@:.pdf=.vrb}
-
-.SUFFIXES: .rst .tex .pdf
+%.pdf: %.rst
+	butler-slides ${BUTLERFLAGS} $< -o $@
 
 .PHONY: all clean

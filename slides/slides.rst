@@ -180,7 +180,7 @@ Visual render
 -------------
 
 Visual render
-~~~~~~~~~~~~
+~~~~~~~~~~~~~
 
 Graphic render
 ^^^^^^^^^^^^^^
