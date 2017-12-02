@@ -550,7 +550,7 @@ they can be quite limited). This would allow you to scale up to dozen or even
 thousands of agents on general-availability computer depending on your
 implementation.
 
-.. block:: warning
+.. warning::
 
     Proper usage of Threads will be checked during your defense.
     If you don't use multithreading you will get a zero.
