@@ -1,7 +1,7 @@
 DOCNAME = Subject
 TARGET  = subject.pdf
 TEAM    = yaka
-THEME   = yaka2018
+THEME   = yaka2019
 TREE    = tree.yml
 
 RM         ?= rm -f
