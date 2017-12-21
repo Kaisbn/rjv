@@ -58,7 +58,7 @@ In order to interact with the server, it exposes 4 services over HTTP:
 
 You're allowed to use Unirest with Gson library.
 
-    .. code:: java
+    .. code-block:: java
 
         // GET method
         Unirest.get(uri).asJson()
@@ -73,7 +73,7 @@ GET /status
 Returns the current status of the server.
 Use it to detected if the game has started or not.
 
-.. code:: raw
+.. code-block:: none
 
     {
         "pluginRunning" : true,     // Ignore
@@ -96,7 +96,7 @@ enclosed by brackets. This will allow us to identify yours AIs but this part
 will not be display.
 You **must** use your own UID. Using another's UID will be considered as cheat.
 
-.. code:: raw
+.. code-block:: none
 
     {
         "error" : null,             // Error description
@@ -128,7 +128,7 @@ given ``opcode``.
 Even if the command does not take any argument, you **MUST** provide a
 Json body in your request, i.e. ``{}``.
 
-.. code:: raw
+.. code-block:: none
 
     {
         "opcode" : "action",        // Information about command success
@@ -143,7 +143,7 @@ If opcode field is different from "action", an error occurred:
 
 * "notrunning"
 
-  The game isn't running. It hasn't started yet or it already ended.
+  The game is not running. It has not started yet or it already ended.
 
 * "noplayer"
 
@@ -184,7 +184,7 @@ You will find response structure for each opcode in command section.
 The report is available after the duration specified for each task. If
 ``reportId`` does not exist or is not ready yet, you will get:
 
-.. code:: raw
+.. code-block:: none
 
     {
         "opcode" : "noreport",
@@ -291,7 +291,7 @@ of each resource.
 Finally, severals commands return one or more location objects.
 A location object looks like this:
 
-.. code:: raw
+.. code-block:: none
 
     {
         "x" : 32,                 // X coordinate
@@ -309,7 +309,7 @@ Location is relative to the block the agent is currently on.
 
 Report structure:
 
-.. code:: raw
+.. code-block:: none
 
     {
         "opcode" : "status",        // Action opcode
@@ -330,7 +330,7 @@ Agents can move through any kind of terrain but are limited on Y axis : 1 < y < 
 
 Report structure:
 
-.. code:: raw
+.. code-block:: none
 
     {
         "opcode" : "move",          // Action opcode
@@ -349,7 +349,7 @@ side-effects.
 
 Report structure:
 
-.. code:: raw
+.. code-block:: none
 
     {
         "opcode" : "convert",       // Action opcode
@@ -369,7 +369,7 @@ As with converting, make sure you are not mining anything exploding or hot...
 
 Report structure:
 
-.. code:: raw
+.. code-block:: none
 
     {
         "opcode" : "mine",          // Action opcode
@@ -390,7 +390,7 @@ Provides player status.
 
 Report structure:
 
-.. code:: raw
+.. code-block:: none
 
     {
         "opcode" : "playerstatus",  // Action opcode
@@ -412,7 +412,7 @@ Report structure:
 
 Report structure:
 
-.. code:: raw
+.. code-block:: none
 
     {
         "opcode" : "scan",          // Action opcode
@@ -433,7 +433,7 @@ Spawns the given unit at the place it has been invoked.
 
 Report structure:
 
-.. code:: raw
+.. code-block:: none
 
     {
         "opcode" : "spawn",         // Action opcode
@@ -452,7 +452,7 @@ Invokes a sphere of matter around the templar.
 
 You must provide the ``material`` argument in the Json body of your POST request.
 
-.. code:: raw
+.. code-block:: none
 
     {
         "material" : "lava"         // Can be "water", "sand", "lava", or "tnt"
@@ -460,7 +460,7 @@ You must provide the ``material`` argument in the Json body of your POST request
 
 Report structure:
 
-.. code:: raw
+.. code-block:: none
 
     {
         "opcode" : "sphere",        // Action opcode
@@ -476,7 +476,7 @@ Triggers an Ion Cannon discharge for orbital barge "Litany of Fury." Ouch!
 
 Report structure:
 
-.. code:: raw
+.. code-block:: none
 
     {
         "opcode" : "ion",           // Action opcode
@@ -493,7 +493,7 @@ Ouch-much!
 
 Report structure:
 
-.. code:: raw
+.. code-block:: none
 
     {
         "opcode" : "laser",         // Action opcode
@@ -509,7 +509,7 @@ Releases the agent, giving you some resources back depending on the unit type.
 
 Report structure:
 
-.. code:: raw
+.. code-block:: none
 
     {
         "opcode" : "release",       // Action opcode
@@ -527,7 +527,7 @@ Does nothing, for testing purpose.
 
 Report structure:
 
-.. code:: raw
+.. code-block:: none
 
     {
         "opcode" : "noop",         // Action opcode.
@@ -591,6 +591,6 @@ Usage
 
 During the defense, your program will be executed as follow :
 
-.. code:: raw
+.. code-block:: none
 
     java -jar creeps.jar [HOSTNAME] [PORT] [USERNAME]
