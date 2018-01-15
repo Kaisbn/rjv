@@ -27,7 +27,7 @@ targets:
 
 documents:
     - name: subject.pdf
-      path: subjects/subject.pdf
+      path: _build/latex/rush_java-subject.pdf
     - name: slides.pdf
       path: slides/slides.pdf
     - name: creeps.tar.bz2

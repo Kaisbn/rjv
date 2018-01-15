@@ -11,5 +11,5 @@ exclude_patterns = ['slides/*', 'server/*']
 master_doc = 'index'
 
 latex_documents = [
-    butler.subject('subject', master_doc, 'project.yml')
+    butler.subject('rush_java', master_doc, 'project.yml')
 ]
